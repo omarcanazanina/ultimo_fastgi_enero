@@ -82,7 +82,7 @@ export class CargarsaldoPage implements OnInit {
     }
   }
   cargadirecto(monto) {
-    if (monto == undefined) {
+    if (monto == undefined || this.au.dos_decimales(monto) !== true) {
       this.au.ingresemonto()
     } else {
       this.caja = parseFloat(this.cajaapp.monto) + parseFloat(monto)

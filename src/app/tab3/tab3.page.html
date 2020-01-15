@@ -22,7 +22,7 @@
   <ion-list>
     <ion-item lines="none" >
       <ion-icon name="md-call" slot="end" color="light"></ion-icon>
-      {{codtel}}{{usuario.telefono}}
+      {{usuario.codtel}}{{usuario.telefono}}
     </ion-item>
     <ion-item lines="none" *ngIf="controlnombre == 0 ">
       <ion-icon name="create" slot="end" color="light" (click)="editarnombre()"></ion-icon>

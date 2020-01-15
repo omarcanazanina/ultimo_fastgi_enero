@@ -440,7 +440,7 @@ export class AuthService {
   //alertas ingreso de monto obligatorio
   async ingresemonto() {
     const toast = await this.toastController.create({
-      message: 'Debe ingresar monto',
+      message: 'Debe ingresar monto correcto',
       duration: 4000,
       position: 'top'
     });
