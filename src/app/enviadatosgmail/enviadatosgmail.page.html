@@ -1,0 +1,36 @@
+
+<ion-content class="ion-padding" >
+    <ion-item no-padding>
+        <ion-avatar item-start >
+            <img  src="../../assets/moneda.svg" >
+        </ion-avatar>
+            <h3 class="titulo">GoPay</h3>
+   </ion-item>
+        
+    <ion-grid fixed >
+      <p>Por su seguridad y respaldo se enviara sus datos a su correo <b> {{usu.correo}}</b> </p>
+      <ion-row>
+          <ion-col size="5"><b>Nombre:</b></ion-col>
+          <ion-col size="7">{{usu.nombre}}</ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col size="5"><b>Telefono</b> </ion-col>
+          <ion-col size="7">{{usu.telefono}}</ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col size="5"><b>Correo:</b></ion-col>
+          <ion-col size="7">{{usu.correo}}</ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col size="5"><b>Pin:</b></ion-col>
+          <ion-col size="7">{{usu.password}}</ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col size="5"><b>Contraseña:</b></ion-col>
+          <ion-col size="7">{{usu.pass}}</ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-button color="primary " expand="block" (click)="enviar()"> enviar</ion-button>
+  </ion-content>
+  

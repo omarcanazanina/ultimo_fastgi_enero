@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-item color="primary" lines="none">
+      <ion-icon name="person"></ion-icon>
+      <ion-title>Mi perfil</ion-title>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
+<!--
+ <div class="box">
+        <div class="preview">
+          <img [src]="url" alt="">
+        </div>
+        <div class="uploadbtn">
+          <label>
+            <input (change)="uploadImage($event)" type="file" class="image-upload" accept="image/*">
+          </label>
+        </div>
+      </div>
+-->
+<ion-content color="dark">
+  <ion-list>
+    <ion-item lines="none" >
+      <ion-icon name="md-call" slot="end" color="light"></ion-icon>
+      {{codtel}}{{usuario.telefono}}
+    </ion-item>
+    <ion-item lines="none" *ngIf="controlnombre == 0 ">
+      <ion-icon name="create" slot="end" color="light" (click)="editarnombre()"></ion-icon>
+      <ion-icon name="person" slot="end" color="light"></ion-icon>
+      <p class="color">Nombre</p>
+    </ion-item>
+    <ion-item lines="none" *ngIf="controlnombre == 1 ">
+        <ion-icon name="create" slot="end" color="light" (click)="editarnombre()"></ion-icon>
+        <ion-icon name="person" slot="end" color="light"></ion-icon>
+        {{usuario.nombre}}
+      </ion-item>
+    <ion-item lines="none" *ngIf="controlcorreo == 0 ">
+      <ion-icon name="create" slot="end" color="light" (click)="editarcorreo()"></ion-icon>
+      <ion-icon name="md-mail" slot="end" color="light"></ion-icon>
+      <p class="color">Correo</p>
+    </ion-item>
+    <ion-item lines="none" *ngIf="controlcorreo == 1 ">
+        <ion-icon name="create" slot="end" color="light" (click)="editarcorreo()"></ion-icon>
+        <ion-icon name="md-mail" slot="end" color="light"></ion-icon>
+        {{usuario.correo}}
+      </ion-item>
+    <ion-item lines="none">
+      <ion-icon name="create" slot="end" color="light" (click)='mod()'></ion-icon>
+      <ion-icon name="unlock" slot="end" color="light"></ion-icon>
+      Pin
+    </ion-item>
+    <ion-item lines="none" (click)=' cerrarsesion()'>
+      <ion-icon name="md-log-in" slot="end" color="light"></ion-icon>
+      Cerrar session
+    </ion-item>
+  </ion-list>
+</ion-content>
