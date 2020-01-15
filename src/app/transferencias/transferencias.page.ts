@@ -43,6 +43,9 @@ export class TransferenciasPage implements OnInit {
       hasPhoneNumber: true
     }
     this.contactos.find(['*'], options).then((contactos: Contact[]) => {
+      alert(JSON.stringify(contactos))
+      this.ContactsTrueOrden = this.au.ordenarjson(contactos,'_objectInstance.id','asc')
+      alert(JSON.stringify(this.ContactsTrueOrden))
       for (let item of contactos) {
         if (item.phoneNumbers) {
           // item["value"] = this.codigo(item.phoneNumbers[0].value)
@@ -51,7 +54,7 @@ export class TransferenciasPage implements OnInit {
             .subscribe(resp => {
               if (resp.length > 0) {
                 this.ContactsTrue.push(item)
-               // this.ContactsTrueOrden=this.au.ordenarjson(this.ContactsTrue,'item.name.formatted','asc')
+               // this.ContactsTrueOrden=this.au.ordenarjson(this.ContactsTrue,'item.phoneNumbers[0].value','asc')
                 // alert(JSON.stringify(this.ContactsTrueOrden))
               } else {
                 this.ContactsNone.push(item) 

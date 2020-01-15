@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
-import { Router,  ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../servicios/auth.service';
 import { AngularFirestore } from 'angularfire2/firestore';
-import {  AlertController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+import { FCM } from '@ionic-native/fcm/ngx';
 //import { EnviadatosgmailPage } from '../enviadatosgmail/enviadatosgmail.page';
 
 @Component({
@@ -22,19 +23,21 @@ export class Tab2Page implements OnInit {
   public data = {
     text: ""
   };
-  uu :any
+  uu: any
   option: BarcodeScannerOptions;
   constructor(public bar: BarcodeScanner,
     private route: Router,
     public fire: AngularFirestore,
     private au: AuthService,
     public alertController: AlertController,
-    ) {
+    private fcm: FCM,
+  ) {
     //lo nuevo
     this.barcodeScannerOptions = {
       showTorchButton: true,
       showFlipCameraButton: true
     };
+   
   }
   cont
   correo: string;
@@ -47,28 +50,45 @@ export class Tab2Page implements OnInit {
     nombre: "",
     uid: "",
     pass: "",
-    estado: ""
+    estado: "",
+    token:""
   }
- ;
+    ;
   lista: any;
   caja: number
   caja1: any
 
-  vegetales = [{nombre:'Aepollo'},{nombre:'Xabo'} ,{nombre:'Rábano'} ,{nombre:'Zanahoria'} ];
-  ordenado: any = []
-
-  valor:any
-  ngOnInit() {
-    
-   this.uu = this.au.pruebita();
-    this.au.recuperaundato(this.uu).subscribe(usuario => {
-      this.usuario = usuario; 
-    })   
-   this.ordenado =this.au.ordenarjson(this.vegetales,"nombre","desc")
-   console.log(this.ordenado);
-    
-  }
+  //prueba de ordenar json
+  //vegetales = [{ nombre: 'Aepollo' }, { nombre: 'Xabo' }, { nombre: 'Rábano' }, { nombre: 'Zanahoria' }];
+  //ordenado: any = []
   
+  //prueba de 2 decimales
+  //valor: any
+  tokencel :any
+  ngOnInit() {
+    this.uu = this.au.pruebita();
+    this.au.recuperaundato(this.uu).subscribe(usuario => {
+      this.usuario = usuario;
+      this.cerrarsesionotro()
+    })
+    
+    //prueba de ordenar json
+   //this.ordenado = this.au.ordenarjson(this.vegetales, "nombre", "desc")
+   //console.log(this.ordenado);
+
+  }
+
+  cerrarsesionotro(){
+    this.fcm.getToken().then(t => {
+     this.tokencel = t
+     if(this.tokencel == this.usuario.token){
+      alert('es el dispositivo')
+     }else{
+      this.au.cerrarsesion()
+     }
+    })
+  }
+
 
   scan() {
     this.option = {
@@ -107,14 +127,15 @@ export class Tab2Page implements OnInit {
     this.route.navigate(['/ingresoegreso'])
   }
 
-  verificar(){
-    let campo = this.valor
-    if(this.au.dos_decimales(campo) !== true){
-    this.valor=""
-    }else{
-      alert('formato correcto')
-    }
-  }
+  // prueba de dos decimales
+  //verificar() {
+  //  let campo = this.valor
+  //  if (this.au.dos_decimales(campo) !== true) {
+  //    this.valor = ""
+  //  } else {
+  //    alert('formato correcto')
+  //  }
+  //}
 
 }
 

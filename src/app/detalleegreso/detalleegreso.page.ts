@@ -15,10 +15,9 @@ export class DetalleegresoPage implements OnInit {
   constructor(private activatedRoute: ActivatedRoute, private au: AuthService,private modal: ModalController) { }
 
   ngOnInit() {
-    console.log(this.usu.banco);
-    
-  if(this.usu.banco != undefined)
-  this.cont=1
+    //console.log(this.usu.banco);
+    //if(this.usu.banco != undefined)
+    //this.cont=1
   }
   closeUsuario() {
     this.modal.dismiss()
