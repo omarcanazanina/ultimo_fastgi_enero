@@ -126,7 +126,6 @@ export class Tab2Page implements OnInit {
   historial() {
     this.route.navigate(['/ingresoegreso'])
   }
-
   // prueba de dos decimales
   //verificar() {
   //  let campo = this.valor
@@ -136,7 +135,6 @@ export class Tab2Page implements OnInit {
   //    alert('formato correcto')
   //  }
   //}
-
 }
 
 
