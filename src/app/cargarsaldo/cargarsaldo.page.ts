@@ -39,6 +39,11 @@ export class CargarsaldoPage implements OnInit {
   //pagos
   recibido:any
   contador:any
+
+  //para la calculadora
+  gruponum = [7, 8, 9,4, 5, 6,1, 2, 3,'.', 0, 'Borrar']
+  cont=0
+  calculadora=""
   constructor(private au: AuthService,
     private activate: ActivatedRoute,
     public fire: AngularFirestore,
@@ -122,4 +127,18 @@ export class CargarsaldoPage implements OnInit {
       }) 
    })
   }
+
+  //prueba para el teclado
+  presionar(num) {
+    this.calculadora = this.calculadora + num
+    if (num == 'Borrar') {
+      this.calculadora = ""
+    } if(num == '.'){
+      this.cont=this.cont+1
+    }  if(this.cont > 1){
+      this.calculadora = ""
+      this.cont=0
+    }
+  }
+
 }

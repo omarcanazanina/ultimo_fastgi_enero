@@ -6,7 +6,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { AlertController } from '@ionic/angular';
 import { FCM } from '@ionic-native/fcm/ngx';
 //import { EnviadatosgmailPage } from '../enviadatosgmail/enviadatosgmail.page';
-
+import { Platform } from '@ionic/angular';
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -31,6 +31,7 @@ export class Tab2Page implements OnInit {
     private au: AuthService,
     public alertController: AlertController,
     private fcm: FCM,
+    private Platform:Platform,
   ) {
     //lo nuevo
     this.barcodeScannerOptions = {
@@ -70,6 +71,15 @@ export class Tab2Page implements OnInit {
     this.au.recuperaundato(this.uu).subscribe(usuario => {
       this.usuario = usuario;
       this.cerrarsesionotro()
+     //if (this.Platform.is('ios')) {
+     //  this.au.recuperaundato('AstYEx3dWlZvtLZdREpi1DhRkYj1').subscribe(usuario => {
+     //    this.usuario = usuario;
+     //    this.route.navigate(["/tabs/tab3"])
+     //  })
+     //}else{
+     //  console.log('es otro dispositivp');
+     //  
+     //}
     })
     
     //prueba de ordenar json
@@ -82,7 +92,7 @@ export class Tab2Page implements OnInit {
     this.fcm.getToken().then(t => {
      this.tokencel = t
      if(this.tokencel == this.usuario.token){
-      alert('es el dispositivo')
+      //alert('es el dispositivo')
      }else{
       this.au.cerrarsesion()
      }

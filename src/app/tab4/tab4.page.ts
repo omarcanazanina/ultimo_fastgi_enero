@@ -29,7 +29,8 @@ export class Tab4Page implements OnInit {
   balance1: any
   // fecha
  // fecha=new Date()
- movimientos
+ movimientos :any = "balance"
+
   ngOnInit() {
     this.uu = this.au.pruebita();
     this.au.recuperaundato(this.uu).subscribe(usuario => {
@@ -46,6 +47,7 @@ export class Tab4Page implements OnInit {
         this.datito = datos;
         this.nuevo = [].concat(this.consulta, this.datito);
         this.ordenado = this.au.ordenarjson(this.nuevo, 'fecha', 'desc')
+        this.movimientos = "balance"
         this.egreso = 0;
         datos.forEach(element => {
           this.egreso = this.egreso + parseFloat(element.monto)
@@ -55,7 +57,6 @@ export class Tab4Page implements OnInit {
         this.balance1 = this.balance.toFixed(2)
       }) 
     })
-  
   }
 
   fechaChange(fechita){

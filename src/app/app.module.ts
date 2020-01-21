@@ -21,6 +21,8 @@ import { DetalleenviocobroPage } from './detalleenviocobro/detalleenviocobro.pag
 import { DetalleingresoegresoPage } from './detalleingresoegreso/detalleingresoegreso.page';
 import { DetalleegresoPage } from './detalleegreso/detalleegreso.page';
 import { EnviadatosgmailPage } from './enviadatosgmail/enviadatosgmail.page';
+import {Confirmacion1Page} from './confirmacion1/confirmacion1.page';
+import { ConfirmarpagoPage } from './confirmarpago/confirmarpago.page';
 //notificaciones*ambos
 import { FCM } from '@ionic-native/fcm/ngx';
 //prueba para las notificaciones 
@@ -36,6 +38,8 @@ import { PipesModule } from './pipes/pipes.module';
 import {EmailComposer} from '@ionic-native/email-composer/ngx'
 import { Camera } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
+
 
 export const firebaseConfig = {
   apiKey: "AIzaSyAh2szIwesscLDnbKDlnHnB2LRdO5A0_rg",
@@ -52,14 +56,18 @@ export const firebaseConfig = {
     DetalleenviocobroPage,
     DetalleingresoegresoPage,
     DetalleegresoPage,
-    EnviadatosgmailPage
+    EnviadatosgmailPage,
+    Confirmacion1Page,
+    ConfirmarpagoPage
   ],
 
   entryComponents: [UsuarioComponent,
     DetalleenviocobroPage,
     DetalleingresoegresoPage,
     DetalleegresoPage,
-    EnviadatosgmailPage
+    EnviadatosgmailPage,
+    Confirmacion1Page,
+    ConfirmarpagoPage
   ],
   imports: [BrowserModule,
     IonicModule.forRoot(),
@@ -89,7 +97,8 @@ export const firebaseConfig = {
     SocialSharing,
     InAppBrowser,
     Camera,
-    File
+    File,
+    Base64ToGallery 
   ],
 
   bootstrap: [AppComponent]

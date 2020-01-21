@@ -110,6 +110,7 @@ export class AuthService {
     const alert = await this.alertController.create({
       header: 'Registrese!',
       message: 'Usuario inexistente, registrese por favor',
+      backdropDismiss:false,
       buttons: [
         {
           text: 'Cancelar',
@@ -133,6 +134,7 @@ export class AuthService {
     const alert = await this.alertController.create({
       header: 'Registrese!',
       message: 'Usuario ya registrado, ingrese por favor',
+      backdropDismiss:false,
       buttons: [
         {
           text: 'Cancelar',
@@ -156,6 +158,7 @@ export class AuthService {
   async usuarionoexiste1() {
     const alert = await this.alertController.create({
       header: 'Registrese',
+      backdropDismiss:false,
       // subHeader: 'Envio Exitoso',
       message: 'Usuario inexistente primero registrese por favor.',
       buttons: ['Aceptar']
@@ -353,6 +356,15 @@ export class AuthService {
     });
     toast.present();
   }
+   // // alerta img save exit
+   // async imgsave() {
+   //   const toast = await this.toastController.create({
+   //     message: 'Se guardo en la galeria correctamente',
+   //     duration: 3000,
+   //     position: 'top'
+   //   });
+   //   toast.present();
+   // }
   async passincorrecta() {
     const alert = await this.alertController.create({
       header: 'Atención',
@@ -379,10 +391,36 @@ export class AuthService {
       header: 'Fastgi',
       // subHeader: 'Envio Exitoso',
       message: 'Su ahorro es insuficiente para realizar el pago',
+      backdropDismiss:false,
       buttons: ['Aceptar']
     });
     await alert.present();
   }
+ 
+  async ahorroinsuficiente1(ruta) {
+    const alert = await this.alertController.create({
+      header: 'Fastgi',
+      message:  'Su ahorro es insuficiente para realizar esta acción',
+      backdropDismiss:false,
+      buttons: [
+        {
+          text: 'Carga Saldo',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            this.route.navigate(ruta)
+          }
+        }, {
+          text: 'Aceptar',
+          handler: () => {
+            console.log('Confirm Okay');
+          }
+        }
+      ]
+    })
+    await alert.present();
+  }
+
  
   async transexitoso() {
     const toast = await this.toastController.create({
@@ -406,6 +444,7 @@ export class AuthService {
     const alert = await this.alertController.create({
       header: 'Atención',
       message: 'Tu ahorro es insuficiente para realizar esta acción',
+      backdropDismiss:false,
       buttons: ['Aceptar']
     });
     await alert.present();
@@ -460,6 +499,7 @@ export class AuthService {
       header: 'INGRESO INVALIDO',
       // subHeader: 'Envio Exitoso',
       message: 'Revise sus datos por favor.',
+      backdropDismiss:false,
       buttons: ['Aceptar']
     });
     await alert.present();
@@ -470,6 +510,7 @@ export class AuthService {
       header: 'INGRESO INVALIDO',
       // subHeader: 'Envio Exitoso',
       message: 'PIN incorrecto.',
+      backdropDismiss:false,
       buttons: ['Aceptar']
 
     });
@@ -481,6 +522,7 @@ export class AuthService {
       header: 'CORRECTO',
       // subHeader: 'Envio Exitoso',
       message: 'Se modifico exitosamente.',
+      backdropDismiss:false,
       buttons: ['Aceptar']
 
     });
@@ -492,6 +534,7 @@ export class AuthService {
       header: 'CORRECTO',
       // subHeader: 'Envio Exitoso',
       message: 'Se creo el usuario de manera satisfactoria.',
+      backdropDismiss:false,
       buttons: ['Aceptar']
     });
     await alert.present();
@@ -502,6 +545,7 @@ export class AuthService {
       header: 'INCORRECTO',
       // subHeader: 'Envio Exitoso',
       message: 'Solo puede ingresar un punto decimal.',
+      backdropDismiss:false,
       buttons: ['Aceptar']
 
     });
@@ -513,6 +557,7 @@ export class AuthService {
       header: 'CORRECTO',
       // subHeader: 'Envio Exitoso',
       message: 'La carga de ' + monto + 'Bs. de ' + usu + ' y el registro la tarjeta fue exitoso',
+      backdropDismiss:false,
       buttons: ['Aceptar']
 
     });
@@ -524,6 +569,7 @@ export class AuthService {
       header: 'VERIFIQUE',
       // subHeader: 'Envio Exitoso',
       message: 'El numero ingresado es ' + numero,
+      backdropDismiss:false,
       buttons: ['Cerrar']
 
     });
@@ -535,6 +581,7 @@ export class AuthService {
       header: 'CORRECTO',
       // subHeader: 'Envio Exitoso',
       message: '  La carga de ' + monto + ' Bs. desde ' + usu + ' fue exitoso',
+      backdropDismiss:false,
       buttons: ['Aceptar']
     });
     await alert.present();
@@ -545,6 +592,7 @@ export class AuthService {
       header: 'CORRECTO',
       // subHeader: 'Envio Exitoso',
       message: 'El retiro del monto a su cuenta fue exitoso',
+      backdropDismiss:false,
       buttons: ['Aceptar']
     });
     await alert.present();
@@ -555,6 +603,7 @@ export class AuthService {
       header: 'CORRECTO',
       // subHeader: 'Envio Exitoso',
       message: 'El retiro de ' + monto + 'Bs. a la cuenta ' + usu + ' de ' + nombre + ' y registro de la cuenta fue exitosa',
+      backdropDismiss:false,
       buttons: ['Aceptar']
     });
     await alert.present();
@@ -606,6 +655,7 @@ export class AuthService {
       header: 'CORREO INVALIDO',
       // subHeader: 'Envio Exitoso',
       message: 'Campo correo no permite caracter /.',
+      backdropDismiss:false,
       buttons: ['Aceptar']
     });
     await alert.present();
@@ -616,6 +666,7 @@ export class AuthService {
       header: 'TELEFONO INVALIDO',
       // subHeader: 'Envio Exitoso',
       message: 'Campo telefono incorrecto revise por favor.',
+      backdropDismiss:false,
       buttons: ['Aceptar']
     });
     await alert.present();
@@ -626,6 +677,7 @@ export class AuthService {
       header: 'CONTRASEÑA INVALIDA',
       // subHeader: 'Envio Exitoso',
       message: 'Campo contraseña no tiene 6 caracteres o no son iguales .',
+      backdropDismiss:false,
       buttons: ['Aceptar']
     });
     await alert.present();
@@ -637,6 +689,7 @@ export class AuthService {
       header: 'PIN INVALIDO',
       // subHeader: 'Envio Exitoso',
       message: 'Campo pin solo acepta números y 4 digitos.',
+      backdropDismiss:false,
       buttons: ['Aceptar']
     });
     await alert.present();
@@ -648,6 +701,7 @@ export class AuthService {
       header: 'GoPay',
       // subHeader: 'Envio Exitoso',
       message: 'Se envio la petición de pago de ' + monto + '  Bs. a ' + usu + ' exitosamente.',
+      backdropDismiss:false,
       buttons: ['Aceptar']
     });
     await alert.present();
@@ -815,7 +869,6 @@ export class AuthService {
     let resultado=expresion.test(cadena);
     return resultado;
     }
-
 }
 
 

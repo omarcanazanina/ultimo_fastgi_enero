@@ -2,14 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
+
 import { IonicModule } from '@ionic/angular';
-import { RecibedineroPage } from './recibedinero.page';
-import {NgxQRCodeModule} from 'ngx-qrcode2';
+
+import { Confirmacion1Page } from './confirmacion1.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: RecibedineroPage
+    component: Confirmacion1Page
   }
 ];
 
@@ -18,9 +19,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes),
-    NgxQRCodeModule,
+    RouterModule.forChild(routes)
   ],
-  declarations: [RecibedineroPage]
+  declarations: [Confirmacion1Page]
 })
-export class RecibedineroPageModule {}
+export class Confirmacion1PageModule {}

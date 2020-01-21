@@ -6,6 +6,7 @@ import { FCM } from '@ionic-native/fcm/ngx';
 
 import * as firebase from 'firebase';
 import { Firebase } from '@ionic-native/firebase/ngx';
+
 @Component({
   selector: 'app-index2',
   templateUrl: './index2.page.html',
@@ -20,7 +21,9 @@ export class Index2Page implements OnInit {
     //prueba sabado
     private fireBase: Firebase,
     
-  ) { }
+  ) { 
+  
+  }
   //@ViewChild('focus', { static: true }) myInput;
   usuario = {
     uid: ""
@@ -50,6 +53,7 @@ export class Index2Page implements OnInit {
     /* setTimeout(() => {
        this.myInput.setFocus();
      }, 150) */
+
   }
 
   /*
@@ -90,6 +94,7 @@ async PhoneLoginNative() {
         if (this.existe == '') {
           this.au.usuarionoexiste()
         } else {
+        
           let load = this.au.loadinginicio();
           const appVerifier = this.recaptchaVerifier;
           const phoneNumberString = codtel + phoneNumber.toString();
@@ -141,6 +146,7 @@ async PhoneLoginNative() {
       })
   }
 }
+
 
 /*
   //logueo pa cualquiera dato ocn

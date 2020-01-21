@@ -49,6 +49,7 @@ export class CardsPage implements OnInit {
   cajaresta: number
   cajaresta1: any
   real: number
+  ruta=(['/ingresoegreso'])
   ngOnInit() {
     setTimeout(() => {
       this.myInput.setFocus();
@@ -174,7 +175,7 @@ export class CardsPage implements OnInit {
           });
           await alert.present();
         } else {
-          this.au.ahorroinsuficiente()
+          this.au.ahorroinsuficiente1(this.ruta)
         }
       }
     }

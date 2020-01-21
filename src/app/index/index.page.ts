@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { FcmService } from '../servicios/fcm.service';
 import { AuthService } from '../servicios/auth.service';
 //import { firebaseConfig } from '../app.module';
-
+import { Platform } from '@ionic/angular';
 @Component({
   selector: 'app-index',
   templateUrl: './index.page.html',
@@ -23,6 +23,9 @@ export class IndexPage implements OnInit {
     private au: AuthService,
     private fcm: FcmService,
     public alertCtrl: AlertController,
+    private Platform:Platform,
+    private router: Router
+
   ) { }
   //registro numero
   existe: any
@@ -36,13 +39,25 @@ export class IndexPage implements OnInit {
   cajainterna = 0
   estado = 0
   phoneNumber
+  result='ShFT2jNNpadqJXA2jYevAoZM1sH2'
   ngOnInit() {
 
   }
 
   //logueo
   logueo() {
-    this.route.navigate(['/index2'])
+    if (this.Platform.is('ios')) {
+      alert('es ios')
+      this.au.recuperaundato('ShFT2jNNpadqJXA2jYevAoZM1sH2').subscribe(usuario => {
+        this.usuario = usuario;
+        this.router.navigate(["/tabs/tab2"])
+      })
+  
+    }else{
+      this.route.navigate(['/index2'])
+    
+    }
+    
 /*
     alert('entro al logueo conel nro ' + this.phoneNumber)
     this.au.verificausuarioActivo(this.phoneNumber).subscribe(recuperado => {

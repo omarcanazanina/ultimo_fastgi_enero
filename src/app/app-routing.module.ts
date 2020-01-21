@@ -46,6 +46,9 @@ const routes: Routes = [
   { path: 'enviadatosgmail/:id', loadChildren: './enviadatosgmail/enviadatosgmail.module#EnviadatosgmailPageModule' },
   { path: 'modpin', loadChildren: './modpin/modpin.module#ModpinPageModule' },
   { path: 'pagosnet', loadChildren: './pagosnet/pagosnet.module#PagosnetPageModule' },
+  //{ path: 'confirmacion', loadChildren: './confirmacion/confirmacion.module#ConfirmacionPageModule' },
+  { path: 'confirmacion1', loadChildren: './confirmacion1/confirmacion1.module#Confirmacion1PageModule' },
+  { path: 'confirmarpago', loadChildren: './confirmarpago/confirmarpago.module#ConfirmarpagoPageModule' },
 
 ];
 @NgModule({

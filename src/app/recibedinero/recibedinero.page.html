@@ -4,14 +4,15 @@
       <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
     </ion-buttons>
     <ion-item lines="none" color="primary">
-      <img src="assets/svg/logo_recive.svg" class="tamano" slot="start"> 
+      <img src="assets/svg/logo_recive.svg" class="tamano" slot="start">
       <ion-label>Codigo Personal</ion-label>
     </ion-item>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding color="dark">
-  <ion-list class="ion-no-padding">
+<ion-content padding>
+ <!--
+<ion-list class="ion-no-padding">
     <ion-item lines="none" text-center *ngIf="usu == 1">
       <ion-label class="ion-no-margin">{{usuario.nombre}}</ion-label>
     </ion-item>
@@ -23,7 +24,44 @@
       <ion-label class="ion-no-margin" routerLink="/cobroqr" class="botonsito">+Agregar monto</ion-label>
     </ion-item>
   </ion-list>
-
-
+-->
   
+  <ion-input type="text" placeholder="dato" [(ngModel)]="qrData">
+
+  </ion-input>
+
+  <ion-segment [(ngModel)]="elementType">
+    <ion-segment-button value="canvas">
+      <ion-label>canvas</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="img">
+      <ion-label>imagen</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="url">
+      <ion-label>url</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-button (click)='scan()'>
+    scan
+  </ion-button>
+
+  <ion-card *ngIf="qrData" text-center>
+    <ngx-qrcode [qrc-value]="qrData" [qrc-element-type]="elementType" qrc-class="my-code">
+    </ngx-qrcode>
+    <ion-card-content>
+      <ion-button (click)="downloadQR()" *ngIf="elementType === 'canvas' "> descargar</ion-button>
+    </ion-card-content>
+    <ion-card-content>
+      <ion-button (click)="downloadQR1()" *ngIf="elementType == 'canvas' "> descargar1</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="scannedCode">
+    <ion-card-content>
+      resultado :: {{ scannedCode1 }}
+    </ion-card-content>
+
+  </ion-card>
+
 </ion-content>

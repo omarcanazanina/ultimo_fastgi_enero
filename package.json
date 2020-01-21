@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "~8.1.2",
     "@angular/router": "~8.1.2",
     "@ionic-native/barcode-scanner": "^5.15.0",
+    "@ionic-native/base64-to-gallery": "^5.19.1",
     "@ionic-native/camera": "^5.17.0",
     "@ionic-native/contacts": "^5.14.0",
     "@ionic-native/core": "^5.0.0",
@@ -35,7 +36,8 @@
     "@ionic/angular": "^4.7.1",
     "angular2-text-mask": "^9.0.0",
     "angularfire2": "^5.2.1",
-    "cordova-android": "8.1.0",
+    "cordova-android": "^8.1.0",
+    "cordova-base64-to-gallery": "^2.0.2",
     "cordova-ios": "^5.1.1",
     "cordova-plugin-badge": "^0.8.8",
     "cordova-plugin-camera": "^4.1.0",
@@ -117,11 +119,12 @@
       "cordova-plugin-camera": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       },
-      "cordova-plugin-file": {}
+      "cordova-plugin-file": {},
+      "cordova-base64-to-gallery": {}
     },
     "platforms": [
-      "android",
-      "ios"
+      "ios",
+      "android"
     ]
   }
 }

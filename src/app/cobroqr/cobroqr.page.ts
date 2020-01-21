@@ -49,8 +49,6 @@ export class CobroqrPage implements OnInit {
     this.route.navigate(['/recibedinero'])
   }
   presionar(num) {
-  console.log(num);
-  
     this.qrData = this.qrData + num
     if (num == 'Borrar') {
       this.qrData = ""

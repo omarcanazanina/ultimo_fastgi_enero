@@ -42,6 +42,7 @@ export class EscanerPage implements OnInit {
   cajaresta: number;
   cajaresta1: any
   real: number;
+  ruta=(['/ingresoegreso'])
   ngOnInit() {
     this.monto = this.activatedRoute.snapshot.paramMap.get('monto');
     this.telefono = this.activatedRoute.snapshot.paramMap.get('phoneNumber');
@@ -161,7 +162,7 @@ export class EscanerPage implements OnInit {
         });
         await alert.present();
       } else {
-        this.au.ahorroinsuficiente()
+        this.au.ahorroinsuficiente1(this.ruta)
       }
     }
   }

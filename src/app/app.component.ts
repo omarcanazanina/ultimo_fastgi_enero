@@ -38,7 +38,7 @@ export class AppComponent {
         //this.route.navigate(data.landing_page)
       };
     },err=>{
-      console.log("no funciona !!!!!!!!!!!");
+     //console.log("no funciona !!!!!!!!!!!");
       console.log(err);
     }
     );
