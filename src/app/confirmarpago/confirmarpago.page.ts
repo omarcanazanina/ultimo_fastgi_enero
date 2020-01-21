@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { AuthService } from '../servicios/auth.service';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @Component({
   selector: 'app-confirmarpago',
@@ -13,12 +15,72 @@ export class ConfirmarpagoPage implements OnInit {
   gruponum = [7, 8, 9, 4, 5, 6, 1, 2, 3, '.', 0, 'Borrar']    
   pin=""
   cont = 0
-  constructor(private modal: ModalController) { }
+  fecha: Date
+  fechita: any
+  cajaactual: number
+  cajaactual1: any
+  cajainterna: number
+  cajainterna1: any
+  estado=true
+  constructor(private modal: ModalController,
+    private au: AuthService,
+    public fire: AngularFirestore) { }
 
   ngOnInit() {
     console.log(this.usu)
+    console.log(this.usuario);
     
     
+  }
+  pagardeuda(pin){
+    alert()
+  //   this.fecha = new Date();
+  //   const mes = this.fecha.getMonth() + 1;
+  //   this.fechita = this.fecha.getDate() + "-" + mes + "-" + this.fecha.getFullYear() + " " + this.fecha.getHours() + ":" + this.fecha.getMinutes() + ":" + this.fecha.getSeconds();
+
+  //   this.au.recuperaenviocobros(this.usuario.uid, this.cobrador.uid, this.usu.fechita).subscribe(dat => {
+  //     let prueba11 = dat[0]
+  //     this.au.agregafechapagocobros({ fechapago: this.fechita }, this.usuario.uid, this.usu.id)
+  //     this.au.agregafechapagocobros({ fechapago: this.fechita }, this.cobrador.uid, prueba11.id)
+  //     this.au.actualizaestadodecobro({ estado: 1 }, this.cobrador.uid, prueba11.id)
+
+  //     if(pin == this.usuario.password){
+  //       this.cajaactual = parseFloat(this.usuario.cajainterna) - parseFloat(this.usu.monto);
+  //       this.cajaactual1 = this.cajaactual.toFixed(2)
+  //       this.au.actualizacaja({ cajainterna: this.cajaactual1 }, this.usuario.uid);
+  //       this.au.actualizaestadodecobro({ estado: 1 }, this.usuario.uid, this.usu.id)
+  //       this.fire.collection('/user/' + this.usuario.uid + '/egreso').add({
+  //         monto: this.usu.monto,
+  //         id: this.cobrador.uid,
+  //         nombre: this.cobrador.nombre,//this.nombresito,
+  //         telefono: this.cobrador.telefono,
+  //         fechita: this.fechita,
+  //         fecha: this.fecha,
+  //         descripcion: 'pago por envio de cobro',
+  //         saldo: this.cajaactual1,
+  //         identificador: '0'
+  //       })
+  //       this.cajainterna = parseFloat(this.cobrador.cajainterna) + parseFloat(this.usu.monto);
+  //       this.cajainterna1 = this.cajainterna.toFixed(2)
+  //       this.au.actualizacaja({ cajainterna: this.cajainterna }, this.cobrador.uid)
+  //       this.fire.collection('/user/' + this.cobrador.uid + '/ingresos').add({
+  //         monto: this.usu.monto,
+  //         id: this.usuario.uid,
+  //         nombre: this.usuario.nombre,
+  //         telefono: this.usuario.telefono,
+  //         fechita: this.fechita,
+  //         fecha: this.fecha,
+  //         descripcion: 'recibio por envio de cobro',
+  //         saldo: this.cajainterna1,
+  //         identificador: '1'
+  //       })
+  //       this.au.pagodecobroexitoso(this.usu.monto,this.cobrador.nombre )//this.nombresito);
+  //       this.estado = true
+  //     }else{
+  //       this.au.passincorrecta();
+  //       this.closeUsuario()
+  //     }
+  // })
   }
 
   closeUsuario() {
