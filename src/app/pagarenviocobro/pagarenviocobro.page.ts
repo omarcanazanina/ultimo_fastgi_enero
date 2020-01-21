@@ -91,124 +91,125 @@ export class PagarenviocobroPage implements OnInit {
       })
     })
   }
+//funcion pagar deuda
+ //async pagar(usu) {
+ //  if (parseInt(this.usuario.password) == 0) {
+ //    const alert = await this.alertController.create({
+ //      header: 'Muy importante!',
+ //      subHeader: 'Debe ingresar su PIN para realizar todas las transacciones El CORREO para enviar sus datos para que pueda guardarlo',
+ //      backdropDismiss: false,
+ //      inputs: [
+ //        {
+ //          name: 'pin',
+ //          type: 'number',
+ //          placeholder: 'Pin'
+ //        },
+ //        {
+ //          name: 'correo',
+ //          type: 'text',
+ //          placeholder: 'Correo'
+ //        }
+ //      ],
+ //      buttons: [
+ //        {
+ //          text: 'Cancelar',
+ //          role: 'cancel',
+ //          cssClass: 'secondary',
+ //          handler: () => {
+ //            console.log('Confirm Cancel');
+ //          }
+ //        }, {
+ //          text: 'Aceptar',
+ //          handler: data => {
+ //            console.log('Confirm Ok');
+ //            this.au.registrapin({ password: data.pin }, this.uu);
+ //            this.au.registracorreo({ correo: data.correo }, this.uu);
+ //            this.au.datosgmail(data.pin, data.correo, this.usuario.telefono)
+ //          }
+ //        }
+ //      ]
+ //    });
+ //    await alert.present();
+ //  } else {
+ //    if (parseFloat(this.usuario.cajainterna) >= parseFloat(usu.monto)) {
+ //      const alert = await this.alertController.create({
+ //        header: 'Monto a pagar ' + ' ' + usu.monto + ' ' + 'Bs.',
+ //        cssClass: 'prompt_alert',
+ //        inputs: [
+ //          {
+ //            name: 'codigo',
+ //            type: 'tel',
+ //            placeholder: 'Pin de seguridad'
 
-  async pagar(usu) {
-    if (parseInt(this.usuario.password) == 0) {
-      const alert = await this.alertController.create({
-        header: 'Muy importante!',
-        subHeader: 'Debe ingresar su PIN para realizar todas las transacciones El CORREO para enviar sus datos para que pueda guardarlo',
-        backdropDismiss: false,
-        inputs: [
-          {
-            name: 'pin',
-            type: 'number',
-            placeholder: 'Pin'
-          },
-          {
-            name: 'correo',
-            type: 'text',
-            placeholder: 'Correo'
-          }
-        ],
-        buttons: [
-          {
-            text: 'Cancelar',
-            role: 'cancel',
-            cssClass: 'secondary',
-            handler: () => {
-              console.log('Confirm Cancel');
-            }
-          }, {
-            text: 'Aceptar',
-            handler: data => {
-              console.log('Confirm Ok');
-              this.au.registrapin({ password: data.pin }, this.uu);
-              this.au.registracorreo({ correo: data.correo }, this.uu);
-              this.au.datosgmail(data.pin, data.correo, this.usuario.telefono)
-            }
-          }
-        ]
-      });
-      await alert.present();
-    } else {
-      if (parseFloat(this.usuario.cajainterna) >= parseFloat(usu.monto)) {
-        const alert = await this.alertController.create({
-          header: 'Monto a pagar ' + ' ' + usu.monto + ' ' + 'Bs.',
-          cssClass: 'prompt_alert',
-          inputs: [
-            {
-              name: 'codigo',
-              type: 'tel',
-              placeholder: 'Pin de seguridad'
+ //          },
+ //        ],
+ //        buttons: [
+ //          {
+ //            text: 'Cancelar',
+ //            role: 'cancel',
+ //            cssClass: 'secondary',
+ //            handler: () => {
+ //              console.log('Confirm Cancel');
+ //            }
+ //          }, {
+ //            text: 'Confirmar',
+ //            handler: data => {
+ //             this.fecha = new Date();
+ //             const mes = this.fecha.getMonth() + 1;
+ //             this.fechita = this.fecha.getDate() + "-" + mes + "-" + this.fecha.getFullYear() + " " + this.fecha.getHours() + ":" + this.fecha.getMinutes() + ":" + this.fecha.getSeconds();
 
-            },
-          ],
-          buttons: [
-            {
-              text: 'Cancelar',
-              role: 'cancel',
-              cssClass: 'secondary',
-              handler: () => {
-                console.log('Confirm Cancel');
-              }
-            }, {
-              text: 'Confirmar',
-              handler: data => {
-              // this.fecha = new Date();
-              // const mes = this.fecha.getMonth() + 1;
-              // this.fechita = this.fecha.getDate() + "-" + mes + "-" + this.fecha.getFullYear() + " " + this.fecha.getHours() + ":" + this.fecha.getMinutes() + ":" + this.fecha.getSeconds();
+ //             this.au.recuperaenviocobros(this.usuario.uid, this.cobrador.uid, usu.fechita).subscribe(dat => {
+ //               let prueba11 = dat[0]
+ //               this.au.agregafechapagocobros({ fechapago: this.fechita }, this.uu, usu.id)
+ //               this.au.agregafechapagocobros({ fechapago: this.fechita }, this.cobrador.uid, prueba11.id)
+ //               this.au.actualizaestadodecobro({ estado: 1 }, this.cobrador.uid, prueba11.id)
+ //             })
+ //             if (data.codigo == this.usuario.password) {
+ //               this.cajaactual = parseFloat(this.usuario.cajainterna) - parseFloat(usu.monto);
+ //               this.cajaactual1 = this.cajaactual.toFixed(2)
+ //               this.au.actualizacaja({ cajainterna: this.cajaactual1 }, this.usuario.uid);
+ //               this.au.actualizaestadodecobro({ estado: 1 }, this.usuario.uid, usu.id)
+ //               this.fire.collection('/user/' + this.usuario.uid + '/egreso').add({
+ //                 monto: usu.monto,
+ //                 id: this.cobrador.uid,
+ //                 nombre: this.nombresito,
+ //                 telefono: this.cobrador.telefono,
+ //                 fechita: this.fechita,
+ //                 fecha: this.fecha,
+ //                 descripcion: 'pago por envio de cobro',
+ //                 saldo: this.cajaactual1,
+ //                 identificador: '0'
+ //               })
+ //                this.cajainterna = parseFloat(this.cobrador.cajainterna) + parseFloat(usu.monto);
+ //                this.cajainterna1 = this.cajainterna.toFixed(2)
+ //                this.au.actualizacaja({ cajainterna: this.cajainterna }, this.cobrador.uid)
+ //             this.fire.collection('/user/' + this.cobrador.uid + '/ingresos').add({
+ //               monto: usu.monto,
+ //               id: this.usuario.uid,
+ //               nombre: this.usuario.nombre,
+ //               telefono: this.usuario.telefono,
+ //               fechita: this.fechita,
+ //               fecha: this.fecha,
+ //               descripcion: 'recibio por envio de cobro',
+ //               saldo: this.cajainterna1,
+ //               identificador: '1'
+ //             })
+ //                this.au.pagodecobroexitoso(usu.monto, this.nombresito);
+ //                this.estado = true
+ //              } else {
+ //                this.au.passincorrecta();
+ //              }
+ //            }
+ //          }
+ //        ]
+ //      });
+ //      await alert.present();
+ //    } else {
+ //      this.au.ahorroinsuficiente1(this.ruta);
+ //    }
+ //  }
+ //}
 
-               //this.au.recuperaenviocobros(this.usuario.uid, this.cobrador.uid, usu.fechita).subscribe(dat => {
-               //  let prueba11 = dat[0]
-               //  this.au.agregafechapagocobros({ fechapago: this.fechita }, this.uu, usu.id)
-               //  this.au.agregafechapagocobros({ fechapago: this.fechita }, this.cobrador.uid, prueba11.id)
-               //  this.au.actualizaestadodecobro({ estado: 1 }, this.cobrador.uid, prueba11.id)
-               //})
-               //if (data.codigo == this.usuario.password) {
-               //  this.cajaactual = parseFloat(this.usuario.cajainterna) - parseFloat(usu.monto);
-               //  this.cajaactual1 = this.cajaactual.toFixed(2)
-               //  this.au.actualizacaja({ cajainterna: this.cajaactual1 }, this.usuario.uid);
-               //  this.au.actualizaestadodecobro({ estado: 1 }, this.usuario.uid, usu.id)
-               //  this.fire.collection('/user/' + this.usuario.uid + '/egreso').add({
-               //    monto: usu.monto,
-               //    id: this.cobrador.uid,
-               //    nombre: this.nombresito,
-               //    telefono: this.cobrador.telefono,
-               //    fechita: this.fechita,
-               //    fecha: this.fecha,
-               //    descripcion: 'pago por envio de cobro',
-               //    saldo: this.cajaactual1,
-               //    identificador: '0'
-               //  })
-                 // this.cajainterna = parseFloat(this.cobrador.cajainterna) + parseFloat(usu.monto);
-                 // this.cajainterna1 = this.cajainterna.toFixed(2)
-                 // this.au.actualizacaja({ cajainterna: this.cajainterna }, this.cobrador.uid)
-                 // this.fire.collection('/user/' + this.cobrador.uid + '/ingresos').add({
-                 //   monto: usu.monto,
-                 //   id: this.usuario.uid,
-                 //   nombre: this.usuario.nombre,
-                 //   telefono: this.usuario.telefono,
-                 //   fechita: this.fechita,
-                 //   fecha: this.fecha,
-                 //   descripcion: 'recibio por envio de cobro',
-                 //   saldo: this.cajainterna1,
-                 //   identificador: '1'
-                 // })
-               //   this.au.pagodecobroexitoso(usu.monto, this.nombresito);
-               //   this.estado = true
-               // } else {
-               //   this.au.passincorrecta();
-               // }
-              }
-            }
-          ]
-        });
-        await alert.present();
-      } else {
-        this.au.ahorroinsuficiente1(this.ruta);
-      }
-    }
-  }
 //abrir detalle del cobro a apgar
   opendetalle(usu) {
     this.modal.create({
@@ -401,16 +402,60 @@ export class PagarenviocobroPage implements OnInit {
   }
 
   async pagar1(usu) {
-    const modal = await this.modalController.create({
-      component: ConfirmarpagoPage,
-      cssClass: 'confirmarpago',
-      componentProps: {
-        usu:usu,
-        usuario: this.usuario,
-        cobrador: this.cobrador,
+
+    if (parseInt(this.usuario.password) == 0) {
+      const alert = await this.alertController.create({
+        header: 'Muy importante!',
+        subHeader: 'Debe ingresar su PIN para realizar todas las transacciones El CORREO para enviar sus datos para que pueda guardarlo',
+        backdropDismiss: false,
+        inputs: [
+          {
+            name: 'pin',
+            type: 'number',
+            placeholder: 'Pin'
+          },
+          {
+            name: 'correo',
+            type: 'text',
+            placeholder: 'Correo'
+          }
+        ],
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {
+              console.log('Confirm Cancel');
+            }
+          }, {
+            text: 'Aceptar',
+            handler: data => {
+              console.log('Confirm Ok');
+              this.au.registrapin({ password: data.pin }, this.uu);
+              this.au.registracorreo({ correo: data.correo }, this.uu);
+              this.au.datosgmail(data.pin, data.correo, this.usuario.telefono)
+            }
+          }
+        ]
+      });
+      await alert.present();
+    }else{
+      if(parseFloat(this.usuario.cajainterna) >= parseFloat(usu.monto) ){
+        const modal = await this.modalController.create({
+          component: ConfirmarpagoPage,
+          cssClass: 'confirmarpago',
+          componentProps: {
+            usu:usu,
+            usuario: this.usuario,
+            cobrador: this.cobrador,
+          }
+        });
+        return await modal.present();
+      }else{
+        this.au.ahorroinsuficiente1(this.ruta);
       }
-    });
-    return await modal.present();
+    } 
   }
   async confirmacion1(monto,detalle) {
     if (parseInt(this.usuario.password) == 0) {
