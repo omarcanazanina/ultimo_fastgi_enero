@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../servicios/auth.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FcmService } from '../servicios/fcm.service';
+import { ConfirmapagomontoPage } from '../confirmapagomonto/confirmapagomonto.page';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class EscanerPage implements OnInit {
     public alertController: AlertController,
     public fire: AngularFirestore,
     public route: Router,
-    private fcm: FcmService) { }
+    private fcm: FcmService,
+    public modal: ModalController) { }
   uu: any;
   usuario = {
     cajainterna: "",
@@ -42,7 +44,7 @@ export class EscanerPage implements OnInit {
   cajaresta: number;
   cajaresta1: any
   real: number;
-  ruta=(['/ingresoegreso'])
+  ruta = (['/ingresoegreso'])
   ngOnInit() {
     this.monto = this.activatedRoute.snapshot.paramMap.get('monto');
     this.telefono = this.activatedRoute.snapshot.paramMap.get('phoneNumber');
@@ -54,7 +56,6 @@ export class EscanerPage implements OnInit {
     this.au.verificausuarioexistente(this.telefono).subscribe(contelefono => {
       this.contelefono = contelefono[0]
     })
-
     this.fecha = new Date();
     const mes = this.fecha.getMonth() + 1;
     this.fechita = this.fecha.getDate() + "-" + mes + "-" + this.fecha.getFullYear() + " " + this.fecha.getHours() + ":" + this.fecha.getMinutes() + ":" + this.fecha.getSeconds();
@@ -161,6 +162,61 @@ export class EscanerPage implements OnInit {
           ]
         });
         await alert.present();
+      } else {
+        this.au.ahorroinsuficiente1(this.ruta)
+      }
+    }
+  }
+
+  async pagar1(monto) {
+    if (parseInt(this.usuario.password) == 0) {
+      const alert = await this.alertController.create({
+        header: 'Muy importante!',
+        subHeader: 'Debe ingresar su PIN para realizar todas las transacciones El CORREO para enviar sus datos para que pueda guardarlo',
+        backdropDismiss: false,
+        inputs: [
+          {
+            name: 'pin',
+            type: 'number',
+            placeholder: 'Pin'
+          },
+          {
+            name: 'correo',
+            type: 'text',
+            placeholder: 'Correo'
+          }
+        ],
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {
+              console.log('Confirm Cancel');
+            }
+          }, {
+            text: 'Aceptar',
+            handler: data => {
+              console.log('Confirm Ok');
+              this.au.registrapin({ password: data.pin }, this.usuario.uid);
+              this.au.registracorreo({ correo: data.correo }, this.usuario.uid);
+              this.au.datosgmail(data.pin, data.correo, this.usuario.telefono)
+            }
+          }
+        ]
+      });
+      await alert.present();
+    } else {
+      if (parseFloat(this.usuario.cajainterna) >= parseFloat(monto)) {
+        this.modal.create({
+          component: ConfirmapagomontoPage,
+          //cssClass: 'detalleenviocobro',
+          componentProps: {
+            usuario: this.usuario,
+            contelefono: this.contelefono,
+            monto: monto
+          }
+        }).then((modal) => modal.present())
       } else {
         this.au.ahorroinsuficiente1(this.ruta)
       }

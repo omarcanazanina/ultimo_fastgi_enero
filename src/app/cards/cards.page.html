@@ -8,13 +8,30 @@
 </ion-header>
 
 <ion-content padding>
-  <br><br><br>
+  
     <div style="margin:auto; width:50%"><b>{{telefono}}</b></div>
     <br><br>
+  <!-- 
     <p>Monto a cancelar:</p>
           <ion-item>
             <ion-label class="texto">Bs.</ion-label>
             <ion-input  type="tel"  class="texto" [(ngModel)]="monto" name="monto" #input></ion-input>
           </ion-item>
     <ion-button  expand="full" (click)='pagar()'  >  Aceptar</ion-button>
+      -->
+    <p>Monto a cancelar:</p>
+    <ion-label class="pin" text-center> Bs.{{monto}} </ion-label >
+    <div class="div1">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="9">
+            <ion-button color="light" *ngFor="let n of gruponum" (click)="presionar(n)" class="botones">{{n}}</ion-button>
+          </ion-col>
+          <ion-col size="3">
+            <ion-button color="light" class="ok" (click)='confirmapago(monto)'>OK</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
 </ion-content>

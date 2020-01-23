@@ -23,6 +23,7 @@ import { DetalleegresoPage } from './detalleegreso/detalleegreso.page';
 import { EnviadatosgmailPage } from './enviadatosgmail/enviadatosgmail.page';
 import {Confirmacion1Page} from './confirmacion1/confirmacion1.page';
 import { ConfirmarpagoPage } from './confirmarpago/confirmarpago.page';
+import { ConfirmacardsPage } from './confirmacards/confirmacards.page';
 //notificaciones*ambos
 import { FCM } from '@ionic-native/fcm/ngx';
 //prueba para las notificaciones 
@@ -39,6 +40,8 @@ import {EmailComposer} from '@ionic-native/email-composer/ngx'
 import { Camera } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
+import { ConfirmapagomontoPage } from './confirmapagomonto/confirmapagomonto.page';
+
 
 
 export const firebaseConfig = {
@@ -58,7 +61,9 @@ export const firebaseConfig = {
     DetalleegresoPage,
     EnviadatosgmailPage,
     Confirmacion1Page,
-    ConfirmarpagoPage
+    ConfirmarpagoPage,
+    ConfirmacardsPage,
+    ConfirmapagomontoPage
   ],
 
   entryComponents: [UsuarioComponent,
@@ -67,7 +72,9 @@ export const firebaseConfig = {
     DetalleegresoPage,
     EnviadatosgmailPage,
     Confirmacion1Page,
-    ConfirmarpagoPage
+    ConfirmarpagoPage,
+    ConfirmacardsPage,
+    ConfirmapagomontoPage
   ],
   imports: [BrowserModule,
     IonicModule.forRoot(),

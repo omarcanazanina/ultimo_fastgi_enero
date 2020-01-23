@@ -30,6 +30,7 @@ export class ConfirmarpagoPage implements OnInit {
 
     
   }
+  
   pagardeuda(pin){
      this.fecha = new Date();
      const mes = this.fecha.getMonth() + 1;

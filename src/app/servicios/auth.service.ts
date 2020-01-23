@@ -20,7 +20,7 @@ export interface usu {
   cajainterna: number,
   monto: number,
   clave: string,
-//  badge:number
+  //  badge:number
 }
 export interface actualizado {
   id: string
@@ -73,7 +73,7 @@ export class AuthService {
     public abase: AngularFireDatabase,
     public toastController: ToastController,
     public alertController: AlertController,
-    public nav:NavController,
+    public nav: NavController,
     private emailComposer: EmailComposer,
     private loadingController: LoadingController
   ) { }
@@ -90,27 +90,27 @@ export class AuthService {
     })
   }
 
-  logintel(numero,appverifica):Promise<any>{
-    return new Promise((resolve,reject) =>{
-      this.db.auth.signInWithPhoneNumber(numero,appverifica).then(user =>{
+  logintel(numero, appverifica): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.db.auth.signInWithPhoneNumber(numero, appverifica).then(user => {
         console.log(user);
       }).catch((error) => {
         console.log(error);
       });
     })
   }
- //verifica si el usuario existe 
- verificausuarioexistente(telefono): Observable<any> {
-  var query = ref => ref.where('telefono', '==', telefono)
-  return this.fire.collection('user', query).valueChanges()
-}
+  //verifica si el usuario existe 
+  verificausuarioexistente(telefono): Observable<any> {
+    var query = ref => ref.where('telefono', '==', telefono)
+    return this.fire.collection('user', query).valueChanges()
+  }
 
 
   async usuarionoexiste() {
     const alert = await this.alertController.create({
       header: 'Registrese!',
       message: 'Usuario inexistente, registrese por favor',
-      backdropDismiss:false,
+      backdropDismiss: false,
       buttons: [
         {
           text: 'Cancelar',
@@ -134,7 +134,7 @@ export class AuthService {
     const alert = await this.alertController.create({
       header: 'Registrese!',
       message: 'Usuario ya registrado, ingrese por favor',
-      backdropDismiss:false,
+      backdropDismiss: false,
       buttons: [
         {
           text: 'Cancelar',
@@ -158,7 +158,7 @@ export class AuthService {
   async usuarionoexiste1() {
     const alert = await this.alertController.create({
       header: 'Registrese',
-      backdropDismiss:false,
+      backdropDismiss: false,
       // subHeader: 'Envio Exitoso',
       message: 'Usuario inexistente primero registrese por favor.',
       buttons: ['Aceptar']
@@ -197,20 +197,20 @@ export class AuthService {
     })
   }
 
-  crearq(correo:string, pass: string){
+  crearq(correo: string, pass: string) {
     return new Promise((resolve, reject) => {
       this.db.auth.createUserWithEmailAndPassword(correo, pass).then(res => {
-       // const uid = res.user.uid;
+        // const uid = res.user.uid;
         this.fire.collection('user').doc(res.user.uid).set({
           correo: correo,
           pass: pass
-          
+
         })
         resolve(res);
       }).catch(err => reject(err));
     })
   }
-  crear(correo: string, pass: string,  password: number, nombre: string, telefono: number, cajainterna: number,estado:number) {
+  crear(correo: string, pass: string, password: number, nombre: string, telefono: number, cajainterna: number, estado: number) {
     return new Promise((resolve, reject) => {
       this.db.auth.createUserWithEmailAndPassword(correo, pass).then(res => {
         const uid = res.user.uid;
@@ -220,29 +220,29 @@ export class AuthService {
           pass: pass,
           telefono: telefono,
           cajainterna: cajainterna,
-        //  token: token,
+          //  token: token,
           password: password,
           uid: uid,
-          estado:estado
+          estado: estado
         })
         resolve(res);
       }).catch(err => reject(err));
     })
   }
-//no esta funcionando
-  crearcontel(uid:string, correo: string,  password: number, nombre: string, codtel:string, telefono: string, cajainterna: number,token: string,estado:number) {
-      this.fire.collection('user').doc(uid).set({
-        uid: uid,
-        correo: correo,
-        nombre: nombre,
-        codtel : codtel,
-        telefono: telefono,
-        cajainterna: cajainterna,
-        token: token,
-        password: password,
-        estado: estado
-      })
-    }
+  //no esta funcionando
+  crearcontel(uid: string, correo: string, password: number, nombre: string, codtel: string, telefono: string, cajainterna: number, token: string, estado: number) {
+    this.fire.collection('user').doc(uid).set({
+      uid: uid,
+      correo: correo,
+      nombre: nombre,
+      codtel: codtel,
+      telefono: telefono,
+      cajainterna: cajainterna,
+      token: token,
+      password: password,
+      estado: estado
+    })
+  }
 
   cerrarsesion() {
     this.db.auth.signOut().then(() => {
@@ -251,7 +251,7 @@ export class AuthService {
   }
   cerrarsesion1(eltoken) {
     this.db.auth.signOut().then(() => {
-      this.nav.navigateRoot(['/confirmarnum',eltoken])
+      this.nav.navigateRoot(['/confirmarnum', eltoken])
     });
   }
   //recupera la caja de la aplicacion
@@ -293,8 +293,8 @@ export class AuthService {
   registrapin(pin, id) {
     return this.fire.collection('user').doc(id).set(pin, { merge: true })
   }
-   //regitra correo
-   registracorreo(correo, id) {
+  //regitra correo
+  registracorreo(correo, id) {
     return this.fire.collection('user').doc(id).set(correo, { merge: true })
   }
   //regitra o actualiza nombre 
@@ -305,10 +305,10 @@ export class AuthService {
   actualizacajabancaria(cajabancaria, id) {
     return this.fire.collection('user').doc(id).set(cajabancaria, { merge: true })
   }
-    //actualiza badge (envio de correo) del usuario
-    enviocorreo(badge, id) {
-      return this.fire.collection('user').doc(id).set(badge, { merge: true })
-    }
+  //actualiza badge (envio de correo) del usuario
+  enviocorreo(badge, id) {
+    return this.fire.collection('user').doc(id).set(badge, { merge: true })
+  }
   //recupera datos del usuario con el correo
   recuperaconcorreo(correo: string): Observable<any> {
     var query = ref => ref.where('correo', '==', correo)
@@ -356,15 +356,15 @@ export class AuthService {
     });
     toast.present();
   }
-   // // alerta img save exit
-   // async imgsave() {
-   //   const toast = await this.toastController.create({
-   //     message: 'Se guardo en la galeria correctamente',
-   //     duration: 3000,
-   //     position: 'top'
-   //   });
-   //   toast.present();
-   // }
+  // // alerta img save exit
+  // async imgsave() {
+  //   const toast = await this.toastController.create({
+  //     message: 'Se guardo en la galeria correctamente',
+  //     duration: 3000,
+  //     position: 'top'
+  //   });
+  //   toast.present();
+  // }
   async passincorrecta() {
     const alert = await this.alertController.create({
       header: 'Atención',
@@ -391,17 +391,17 @@ export class AuthService {
       header: 'Fastgi',
       // subHeader: 'Envio Exitoso',
       message: 'Su ahorro es insuficiente para realizar el pago',
-      backdropDismiss:false,
+      backdropDismiss: false,
       buttons: ['Aceptar']
     });
     await alert.present();
   }
- 
+
   async ahorroinsuficiente1(ruta) {
     const alert = await this.alertController.create({
       header: 'Fastgi',
-      message:  'Su ahorro es insuficiente para realizar esta acción',
-      backdropDismiss:false,
+      message: 'Su ahorro es insuficiente para realizar esta acción',
+      backdropDismiss: false,
       buttons: [
         {
           text: 'Carga Saldo',
@@ -421,7 +421,7 @@ export class AuthService {
     await alert.present();
   }
 
- 
+
   async transexitoso() {
     const toast = await this.toastController.create({
       message: 'La transferencia se realizo con exito',
@@ -444,7 +444,7 @@ export class AuthService {
     const alert = await this.alertController.create({
       header: 'Atención',
       message: 'Tu ahorro es insuficiente para realizar esta acción',
-      backdropDismiss:false,
+      backdropDismiss: false,
       buttons: ['Aceptar']
     });
     await alert.present();
@@ -453,7 +453,7 @@ export class AuthService {
   async haberhaber(uid) {
     const alert = await this.alertController.create({
       header: 'Atención',
-      message: 'Este es el uid' +uid,
+      message: 'Este es el uid' + uid,
       buttons: ['Aceptar']
     });
     await alert.present();
@@ -499,7 +499,7 @@ export class AuthService {
       header: 'INGRESO INVALIDO',
       // subHeader: 'Envio Exitoso',
       message: 'Revise sus datos por favor.',
-      backdropDismiss:false,
+      backdropDismiss: false,
       buttons: ['Aceptar']
     });
     await alert.present();
@@ -510,7 +510,7 @@ export class AuthService {
       header: 'INGRESO INVALIDO',
       // subHeader: 'Envio Exitoso',
       message: 'PIN incorrecto.',
-      backdropDismiss:false,
+      backdropDismiss: false,
       buttons: ['Aceptar']
 
     });
@@ -522,19 +522,19 @@ export class AuthService {
       header: 'CORRECTO',
       // subHeader: 'Envio Exitoso',
       message: 'Se modifico exitosamente.',
-      backdropDismiss:false,
+      backdropDismiss: false,
       buttons: ['Aceptar']
 
     });
     await alert.present();
-  } 
+  }
   //usuario registrado
   async creocorrecto() {
     const alert = await this.alertController.create({
       header: 'CORRECTO',
       // subHeader: 'Envio Exitoso',
       message: 'Se creo el usuario de manera satisfactoria.',
-      backdropDismiss:false,
+      backdropDismiss: false,
       buttons: ['Aceptar']
     });
     await alert.present();
@@ -545,7 +545,7 @@ export class AuthService {
       header: 'INCORRECTO',
       // subHeader: 'Envio Exitoso',
       message: 'Solo puede ingresar un punto decimal.',
-      backdropDismiss:false,
+      backdropDismiss: false,
       buttons: ['Aceptar']
 
     });
@@ -557,19 +557,19 @@ export class AuthService {
       header: 'CORRECTO',
       // subHeader: 'Envio Exitoso',
       message: 'La carga de ' + monto + 'Bs. de ' + usu + ' y el registro la tarjeta fue exitoso',
-      backdropDismiss:false,
+      backdropDismiss: false,
       buttons: ['Aceptar']
 
     });
     await alert.present();
   }
-   //para confirmar el telefono
-   async confirmatelefono(numero) {
+  //para confirmar el telefono
+  async confirmatelefono(numero) {
     const alert = await this.alertController.create({
       header: 'VERIFIQUE',
       // subHeader: 'Envio Exitoso',
       message: 'El numero ingresado es ' + numero,
-      backdropDismiss:false,
+      backdropDismiss: false,
       buttons: ['Cerrar']
 
     });
@@ -581,7 +581,7 @@ export class AuthService {
       header: 'CORRECTO',
       // subHeader: 'Envio Exitoso',
       message: '  La carga de ' + monto + ' Bs. desde ' + usu + ' fue exitoso',
-      backdropDismiss:false,
+      backdropDismiss: false,
       buttons: ['Aceptar']
     });
     await alert.present();
@@ -592,7 +592,7 @@ export class AuthService {
       header: 'CORRECTO',
       // subHeader: 'Envio Exitoso',
       message: 'El retiro del monto a su cuenta fue exitoso',
-      backdropDismiss:false,
+      backdropDismiss: false,
       buttons: ['Aceptar']
     });
     await alert.present();
@@ -603,7 +603,7 @@ export class AuthService {
       header: 'CORRECTO',
       // subHeader: 'Envio Exitoso',
       message: 'El retiro de ' + monto + 'Bs. a la cuenta ' + usu + ' de ' + nombre + ' y registro de la cuenta fue exitosa',
-      backdropDismiss:false,
+      backdropDismiss: false,
       buttons: ['Aceptar']
     });
     await alert.present();
@@ -655,7 +655,7 @@ export class AuthService {
       header: 'CORREO INVALIDO',
       // subHeader: 'Envio Exitoso',
       message: 'Campo correo no permite caracter /.',
-      backdropDismiss:false,
+      backdropDismiss: false,
       buttons: ['Aceptar']
     });
     await alert.present();
@@ -666,7 +666,7 @@ export class AuthService {
       header: 'TELEFONO INVALIDO',
       // subHeader: 'Envio Exitoso',
       message: 'Campo telefono incorrecto revise por favor.',
-      backdropDismiss:false,
+      backdropDismiss: false,
       buttons: ['Aceptar']
     });
     await alert.present();
@@ -677,7 +677,7 @@ export class AuthService {
       header: 'CONTRASEÑA INVALIDA',
       // subHeader: 'Envio Exitoso',
       message: 'Campo contraseña no tiene 6 caracteres o no son iguales .',
-      backdropDismiss:false,
+      backdropDismiss: false,
       buttons: ['Aceptar']
     });
     await alert.present();
@@ -689,7 +689,7 @@ export class AuthService {
       header: 'PIN INVALIDO',
       // subHeader: 'Envio Exitoso',
       message: 'Campo pin solo acepta números y 4 digitos.',
-      backdropDismiss:false,
+      backdropDismiss: false,
       buttons: ['Aceptar']
     });
     await alert.present();
@@ -701,39 +701,39 @@ export class AuthService {
       header: 'GoPay',
       // subHeader: 'Envio Exitoso',
       message: 'Se envio la petición de pago de ' + monto + '  Bs. a ' + usu + ' exitosamente.',
-      backdropDismiss:false,
+      backdropDismiss: false,
       buttons: ['Aceptar']
     });
     await alert.present();
   }
-  
+
   //ordena cobrosapagar *tab1* no utilizado
- /* ordenarcobros(id: string): Observable<any> {
-    this.ingresoscollection = this.fire.collection('/user/' + id + '/cobros/', x => x.orderBy('fecha', 'desc'));
-    return this.ingresos = this.ingresoscollection.snapshotChanges().pipe(map(changes => {
-      return changes.map(a => {
-        const data = a.payload.doc.data() as ingresos;
-        data.id = a.payload.doc.id;
-        return data;
-      })
-    }))
-  }*/
+  /* ordenarcobros(id: string): Observable<any> {
+     this.ingresoscollection = this.fire.collection('/user/' + id + '/cobros/', x => x.orderBy('fecha', 'desc'));
+     return this.ingresos = this.ingresoscollection.snapshotChanges().pipe(map(changes => {
+       return changes.map(a => {
+         const data = a.payload.doc.data() as ingresos;
+         data.id = a.payload.doc.id;
+         return data;
+       })
+     }))
+   }*/
 
   /* recuperaprueba(id): Observable<any> {
     return this.fire.collection('/user/' + id + '/cobros').valueChanges()
   }*/
 
   // recupera cobrosapagar por id *pagarenviocobro* 
- /* recuperacobros(id, id1): Observable<any> {
-    var query = ref => ref.where('clave', '==', id)
-    return this.fire.collection('/user/' + id1 + '/cobros', query).snapshotChanges().pipe(map(changes => {
-      return changes.map(a => {
-        const data = a.payload.doc.data() as ingresos;
-        data.id = a.payload.doc.id;
-        return data;
-      })
-    }))
-  }*/
+  /* recuperacobros(id, id1): Observable<any> {
+     var query = ref => ref.where('clave', '==', id)
+     return this.fire.collection('/user/' + id1 + '/cobros', query).snapshotChanges().pipe(map(changes => {
+       return changes.map(a => {
+         const data = a.payload.doc.data() as ingresos;
+         data.id = a.payload.doc.id;
+         return data;
+       })
+     }))
+   }*/
   //recupera las transferencias para meter en *pagarenviocobro* aun no usado
   recuperacobrostransferencias(idco, id): Observable<any> {
     var query = ref => ref.where('clave', '==', idco)
@@ -799,7 +799,7 @@ export class AuthService {
     return this.fire.collection('user', query).valueChanges()
   }
 
-  
+
   //ordena historial 1er pantalla
   ordenarcobrostransferencias(id: string): Observable<any> {
     this.ingresoscollection = this.fire.collection('/user/' + id + '/cobrostransferencias/', x => x.orderBy('fecha', 'asc'));
@@ -812,10 +812,10 @@ export class AuthService {
     }))
   }
 
-  async datosgmail(pin,correo,telefono) {
+  async datosgmail(pin, correo, telefono) {
     const alert = await this.alertController.create({
       header: 'Fastgi',
-      message:   '<div> Por su seguridad y respaldo se enviara los datos a su correo <strong>' + correo + '</strong><br><br></div><table><tr><td><strong>Telefono:</strong></td><td>' + telefono + '</td></tr> <tr><td><strong>Correo:</strong></td><td>' + correo + '</td></tr><tr><td><strong>Pin:</strong></td><td>' + pin + '</td></tr></table>',
+      message: '<div> Por su seguridad y respaldo se enviara los datos a su correo <strong>' + correo + '</strong><br><br></div><table><tr><td><strong>Telefono:</strong></td><td>' + telefono + '</td></tr> <tr><td><strong>Correo:</strong></td><td>' + correo + '</td></tr><tr><td><strong>Pin:</strong></td><td>' + pin + '</td></tr></table>',
       backdropDismiss: false,
       buttons: [
         {
@@ -850,7 +850,7 @@ export class AuthService {
     return loading
   }
   // generar numero serial para el pago
-  recuperacont(){
+  recuperacont() {
     return this.fire.collection('cont').snapshotChanges().pipe(map(dat => {
       return dat.map(a => {
         const data = a.payload.doc.data() as cont;
@@ -864,11 +864,50 @@ export class AuthService {
     return this.fire.collection('cont').doc(id).set(numero, { merge: true })
   }
 
-  dos_decimales(cadena){
-    let expresion=/^\d+(\.\d{0,2})?$/;
-    let resultado=expresion.test(cadena);
+  dos_decimales(cadena) {
+    let expresion = /^\d+(\.\d{0,2})?$/;
+    let resultado = expresion.test(cadena);
     return resultado;
-    }
+  }
+
+  async enviocorreo1(idusuario, telefonousuario) {
+    const alert = await this.alertController.create({
+      header: 'Muy importante!',
+      subHeader: 'Debe ingresar su PIN para realizar todas las transacciones El CORREO para enviar sus datos para que pueda guardarlo',
+      backdropDismiss: false,
+      inputs: [
+        {
+          name: 'pin',
+          type: 'number',
+          placeholder: 'Pin'
+        },
+        {
+          name: 'correo',
+          type: 'text',
+          placeholder: 'Correo'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Aceptar',
+          handler: data => {
+            console.log('Confirm Ok');
+            this.registrapin({ password: data.pin }, idusuario);
+            this.registracorreo({ correo: data.correo }, idusuario);
+            this.datosgmail(data.pin, data.correo, telefonousuario)
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
 }
 
 

@@ -49,6 +49,8 @@ const routes: Routes = [
   //{ path: 'confirmacion', loadChildren: './confirmacion/confirmacion.module#ConfirmacionPageModule' },
   { path: 'confirmacion1', loadChildren: './confirmacion1/confirmacion1.module#Confirmacion1PageModule' },
   { path: 'confirmarpago', loadChildren: './confirmarpago/confirmarpago.module#ConfirmarpagoPageModule' },
+  { path: 'confirmacards', loadChildren: './confirmacards/confirmacards.module#ConfirmacardsPageModule' },
+  { path: 'confirmapagomonto', loadChildren: './confirmapagomonto/confirmapagomonto.module#ConfirmapagomontoPageModule' },
 
 ];
 @NgModule({
