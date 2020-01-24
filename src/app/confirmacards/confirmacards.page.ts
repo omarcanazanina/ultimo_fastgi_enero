@@ -3,7 +3,7 @@ import { AuthService } from '../servicios/auth.service';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { FcmService } from '../servicios/fcm.service';
 import { Router } from '@angular/router';
-import { ModalController, AlertController } from '@ionic/angular';
+import { ModalController} from '@ionic/angular';
 
 @Component({
   selector: 'app-confirmacards',
@@ -31,8 +31,7 @@ export class ConfirmacardsPage implements OnInit {
     public fire: AngularFirestore,
     private fcm: FcmService,
     public route: Router,
-    private modal: ModalController,
-    public alertController: AlertController) { }
+    private modal: ModalController) { }
 
   ngOnInit() {
 

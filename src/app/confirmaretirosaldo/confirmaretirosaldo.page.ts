@@ -31,7 +31,6 @@ export class ConfirmaretirosaldoPage implements OnInit {
   cajatotal: number
   cajatotal1:any
   banco: string
-  cuenta: number
   nombre: string
   ci: number
   caja: number

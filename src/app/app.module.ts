@@ -16,11 +16,11 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestore, FirestoreSettingsToken } from '@angular/fire/firestore';
 import { AngularFireStorageModule} from '@angular/fire/storage'
 //para modales
-import { UsuarioComponent } from './componentes/usuario/usuario.component';
+//import { UsuarioComponent } from './componentes/usuario/usuario.component';
 import { DetalleenviocobroPage } from './detalleenviocobro/detalleenviocobro.page'
 import { DetalleingresoegresoPage } from './detalleingresoegreso/detalleingresoegreso.page';
 import { DetalleegresoPage } from './detalleegreso/detalleegreso.page';
-import { EnviadatosgmailPage } from './enviadatosgmail/enviadatosgmail.page';
+//import { EnviadatosgmailPage } from './enviadatosgmail/enviadatosgmail.page';
 import {Confirmacion1Page} from './confirmacion1/confirmacion1.page';
 import { ConfirmarpagoPage } from './confirmarpago/confirmarpago.page';
 import { ConfirmacardsPage } from './confirmacards/confirmacards.page';
@@ -55,22 +55,23 @@ export const firebaseConfig = {
 
 @core.NgModule({
   declarations: [AppComponent,
-    UsuarioComponent,
+   // UsuarioComponent,
     DetalleenviocobroPage,
     DetalleingresoegresoPage,
     DetalleegresoPage,
-    EnviadatosgmailPage,
+    //EnviadatosgmailPage,
     Confirmacion1Page,
     ConfirmarpagoPage,
     ConfirmacardsPage,
     ConfirmapagomontoPage
   ],
 
-  entryComponents: [UsuarioComponent,
+  entryComponents: [
+    //UsuarioComponent,
     DetalleenviocobroPage,
     DetalleingresoegresoPage,
     DetalleegresoPage,
-    EnviadatosgmailPage,
+    //EnviadatosgmailPage,
     Confirmacion1Page,
     ConfirmarpagoPage,
     ConfirmacardsPage,

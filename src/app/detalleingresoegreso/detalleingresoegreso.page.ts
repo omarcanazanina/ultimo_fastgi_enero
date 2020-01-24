@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { AuthService } from '../servicios/auth.service';
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -12,7 +10,7 @@ export class DetalleingresoegresoPage implements OnInit {
 
   usu:any=[]
 
-  constructor(private activatedRoute: ActivatedRoute, private au: AuthService,private modal: ModalController) { }
+  constructor(private modal: ModalController) { }
 
   ngOnInit() {
 

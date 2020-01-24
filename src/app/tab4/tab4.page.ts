@@ -9,8 +9,10 @@ import { DetalleegresoPage } from '../detalleegreso/detalleegreso.page';
   styleUrls: ['./tab4.page.scss'],
 })
 export class Tab4Page implements OnInit {
-  id: string;
-  constructor(private au: AuthService, public modalController: ModalController) { }
+  
+  constructor(private au: AuthService, 
+    public modalController: ModalController) { }
+
   usuario = {
     cajainterna: "",
     nombre: "",

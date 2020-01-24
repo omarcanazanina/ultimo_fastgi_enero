@@ -10,8 +10,6 @@ import { AngularFirestore } from 'angularfire2/firestore';
 })
 export class RetirarsaldoPage implements OnInit {
   @ViewChild('input',{static:true}) myInput;
-  dato1 = null
-  uu: any
   usuario = {
     cajainterna: "",
     nombre: "",
@@ -23,6 +21,8 @@ export class RetirarsaldoPage implements OnInit {
     monto: "",
     uid: ""
   }
+  dato1 = null
+  uu: any
   cuentas: any = []
   fecha: Date
   fechita: any

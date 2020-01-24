@@ -33,9 +33,6 @@
     </ion-select>
   </ion-item> <br>
 
-
-  
-
   <div *ngIf="contador == 1 " class="div">
     <ion-label>Nro. de cuenta</ion-label><br>
     <input class="input2" [textMask]="{mask: mask4}" [(ngModel)]="miModelo.solonumero" type="text"
@@ -66,10 +63,10 @@
   </div>
   <br>
   <ion-item>
-      <ion-label position="floating">C.I.</ion-label>
-      <ion-input type="text" [(ngModel)]="ci" name="ci" placeholder="0000000" #solonumero="ngModel" minlength="7"
-        maxlength="10" required digits></ion-input>
-    </ion-item>
+    <ion-label position="floating">C.I.</ion-label>
+    <ion-input type="text" [(ngModel)]="ci" name="ci" placeholder="0000000" #solonumero="ngModel" minlength="7"
+      maxlength="10" required digits></ion-input>
+  </ion-item>
 
   <ion-item>
     <ion-label position="floating">Nombre completo</ion-label>
@@ -82,21 +79,3 @@
   <p class="texto">Se guardara los datos de la cuenta</p>
 
 </ion-content>
-<!--
-  <ion-item *ngIf="contador == 11 ">
-      <ion-label position="floating">Nro. de cuenta banco {{text}}</ion-label>
-      <ion-input type="text" [(ngModel)]="miModelo.solonumero" name="solonumero" #solonumero="ngModel" minlength="11"
-        maxlength="11" placeholder="ingrese nro de cuenta" required digits></ion-input>
-    </ion-item>
-     <ion-item *ngIf="contador == 10 ">
-      <ion-label position="floating">Nro. de cuenta banco {{text}}</ion-label>
-      <ion-input type="text" [(ngModel)]="miModelo.solonumero" name="solonumero" #solonumero="ngModel" minlength="10"
-        maxlength="10" placeholder="ingrese nro de cuenta" required digits></ion-input>
-    </ion-item>
-
-    <ion-item>
-    <ion-label position="floating">C.I.</ion-label>
-    <ion-input type="text" [(ngModel)]="ci" name="ci" placeholder="0000000" #solonumero="ngModel" minlength="7"
-      maxlength="10" required digits></ion-input>
-  </ion-item>
--->

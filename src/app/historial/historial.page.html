@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content color='dark'>
+<ion-content >
   <div *ngIf="c == 0">
     <p class="textito">Usted no tiene ninguna transacción</p><br>
     <p class="textito">Presionar el icono de la parte inferior para realizar transacciones</p>
@@ -27,8 +27,6 @@
       </ion-label>
     </ion-item>
     
- 
-
     <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)='paso()'>
       <ion-fab-button>
         <ion-icon name="chatboxes"></ion-icon>

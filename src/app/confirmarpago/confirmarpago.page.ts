@@ -26,9 +26,7 @@ export class ConfirmarpagoPage implements OnInit {
     private au: AuthService,
     public fire: AngularFirestore) { }
 
-  ngOnInit() {
-
-    
+  ngOnInit() { 
   }
   
   pagardeuda(pin){
@@ -79,7 +77,6 @@ export class ConfirmarpagoPage implements OnInit {
          this.au.passincorrecta();
          this.closeUsuario()
        }
- 
   }
 
   closeUsuario() {

@@ -25,7 +25,6 @@ export class CargacontarjetaPage implements OnInit {
 
   ngOnInit() {
     this.monto=this.activate.snapshot.paramMap.get('id')
-    console.log(this.monto);
     
     this.uu = this.au.pruebita();
     this.au.recuperaundato(this.uu).subscribe(usuario => {

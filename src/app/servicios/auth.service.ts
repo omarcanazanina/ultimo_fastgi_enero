@@ -66,6 +66,9 @@ export class AuthService {
   ingresos: Observable<ingresos[]>;
   ingresosDoc: AngularFirestoreDocument<ingresos>;
   abcs: any
+  //para el teclado numerico
+  gruponum = [7, 8, 9, 4, 5, 6, 1, 2, 3, '.', 0, 'Borrar']
+ 
   constructor(
     private db: AngularFireAuth,
     private route: Router,
@@ -880,7 +883,7 @@ export class AuthService {
           name: 'pin',
           type: 'number',
           placeholder: 'Pin'
-        },
+        }, 
         {
           name: 'correo',
           type: 'text',
@@ -908,6 +911,19 @@ export class AuthService {
     });
     await alert.present();
   }
+ // teclado(num,pin) {
+ //  let cont = 0
+ //   pin = ""
+ //   pin = pin + num
+ //   if (num == 'Borrar') {
+ //     pin = ""
+ //   } if (num == '.') {
+ //     cont = cont + 1
+ //   } if (cont > 1) {
+ //     pin = ""
+ //     cont = 0
+ //   }
+ // }
 }
 
 

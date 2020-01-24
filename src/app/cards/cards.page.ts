@@ -1,10 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActionSheetController, ModalController } from '@ionic/angular';
 import { AuthService } from '../servicios/auth.service'
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Router, ActivatedRoute } from '@angular/router';
-import { AlertController } from '@ionic/angular';
-import { FcmService } from '../servicios/fcm.service';
+import {  ActivatedRoute } from '@angular/router';
 import { ConfirmacardsPage } from '../confirmacards/confirmacards.page';
 
 @Component({
@@ -14,18 +11,14 @@ import { ConfirmacardsPage } from '../confirmacards/confirmacards.page';
 })
 export class CardsPage implements OnInit {
 
-  @ViewChild('input', { static: true }) myInput;
+ // @ViewChild('input', { static: true }) myInput;
   public fecha: Date;
   gruponum = [7, 8, 9, 4, 5, 6, 1, 2, 3, '.', 0, 'Borrar']
   cont = 0
   monto = ""
   constructor(public actionSheetController: ActionSheetController,
     private au: AuthService,
-    public fire: AngularFirestore,
-    public route: Router,
-    public alertController: AlertController,
     private activatedRoute: ActivatedRoute,
-    private fcm: FcmService,
     public modal: ModalController,
   ) {
   }
@@ -45,19 +38,14 @@ export class CardsPage implements OnInit {
     token: ""
   }
   uu: any;
-  //monto1: any;
   telefono = null;
   fechita: any;
-  //cajaactual: number
-  //cajaactual1: any
-  //cajaresta: number
-  //cajaresta1: any
   real: number
   ruta = (['/ingresoegreso'])
   ngOnInit() {
-    setTimeout(() => {
-      this.myInput.setFocus();
-    }, 150)
+   // setTimeout(() => {
+   //   this.myInput.setFocus();
+   // }, 150)
 
     this.telefono = this.activatedRoute.snapshot.paramMap.get('phoneNumber');
     this.real = parseFloat(this.monto)

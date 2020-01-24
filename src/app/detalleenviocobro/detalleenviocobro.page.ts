@@ -25,11 +25,10 @@ usuario={
       this.num= parseInt(this.usuario.cajainterna)
       this.numero=parseInt(this.usuario.cajainterna) +this.usu.monto 
     })
-   
-  
-     
   }
+
   closeUsuario() {
     this.modal.dismiss()
   }
+  
 }

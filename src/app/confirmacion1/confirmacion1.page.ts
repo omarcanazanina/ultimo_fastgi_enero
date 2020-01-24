@@ -19,10 +19,8 @@ export class Confirmacion1Page implements OnInit {
   detalle: any
   fecha: Date
   fechita: any
-  //cobrador
   cajaactual: number
   cajaactual1: any
-  //usuario
   cajainterna: number
   cajainterna1: any
   ruta = (['/ingresoegreso'])

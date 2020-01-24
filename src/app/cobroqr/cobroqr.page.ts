@@ -17,7 +17,6 @@ export class CobroqrPage implements OnInit {
   }
   uu: any;
   numero = 0
-  value = ""
   num
   gruponum = [7, 8, 9,4, 5, 6,1, 2, 3,'.', 0, 'Borrar']
    cont=0

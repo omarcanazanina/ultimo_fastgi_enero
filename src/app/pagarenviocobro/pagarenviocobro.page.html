@@ -4,7 +4,6 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
     </ion-buttons>
-    <!--<ion-icon class="icono"  slot="start" name="arrow-back" routerLink="/historial"></ion-icon> -->
   </ion-toolbar>
 </ion-header>
 
@@ -14,24 +13,16 @@
       <ion-card class="card2" *ngIf="usu.dato == 'enviatransferencia' ">
         <ion-card-content (click)="opendetalle(usu)">
           <b class="letras1">TRANSFERENCIA </b>
-          <b>
-            <p class="letras1">Fecha de envio:{{usu.fechita}}</p>
-          </b>
-          <b>
-            <p class="letras1">Monto:{{usu.monto}} Bs.</p>
-          </b>
+          <b> <p class="letras1">Fecha de envio:{{usu.fechita}}</p></b>
+          <b><p class="letras1">Monto:{{usu.monto}} Bs.</p></b>
           <p class="mas">ver mas</p>
         </ion-card-content>
       </ion-card>
       <ion-card class="card" *ngIf="usu.dato == 'recibetransferencia' " >
         <ion-card-content (click)="opendetalle(usu)">
           <b class="letras1">TRANSFERENCIA </b>
-          <b>
-            <p class="letras1">Fecha de envio:{{usu.fechita}}</p>
-          </b>
-          <b>
-            <p class="letras1">Monto:{{usu.monto}} Bs.</p>
-          </b>
+          <b><p class="letras1">Fecha de envio:{{usu.fechita}}</p></b>
+          <b><p class="letras1">Monto:{{usu.monto}} Bs.</p></b>
           <p class="mas">ver mas</p>
         </ion-card-content>
       </ion-card>
@@ -39,12 +30,8 @@
       <ion-card class="card" *ngIf="usu.dato == 'recibio' && usu.estado == 0">
         <ion-card-content>
           <b class="letras1">COBRO</b>
-          <b>
-            <p class="letras1">Fecha de envio:{{usu.fechita}}</p>
-          </b>
-          <b>
-            <p class="letras1">Monto:{{usu.monto}} Bs.</p>
-          </b>
+          <b><p class="letras1">Fecha de envio:{{usu.fechita}}</p></b>
+          <b><p class="letras1">Monto:{{usu.monto}} Bs.</p></b>
           <p class="mas" (click)="opendetalle(usu)">ver mas</p>
           <ion-row>
             <ion-col size="8" *ngIf="usu.estado == 0">
@@ -62,23 +49,15 @@
           <ion-card class="card">
             <ion-card-content>
               <b class="letras1">COBRO</b>
-              <b>
-                <p class="letras1">Fecha de envio:{{usu.fechita}}</p>
-              </b>
-              <b>
-                <p class="letras1">Monto:{{usu.monto}} Bs.</p>
-              </b>
+              <b><p class="letras1">Fecha de envio:{{usu.fechita}}</p></b>
+              <b><p class="letras1">Monto:{{usu.monto}} Bs.</p></b>
             </ion-card-content>
           </ion-card>
           <ion-card class="card1">
             <ion-card-content (click)="opendetalle(usu)">
               <b class="letras1">YA PAGADO</b>
-              <b>
-                <p class="letras1">Fecha de pago:{{usu.fechapago}}</p>
-              </b>
-              <b>
-                <p class="letras1">Monto:{{usu.monto}} Bs.</p>
-              </b>
+              <b><p class="letras1">Fecha de pago:{{usu.fechapago}}</p></b>
+              <b><p class="letras1">Monto:{{usu.monto}} Bs.</p></b>
               <p class="mas">ver mas</p>
             </ion-card-content>
           </ion-card>
@@ -88,12 +67,8 @@
       <ion-card class="card2" *ngIf="usu.dato == 'enviado' && usu.estado == 0">
         <ion-card-content (click)="opendetalle(usu)">
           <b class="letras1">COBRO</b>
-          <b>
-            <p class="letras1">Fecha de envio:{{usu.fechita}}</p>
-          </b>
-          <b>
-            <p class="letras1">Monto:{{usu.monto}} Bs.</p>
-          </b>
+          <b><p class="letras1">Fecha de envio:{{usu.fechita}}</p></b>
+          <b><p class="letras1">Monto:{{usu.monto}} Bs.</p></b>
           <p class="mas">ver mas</p>
         </ion-card-content>
       </ion-card>
@@ -104,24 +79,16 @@
           <ion-card class="card2">
             <ion-card-content>
               <b class="letras1">COBRO</b>
-              <b>
-                <p class="letras1">Fecha de envio:{{usu.fechita}}</p>
-              </b>
-              <b>
-                <p class="letras1">Monto:{{usu.monto}} Bs.</p>
-              </b>
+              <b><p class="letras1">Fecha de envio:{{usu.fechita}}</p></b>
+              <b><p class="letras1">Monto:{{usu.monto}} Bs.</p></b>
             </ion-card-content>
           </ion-card>
 
           <ion-card class="card11">
             <ion-card-content (click)="opendetalle(usu)">
               <b class="letras1">COBRO</b>
-              <b>
-                <p class="letras1">Fecha de pago:{{usu.fechapago}}</p>
-              </b>
-              <b>
-                <p class="letras1">Monto:{{usu.monto}} Bs.</p>
-              </b>
+              <b><p class="letras1">Fecha de pago:{{usu.fechapago}}</p></b>
+              <b><p class="letras1">Monto:{{usu.monto}} Bs.</p></b>
               <p class="mas">ver mas</p>
             </ion-card-content>
           </ion-card>
@@ -144,7 +111,6 @@
       <!-- <ion-col size="6" text-center (click)="transferencia(monto,detalle)">Transferir-antes</ion-col>-->
       <ion-col size="6"   text-center (click)="confirmacion1(monto,detalle)">transferir</ion-col>
       <ion-col size="6" text-center (click)="enviacobro(monto,detalle)">Cobrar</ion-col>
-     
     </ion-row>
   </ion-grid>
 </ion-footer>

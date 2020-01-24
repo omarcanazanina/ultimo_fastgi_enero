@@ -27,7 +27,6 @@ export class CargarsaldoPage implements OnInit {
     uid: ""
   }
   controlador = 0
-  tarjetas: string
   tarjetas1: any = []
   dato = null
   fecha: Date
@@ -37,19 +36,15 @@ export class CargarsaldoPage implements OnInit {
   caja: number
   caja1: any
   //pagos
-  recibido:any
-  contador:any
+  recibido: any
+  contador: any
 
-  //para la calculadora
-  gruponum = [7, 8, 9,4, 5, 6,1, 2, 3,'.', 0, 'Borrar']
-  cont=0
-  calculadora=""
   constructor(private au: AuthService,
     private activate: ActivatedRoute,
     public fire: AngularFirestore,
     public route: Router,
-    private client : HttpClient,
-    private brow:InAppBrowser) { }
+    private client: HttpClient,
+    private brow: InAppBrowser) { }
   ngOnInit() {
     setTimeout(() => {
       this.myInput.setFocus();
@@ -79,6 +74,7 @@ export class CargarsaldoPage implements OnInit {
       this.route.navigate(['confirmacargasaldo', monto])
     }
   }
+
   carga(monto) {
     if (monto == undefined) {
       this.au.ingresemonto()
@@ -86,6 +82,7 @@ export class CargarsaldoPage implements OnInit {
       this.route.navigate(['/cargacontarjeta', monto])
     }
   }
+
   cargadirecto(monto) {
     if (monto == undefined || this.au.dos_decimales(monto) !== true) {
       this.au.ingresemonto()
@@ -111,34 +108,21 @@ export class CargarsaldoPage implements OnInit {
   }
 
   enviadatos(monto) {
-  let subs = this.au.recuperacont().subscribe(cont =>{
-     this.contador = cont[0]
-     subs.unsubscribe()
+    let subs = this.au.recuperacont().subscribe(cont => {
+      this.contador = cont[0]
+      subs.unsubscribe()
       var formData = new FormData();
       formData.append("codRec", this.contador.numero);
       formData.append("monto", monto)
-      this.client.post("https://goodme.aridosgarzon.com/pagos/xml",formData).subscribe(res =>{
+      this.client.post("https://goodme.aridosgarzon.com/pagos/xml", formData).subscribe(res => {
         this.recibido = res
-        this.brow.create( `https://test.sintesis.com.bo/payment/#/pay?entidad=581&ref=${this.recibido.idTransaccion}&red=https://entrenador-personal-20e1f.firebaseapp.com/pagos/` ); 
+        this.brow.create(`https://test.sintesis.com.bo/payment/#/pay?entidad=581&ref=${this.recibido.idTransaccion}&red=https://entrenador-personal-20e1f.firebaseapp.com/pagos/`);
         //this.brow.create( `https://test.sintesis.com.bo/payment/#/pay?entidad=581&ref=${this.recibido.idTransaccion}&red=https://angular-fastgi.firebaseapp.com/;txt=${this.usuario.uid}` ); 
-        const c = this.contador.numero+1
-      this.au.actualizacontpago({ numero: c }, this.contador.id);
-      console.log(c);  
-      }) 
-   })
-  }
-
-  //prueba para el teclado
-  presionar(num) {
-    this.calculadora = this.calculadora + num
-    if (num == 'Borrar') {
-      this.calculadora = ""
-    } if(num == '.'){
-      this.cont=this.cont+1
-    }  if(this.cont > 1){
-      this.calculadora = ""
-      this.cont=0
-    }
+        const c = this.contador.numero + 1
+        this.au.actualizacontpago({ numero: c }, this.contador.id);
+        console.log(c);
+      })
+    })
   }
 
 }

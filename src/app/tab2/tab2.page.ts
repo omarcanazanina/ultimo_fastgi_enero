@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router} from '@angular/router';
 import { AuthService } from '../servicios/auth.service';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AlertController } from '@ionic/angular';
@@ -87,7 +87,7 @@ export class Tab2Page implements OnInit {
    //console.log(this.ordenado);
 
   }
-
+// funcion para cerrar la sesion de otro dispositivo
   cerrarsesionotro(){
     this.fcm.getToken().then(t => {
      this.tokencel = t
@@ -136,15 +136,6 @@ export class Tab2Page implements OnInit {
   historial() {
     this.route.navigate(['/ingresoegreso'])
   }
-  // prueba de dos decimales  
-  //verificar() {
-  //  let campo = this.valor
-  //  if (this.au.dos_decimales(campo) !== true) {
-  //    this.valor = ""
-  //  } else {
-  //    alert('formato correcto')
-  //  }
-  //}
 }
 
 

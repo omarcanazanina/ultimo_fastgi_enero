@@ -23,17 +23,6 @@
       </ion-segment-button>
     </ion-segment>
   </div>
-  <!--
-  <ion-item>
-      <ion-label>Día</ion-label>
-    <ion-datetime displayFormat="D M YYYY" [(ngModel)]="fecha" (ionChange)="fechaChange($event)"></ion-datetime>
-    </ion-item>
-    <ion-item>
-      <ion-label>Mes</ion-label>
-        <ion-datetime displayFormat="MM YYYY" placeholder="Select Date"></ion-datetime>
-      </ion-item>
-  -->
-
  
   <div [ngSwitch]="movimientos" class="segment">
     <ion-list *ngSwitchCase="'balance'">
@@ -99,6 +88,4 @@
       </ion-label>
     </ion-list>
   </div>
-  
- 
 </ion-content>
