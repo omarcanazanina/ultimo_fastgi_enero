@@ -66,9 +66,6 @@ export class AuthService {
   ingresos: Observable<ingresos[]>;
   ingresosDoc: AngularFirestoreDocument<ingresos>;
   abcs: any
-  //para el teclado numerico
-  gruponum = [7, 8, 9, 4, 5, 6, 1, 2, 3, '.', 0, 'Borrar']
- 
   constructor(
     private db: AngularFireAuth,
     private route: Router,
@@ -252,11 +249,7 @@ export class AuthService {
       this.route.navigate(['/index']);
     });
   }
-  cerrarsesion1(eltoken) {
-    this.db.auth.signOut().then(() => {
-      this.nav.navigateRoot(['/confirmarnum', eltoken])
-    });
-  }
+
   //recupera la caja de la aplicacion
   recuperacajaapp(): Observable<any> {
     return this.fire.collection('cajaapp').doc(this.id_cajaapp).valueChanges()
@@ -303,10 +296,6 @@ export class AuthService {
   //regitra o actualiza nombre 
   registranombre(nombre, id) {
     return this.fire.collection('user').doc(id).set(nombre, { merge: true })
-  }
-  //actualiza cajabancaria del usuario
-  actualizacajabancaria(cajabancaria, id) {
-    return this.fire.collection('user').doc(id).set(cajabancaria, { merge: true })
   }
   //actualiza badge (envio de correo) del usuario
   enviocorreo(badge, id) {
@@ -389,17 +378,6 @@ export class AuthService {
     await alert.present();
   }
 
-  async ahorroinsuficiente() {
-    const alert = await this.alertController.create({
-      header: 'Fastgi',
-      // subHeader: 'Envio Exitoso',
-      message: 'Su ahorro es insuficiente para realizar el pago',
-      backdropDismiss: false,
-      buttons: ['Aceptar']
-    });
-    await alert.present();
-  }
-
   async ahorroinsuficiente1(ruta) {
     const alert = await this.alertController.create({
       header: 'Fastgi',
@@ -424,15 +402,6 @@ export class AuthService {
     await alert.present();
   }
 
-
-  async transexitoso() {
-    const toast = await this.toastController.create({
-      message: 'La transferencia se realizo con exito',
-      duration: 3000,
-      position: 'top'
-    });
-    toast.present();
-  }
 
   async pagodecobroexitoso(monto, usu) {
     const toast = await this.toastController.create({
@@ -710,33 +679,6 @@ export class AuthService {
     await alert.present();
   }
 
-  //ordena cobrosapagar *tab1* no utilizado
-  /* ordenarcobros(id: string): Observable<any> {
-     this.ingresoscollection = this.fire.collection('/user/' + id + '/cobros/', x => x.orderBy('fecha', 'desc'));
-     return this.ingresos = this.ingresoscollection.snapshotChanges().pipe(map(changes => {
-       return changes.map(a => {
-         const data = a.payload.doc.data() as ingresos;
-         data.id = a.payload.doc.id;
-         return data;
-       })
-     }))
-   }*/
-
-  /* recuperaprueba(id): Observable<any> {
-    return this.fire.collection('/user/' + id + '/cobros').valueChanges()
-  }*/
-
-  // recupera cobrosapagar por id *pagarenviocobro* 
-  /* recuperacobros(id, id1): Observable<any> {
-     var query = ref => ref.where('clave', '==', id)
-     return this.fire.collection('/user/' + id1 + '/cobros', query).snapshotChanges().pipe(map(changes => {
-       return changes.map(a => {
-         const data = a.payload.doc.data() as ingresos;
-         data.id = a.payload.doc.id;
-         return data;
-       })
-     }))
-   }*/
   //recupera las transferencias para meter en *pagarenviocobro* aun no usado
   recuperacobrostransferencias(idco, id): Observable<any> {
     var query = ref => ref.where('clave', '==', idco)

@@ -82,14 +82,14 @@ export class Tab3Page {
       backdropDismiss: false,
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
             console.log('Confirm Cancel');
           }
         }, {
-          text: 'Ok',
+          text: 'Aceptar',
           handler: data => {
             this.au.registranombre({ nombre: data.nombre }, this.uu);
             if(data.nombre == ''){
@@ -118,14 +118,14 @@ export class Tab3Page {
       backdropDismiss: false,
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
             console.log('Confirm Cancel');
           }
         }, {
-          text: 'Ok',
+          text: 'Aceptar',
           handler: data => {
             this.au.registracorreo({ correo: data.correo}, this.uu);
             
