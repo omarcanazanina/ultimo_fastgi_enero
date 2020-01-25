@@ -38,14 +38,14 @@ export class CobroqrPage implements OnInit {
   createCode() {
     if (this.qrData <= "" || this.qrData == '0' || this.qrData == '0.' || this.qrData == '.0' || this.qrData =='.' || this.qrData =='00' || this.qrData =='000'|| this.qrData =='0000'|| this.au.dos_decimales(this.qrData) !== true) {
         this.au.ingresoinvalido()
-        this.route.navigate(['/recibedinero'])
+        this.route.navigate(['/tabs/tab2/recibedinero'])
     } else {
       this.createdCode = this.qrData + "/" + this.usuario.telefono;
     }
     this.numero = 1
   }
   volver() {
-    this.route.navigate(['/recibedinero'])
+    this.route.navigate(['/tabs/tab2/recibedinero'])
   }
   presionar(num) {
     this.qrData = this.qrData + num

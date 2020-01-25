@@ -88,15 +88,15 @@ export class HistorialPage implements OnInit {
   }
 
   paso() {
-    this.router.navigate(['/transferencias'])
+    this.router.navigate(['/tabs/historial/transferencias'])
   }
 
   enviadatos(usu) {
-    this.route.navigate(['/pagarenviocobro', usu.telefono, usu.formatted])
+    this.route.navigate(['/tabs/historial/pagarenviocobro', usu.telefono, usu.formatted])
   }
 
   enviadatos2(usu) {
-    this.route.navigate(['/pagarenviocobro', usu.phoneNumbers[0].value, usu.name.formatted])
+    this.route.navigate(['/tabs/historial/pagarenviocobro', usu.phoneNumbers[0].value, usu.name.formatted])
   }
 
   invitar() {

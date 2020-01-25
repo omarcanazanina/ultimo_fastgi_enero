@@ -63,14 +63,14 @@ export class RetirarsaldoPage implements OnInit {
     if(monto == undefined){
       this.au.ingresemonto()
     }else{
-      this.route.navigate(['/confirmaretirosaldo',monto])
+      this.route.navigate(['/tabs/tab2/confirmaretirosaldo',monto])
     }
   }
   ir(monto) {
     if (monto == undefined) {
       this.au.ingresemonto()
     } else {
-      this.route.navigate(['/retirarconcuenta', monto])
+      this.route.navigate(['/tabs/tab2/retirarconcuenta', monto])
     }
 
   }

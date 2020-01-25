@@ -143,7 +143,7 @@ export class Tab3Page {
   }
 
   mod(){
-    this.route.navigate(['/modpin'])
+    this.route.navigate(['/tabs/tab3/modpin'])
   }
   
   async cerrarsesion() {

@@ -124,9 +124,9 @@ export class Tab2Page implements OnInit {
         }
       }
       if (c == 0 && this.data.text != "") {
-        this.route.navigate(['/cards', this.data.text])
+        this.route.navigate(['/tabs/tab2/cards', this.data.text])
       } else {
-        this.route.navigate(['/escaner', convertido1, convertido2])
+        this.route.navigate(['/tabs/tab2/escaner', convertido1, convertido2])
       }
     }).catch(err => {
       console.log('Error', err);
@@ -134,7 +134,7 @@ export class Tab2Page implements OnInit {
   }
 
   historial() {
-    this.route.navigate(['/ingresoegreso'])
+    this.route.navigate(['/tabs/tab2/ingresoegreso'])
   }
 }
 

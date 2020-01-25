@@ -83,7 +83,7 @@ export class TransferenciasPage implements OnInit {
     return loading;
   }
   enviadatos(usu) {
-    this.route.navigate(['/pagarenviocobro', usu.phoneNumbers[0].value, usu.name.formatted])
+    this.route.navigate(['/tabs/tab2/pagarenviocobro', usu.phoneNumbers[0].value, usu.name.formatted])
   }
 
   invitar() {
