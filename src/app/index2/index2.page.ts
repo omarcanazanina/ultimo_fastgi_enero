@@ -87,7 +87,7 @@ export class Index2Page implements OnInit {
               });
               alert.present();
             })
-            .catch(function (error) {
+            .catch( error =>{
               alert('no se envio sms desde el logueo')
               console.error("SMS not sent", error);
             });

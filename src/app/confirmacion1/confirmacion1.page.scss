@@ -2,12 +2,10 @@
 .botones{
     width: 30%;
  }
- .ok{
-    height: 95%;
- }
+ 
  .div1{
     position: relative;
-    top: 30%;
+    top: 25%;
  }
 .pin{
     font-size: 30px;
@@ -18,4 +16,20 @@
 }
 .text{
    color: #ffffff;
+}
+.ok{
+   height: 90%;
+   width: 100%;
+   background-color: #631cce;
+}
+.borrar{
+   height: 46%;
+   width: 100%;
+}
+.imagen{
+   width: 30px;
+}
+.botonsito{ 
+   width: 100%;
+   height: 50%;
 }

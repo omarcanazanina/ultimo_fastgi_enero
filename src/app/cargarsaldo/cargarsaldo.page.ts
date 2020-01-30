@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { HttpClient } from '@angular/common/http';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { Keyboard } from '@ionic-native/keyboard/ngx';
 @Component({
   selector: 'app-cargarsaldo',
   templateUrl: './cargarsaldo.page.html',
@@ -44,10 +45,13 @@ export class CargarsaldoPage implements OnInit {
     public fire: AngularFirestore,
     public route: Router,
     private client: HttpClient,
-    private brow: InAppBrowser) { }
+    private brow: InAppBrowser,
+    
+    private keyboard: Keyboard) { }
   ngOnInit() {
     setTimeout(() => {
       this.myInput.setFocus();
+      this.ocultar()
     }, 150)
     this.dato = this.activate.snapshot.paramMap.get('id')
 
@@ -123,6 +127,10 @@ export class CargarsaldoPage implements OnInit {
         console.log(c);
       })
     })
+  }
+
+  ocultar() {
+    this.keyboard.hide()
   }
 
 }

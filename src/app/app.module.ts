@@ -41,6 +41,7 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 import { ConfirmapagomontoPage } from './confirmapagomonto/confirmapagomonto.page';
+import { Keyboard } from '@ionic-native/keyboard/ngx';
 
 
 
@@ -106,7 +107,8 @@ export const firebaseConfig = {
     InAppBrowser,
     Camera,
     File,
-    Base64ToGallery 
+    Base64ToGallery ,
+    Keyboard
   ],
 
   bootstrap: [AppComponent]

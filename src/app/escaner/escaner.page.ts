@@ -4,6 +4,7 @@ import { AuthService } from '../servicios/auth.service';
 import { ModalController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ConfirmapagomontoPage } from '../confirmapagomonto/confirmapagomonto.page';
+import { Confirmacion1Page } from '../confirmacion1/confirmacion1.page';
 
 @Component({
   selector: 'app-escaner',
@@ -61,12 +62,12 @@ export class EscanerPage implements OnInit {
     } else {
       if (parseFloat(this.usuario.cajainterna) >= parseFloat(monto)) {
         this.modal.create({
-          component: ConfirmapagomontoPage,
+          component: Confirmacion1Page,
           //cssClass: 'detalleenviocobro',
           componentProps: {
-            usuario: this.usuario,
-            contelefono: this.contelefono,
-            monto: monto
+            usuario_conmonto: this.usuario,
+            contelefono_conmonto: this.contelefono,
+            monto_conmonto: monto
           }
         }).then((modal) => modal.present())
       } else {

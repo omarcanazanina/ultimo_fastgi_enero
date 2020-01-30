@@ -3,6 +3,7 @@ import { ActionSheetController, ModalController } from '@ionic/angular';
 import { AuthService } from '../servicios/auth.service'
 import {  ActivatedRoute } from '@angular/router';
 import { ConfirmacardsPage } from '../confirmacards/confirmacards.page';
+import { Confirmacion1Page } from '../confirmacion1/confirmacion1.page';
 
 @Component({
   selector: 'app-cards',
@@ -71,12 +72,12 @@ export class CardsPage implements OnInit {
       } else {
         if (parseFloat(this.usuario.cajainterna) >= parseFloat(monto)) {
           this.modal.create({
-            component: ConfirmacardsPage,
+            component: Confirmacion1Page,
             //cssClass: 'detalleenviocobro',
             componentProps: {
-              usuario: this.usuario,
-              contelefono: this.contelefono,
-              monto: monto
+              usuario_sinmonto: this.usuario,
+              contelefono_sinmonto: this.contelefono,
+              monto_sinmonto: monto
             }
           }).then((modal) => modal.present())
         } else {

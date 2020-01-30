@@ -56,9 +56,9 @@ export interface transferencias {
   providedIn: 'root'
 })
 export class AuthService {
-  public tran: any;
-  public datito: any = [];
-  public uid: any;
+  tran: any;
+  datito: any = [];
+  uid: any;
   database: any;
   nombre: any;
   id_cajaapp = 'ZRyippkKqJIiL1Ha5PR9';
@@ -297,8 +297,8 @@ export class AuthService {
   registranombre(nombre, id) {
     return this.fire.collection('user').doc(id).set(nombre, { merge: true })
   }
-  //actualiza badge (envio de correo) del usuario
-  enviocorreo(badge, id) {
+  //actualiza badge del usuario
+  actualizarbadge(badge, id) {
     return this.fire.collection('user').doc(id).set(badge, { merge: true })
   }
   //recupera datos del usuario con el correo
@@ -853,11 +853,15 @@ export class AuthService {
     });
     await alert.present();
   }
- // teclado(num,pin) {
+
+
+ // teclado(num) {
+ //  let gruponum = [7, 8, 9, 4, 5, 6, 1, 2, 3, '.', 0, 'v']
+ //  let pin = ""
  //  let cont = 0
  //   pin = ""
  //   pin = pin + num
- //   if (num == 'Borrar') {
+ //   if (num == 'v') {
  //     pin = ""
  //   } if (num == '.') {
  //     cont = cont + 1

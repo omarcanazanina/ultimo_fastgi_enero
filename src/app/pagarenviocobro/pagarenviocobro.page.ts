@@ -15,6 +15,11 @@ import { ConfirmarpagoPage } from '../confirmarpago/confirmarpago.page';
   styleUrls: ['./pagarenviocobro.page.scss'],
 })
 export class PagarenviocobroPage implements OnInit {
+  @ViewChild('input', { static: true }) myInput;
+  controladorteclado=0
+  gruponum = [7, 8, 9, 4, 5, 6, 1, 2, 3, '.', 0, 'v']
+  cont1 = 0
+  pin = ""
   estado = true
   uu: any
   //cobro: any = []
@@ -87,12 +92,12 @@ export class PagarenviocobroPage implements OnInit {
   }
 
   //funcion enviar cobro
-  enviacobro(monto, detalle) {
+  enviacobro( detalle) {
     this.fecha = new Date();
     const mes = this.fecha.getMonth() + 1;
     this.fechita = this.fecha.getDate() + "-" + mes + "-" + this.fecha.getFullYear() + " " + this.fecha.getHours() + ":" + this.fecha.getMinutes() + ":" + this.fecha.getSeconds();
     this.fire.collection('/user/' + this.usuario.uid + '/cobrostransferencias').add({
-      monto: monto,
+      monto: this.pin,
       dato: 'enviado',
       clave: this.cobrador.uid,
       formatted: this.nombresito,
@@ -104,7 +109,7 @@ export class PagarenviocobroPage implements OnInit {
       estado: 0
     })
     this.fire.collection('/user/' + this.cobrador.uid + '/cobrostransferencias').add({
-      monto: monto,
+      monto: this.pin,
       dato: 'recibio',
       clave: this.usuario.uid,
       formatted: this.usuario.nombre,
@@ -115,8 +120,8 @@ export class PagarenviocobroPage implements OnInit {
       detalle: detalle,
       estado: 0
     })
-    this.au.enviocobro(monto, this.nombresito)
-    this.fcm.notificacionforToken("Fastgi", "Acaba de recibir una solicitud de pago de " + monto + "Bs. de " + this.usuario.nombre + " ", this.cobrador.token, this.usuario.uid, "/tabs/tab2")
+    this.au.enviocobro(this.pin, this.nombresito)
+    this.fcm.notificacionforToken("Fastgi", "Acaba de recibir una solicitud de pago de " + this.pin + "Bs. de " + this.usuario.nombre + " ", this.cobrador.token, this.usuario.uid, "/tabs/tab2")
     this.monto = ''
     this.detalle = ''
   }
@@ -142,22 +147,22 @@ export class PagarenviocobroPage implements OnInit {
     } 
   }
 // funcion hacer transferencia
-  async confirmacion1(monto,detalle) {
+  async confirmacion1(detalle) {
     if (parseInt(this.usuario.password) == 0) {
       this.au.enviocorreo1(this.usuario.uid,this.usuario.telefono)
     }else{
-      if(monto <= 0 ){
+      if(parseFloat(this.pin) <= 0 ){
         this.au.ingresoinvalido()
       }else{
-        if(parseFloat(this.usuario.cajainterna) >= parseFloat(monto)){
+        if(parseFloat(this.usuario.cajainterna) >= parseFloat(this.pin)){
           const modal = await this.modalController.create({
             component: Confirmacion1Page,
             cssClass: 'confirmacion1',
             componentProps: {
-              usuario: this.usuario,
-              cobrador: this.cobrador,
-              monto: monto,
-              detalle: detalle
+              usuario_transferencia: this.usuario,
+              cobrador_transferencia: this.cobrador,
+              monto_transferencia: this.pin,
+              detalle_transferencia: detalle
             }
           });
            modal.present();
@@ -167,6 +172,35 @@ export class PagarenviocobroPage implements OnInit {
      
       }
     }
+  }
+
+//para el teclado en campo monto
+  teclado(){
+    this.controladorteclado=1
+  }
+  presionar(num) {
+    this.pin = this.pin + num
+    if (num == 'v') {
+      setTimeout(() => {
+        this.myInput.setFocus();
+      }, 150)
+      this.controladorteclado=0
+    } if (num == '.') {
+      this.cont1 = this.cont1 + 1
+    } if (this.cont1 > 1) {
+      this.pin = ""
+      this.cont1 = 0
+    }
+  }
+
+  borrar(){
+    this.pin=""
+  }
+  ok(){
+    this.controladorteclado=0
+    setTimeout(() => {
+      this.myInput.setFocus();
+    }, 150)
   }
 
 }

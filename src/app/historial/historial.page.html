@@ -8,6 +8,12 @@
 </ion-header>
 
 <ion-content >
+ <!--
+   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+ --> 
+  
   <div *ngIf="c == 0">
     <p class="textito">Usted no tiene ninguna transacción</p><br>
     <p class="textito">Presionar el icono de la parte inferior para realizar transacciones</p>
@@ -18,14 +24,28 @@
     </ion-fab>
   </div>
   <div *ngIf="c == 1 ">
-    <ion-item *ngFor="let usu of historial  | filtro1: textoBuscar " lines="none" (click)="enviadatos(usu)">
-      <ion-avatar item-start>
-        <img src="assets/svg/logo_contact.svg" >
-      </ion-avatar>
-      <ion-label class="label-alumnos">{{usu.formatted}}
-        <p>{{usu.telefono}}</p>
-      </ion-label>
-    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="10">
+          <ion-item *ngFor="let usu of historial  | filtro1: textoBuscar " lines="none" (click)="enviadatos(usu)">
+            <ion-avatar item-start>
+              <img src="assets/svg/logo_contact.svg" >
+            </ion-avatar>
+            <ion-label class="label-alumnos">{{usu.formatted}}
+              <p>{{usu.telefono}}</p>
+            </ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col size="2">
+          
+          <div *ngFor="let dato of num" >
+            <br>
+            <ion-badge color="tertiary">{{dato.a}}</ion-badge><br>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+   
     
     <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)='paso()'>
       <ion-fab-button>
@@ -44,7 +64,7 @@
           <img src="assets/svg/logo_contact.svg" >
         </ion-avatar>
         <ion-label class="label-alumnos"> {{usu.name.formatted}}
-          <p> {{usu.phoneNumbers[0].value}} </p>
+          <p> {{usu.phoneNumbers[0].value}}</p>
         </ion-label>
       </ion-item>
     </ion-list>

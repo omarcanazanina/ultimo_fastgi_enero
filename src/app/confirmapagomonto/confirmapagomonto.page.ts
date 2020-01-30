@@ -12,7 +12,7 @@ import { FcmService } from '../servicios/fcm.service';
 })
 export class ConfirmapagomontoPage implements OnInit {
 //para el teclado
-gruponum = [7, 8, 9, 4, 5, 6, 1, 2, 3, '.', 0, 'Borrar']    
+gruponum = [7, 8, 9, 4, 5, 6, 1, 2, 3, '.', 0, 'v']    
 pin=""
 cont = 0
 //datos enviados desde escaner

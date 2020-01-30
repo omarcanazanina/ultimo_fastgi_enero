@@ -4,8 +4,6 @@ import {AuthGuard} from './guards/auth.guard';
 import {NologinGuard} from './guards/nologin.guard'
 const routes: Routes = [
   { path: '', loadChildren: './tabs/tabs.module#TabsPageModule' },
-  //{ path: 'escaner/:monto/:phoneNumber', loadChildren: './escaner/escaner.module#EscanerPageModule' },
-  //{ path: 'cards/:phoneNumber', loadChildren: './cards/cards.module#CardsPageModule' },
   { path: 'tabs', loadChildren: './tabs/tabs.module#TabsPageModule' },
   { path: 'tab2', loadChildren: './tab2/tab2.module#Tab2PageModule' , canActivate:[AuthGuard]},
   { path: 'index', loadChildren: './index/index.module#IndexPageModule'  ,canActivate:[NologinGuard]},
@@ -19,6 +17,7 @@ const routes: Routes = [
   { path: 'confirmarpago', loadChildren: './confirmarpago/confirmarpago.module#ConfirmarpagoPageModule' },
   { path: 'confirmacards', loadChildren: './confirmacards/confirmacards.module#ConfirmacardsPageModule' },
   { path: 'confirmapagomonto', loadChildren: './confirmapagomonto/confirmapagomonto.module#ConfirmapagomontoPageModule' },
+  { path: 'pageprueba', loadChildren: './prueba/pageprueba/pageprueba.module#PagepruebaPageModule' },
 
 ];
 @NgModule({

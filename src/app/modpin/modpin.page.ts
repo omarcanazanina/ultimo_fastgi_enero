@@ -19,6 +19,9 @@ export class ModpinPage implements OnInit {
     correo:"",
     telefono:""
   }
+  gruponum = [7, 8, 9, 4, 5, 6, 1, 2, 3, '.', 0, 'Borrar']
+  cont = 0
+  pin = ""
   constructor(private au: AuthService,
     public alertController: AlertController,
     private router: Router) { }
@@ -51,6 +54,18 @@ export class ModpinPage implements OnInit {
   
   volver(){
     this.router.navigate(['tabs/tab3'])
+  }
+
+  presionar(num) {
+    this.pin = this.pin + num
+    if (num == 'Borrar') {
+      this.pin = ""
+    } if (num == '.') {
+      this.cont = this.cont + 1
+    } if (this.cont > 1) {
+      this.pin = ""
+      this.cont = 0
+    }
   }
 
 }

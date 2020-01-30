@@ -26,24 +26,40 @@ export class HistorialPage implements OnInit {
   ContactsNone = []
   ContactsTrue = []
   controlador = 0
+  //para los badges
+  num=[]
+  badge=0
+  idusuario:any
   constructor(private router: Router,
     private au: AuthService,
     private route: Router,
     private contactos: Contacts,
     private socialShare: SocialSharing) {
+    
   }
 
   ngOnInit() {
+   // this.doRefresh(event)
     this.uu = this.au.pruebita();
     this.au.recuperaundato(this.uu).subscribe(usuario => {
       this.usuario = usuario;
+      this.idusuario=this.usuario.uid
       this.au.ordenarcobrostransferencias(this.usuario.uid).subscribe(info => {
         this.historial = info.filter((valor, indiceActual, arreglo) => arreglo.findIndex((item) => item.telefono === valor.telefono
         ) === indiceActual);
-        console.log(this.historial);
+        //metodo para recuperar los badges
+        //this.au.recuperaundato(this.historial.id)
+        //console.log(this.historial);
+        this.historial.forEach(element => {
+          let su = this.au.recuperaundato(element.clave).subscribe(eldato =>{
+            this.num.push({"a": eldato.badge })
+            su.unsubscribe();
+          //  console.log(this.num);
+          })
+        });
+        //
         if(this.historial.length > 0)
         this.c=1
-
         //importar contactos
         let options = {
           filter: '',
@@ -69,15 +85,28 @@ export class HistorialPage implements OnInit {
             }
           }
         })
+        .catch(error => {
+          console.log(error);
+          
+        })
        // alert(JSON.stringify(this.ContactsTrue))
       })
+    
     })
+
   }
   codigo(num) {
     let nuevo = num.replace("+591", "").trim()
     return nuevo
   }
 
+ // doRefresh(event) {
+ //   console.log('Begin async operation');
+ //   setTimeout(() => {
+ //     console.log('Async operation has ended');
+ //     event.target.complete();
+ //   }, 2000);
+ // }
   BuscarHistorial(event) {
     this.textoBuscar = event.target.value;
     if(this.textoBuscar !=''){
@@ -92,7 +121,8 @@ export class HistorialPage implements OnInit {
   }
 
   enviadatos(usu) {
-    this.route.navigate(['/tabs/historial/pagarenviocobro', usu.telefono, usu.formatted])
+     this.route.navigate(['/tabs/historial/pagarenviocobro', usu.telefono, usu.formatted])
+     this.au.actualizabadge({ badge: this.badge }, usu.clave);
   }
 
   enviadatos2(usu) {
