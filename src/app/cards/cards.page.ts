@@ -15,7 +15,7 @@ export class CardsPage implements OnInit {
   
   fecha: Date;
   controladorteclado=1
-  gruponum = [7, 8, 9, 4, 5, 6, 1, 2, 3, '.', 0, 'v']
+  gruponum = [1, 2, 3, 4, 5, 6, 7, 8, 9, '.', 0]
   cont = 0
   monto = ""
   constructor(public actionSheetController: ActionSheetController,
@@ -87,18 +87,20 @@ export class CardsPage implements OnInit {
   //funciones para el teclado
   presionar(num) {
     this.monto = this.monto + num
-    if (num == 'v') {
-      this.borrar()
-      this.controladorteclado=0
-    } if (num == '.') {
+   if (num == '.') {
       this.cont = this.cont + 1
     } if (this.cont > 1) {
       this.monto = ""
       this.cont = 0
     }
   }
+
   borrar() {
-    this.monto=this.monto.substring(0,this.monto.length-1)
+    this.monto = this.monto.substring(0, this.monto.length - 1)
+  }
+  
+  ocultar() {
+    this.controladorteclado = 0
   }
   label() {
     this.controladorteclado = 1

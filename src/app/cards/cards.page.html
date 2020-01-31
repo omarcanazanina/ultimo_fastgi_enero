@@ -20,14 +20,11 @@
         <ion-col size="9">
           <ion-button color="light" *ngFor="let n of gruponum" (click)="presionar(n)" class="botones">{{n}}
           </ion-button>
+          <ion-button color="light" class="imagen1" (click)="ocultar()"><ion-img src="./assets/icon/teclado.svg" class="imagen"></ion-img></ion-button>
         </ion-col>
         <ion-col size="3">
-          <ion-button color="light" class="borrar" (click)="borrar()">
-            <ion-img src="./assets/icon/retroceso.svg" class="imagen"></ion-img>
-          </ion-button>
-          <div class="botonsito">
-            <ion-button class="ok" (click)="confirmapago(pin)">ok</ion-button>
-          </div>
+          <ion-button color="light" class="borrar" (click)="borrar()"><ion-img src="./assets/icon/retroceso.svg" class="imagen"></ion-img></ion-button>
+          <ion-button  class="ok" (click)="confirmapago(pin)">ok</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
