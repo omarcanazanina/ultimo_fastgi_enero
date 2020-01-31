@@ -147,26 +147,6 @@ export class Tab2Page implements OnInit {
     this.route.navigate(['/tabs/tab2/ingresoegreso'])
 
   }
-  
-
-    presionar(num) {
-      this.pin = this.pin + num
-      if (num == 'v') {
-        console.log('se presiono el ocultar');
-      } if (num == '.') {
-        this.cont = this.cont + 1
-      } if (this.cont > 1) {
-        this.pin = ""
-        this.cont = 0
-      }
-    }
-    ok(){
-      console.log('se presiono ok');
-      
-    }
-    borrar(){
-      this.pin=""
-    }
 }
 
 

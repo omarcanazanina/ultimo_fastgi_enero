@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../servicios/auth.service';
 import { ModalController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { ConfirmapagomontoPage } from '../confirmapagomonto/confirmapagomonto.page';
 import { Confirmacion1Page } from '../confirmacion1/confirmacion1.page';
 
 @Component({

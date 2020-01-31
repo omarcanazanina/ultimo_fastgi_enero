@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class Confirmacion1Page implements OnInit {
   //para el telado
   controladorteclado = 1
-  gruponum = [7, 8, 9, 4, 5, 6, 1, 2, 3, '.', 0, 'v']
+  gruponum = [1, 2, 3, 4, 5, 6, 7, 8, 9, '.', 0]
   cont = 0
   pin = ""
 
@@ -48,6 +48,16 @@ export class Confirmacion1Page implements OnInit {
   cajaresta_conmonto: number;
   cajaresta1_conmonto: any
   real_conmonto: number;
+  //datos recibidos para pagar cobro (pagarenviocobro)
+  usuario_pagodeuda:any = []
+  cobrador_pagodeuda:any = []
+  usu_pagodeuda: any =[]
+
+  cajaactual_pagodeuda: number
+  cajaactual1_pagodeuda: any
+  cajainterna_pagodeuda: number
+  cajainterna1_pagodeuda: any
+  estado_pagodeuda=true
   //datos para rescatar la fecha
   fecha: Date
   fechita: any
@@ -64,9 +74,6 @@ export class Confirmacion1Page implements OnInit {
 
   ngOnInit() {
     this.real_conmonto = parseFloat(this.monto_conmonto)
-    alert(JSON.stringify(this.usuario_transferencia))
-    alert(JSON.stringify(this.usuario_conmonto))
-    alert(JSON.stringify(this.usuario_sinmonto))
   }
   //cerrar modal
   closeUsuario() {
@@ -75,10 +82,7 @@ export class Confirmacion1Page implements OnInit {
   //funciones para el teclado
   presionar(num) {
     this.pin = this.pin + num
-    if (num == 'v') {
-      this.pin = ""
-      this.controladorteclado = 0
-    } if (num == '.') {
+   if (num == '.') {
       this.cont = this.cont + 1
     } if (this.cont > 1) {
       this.pin = ""
@@ -87,7 +91,11 @@ export class Confirmacion1Page implements OnInit {
   }
 
   borrar() {
-    this.pin = ""
+    this.pin = this.pin.substring(0, this.pin.length - 1)
+  }
+  
+  ocultar() {
+    this.controladorteclado = 0
   }
   label() {
     this.controladorteclado = 1
@@ -108,7 +116,7 @@ export class Confirmacion1Page implements OnInit {
         this.fecha = new Date();
         const mes = this.fecha.getMonth() + 1;
         this.fechita = this.fecha.getDate() + "-" + mes + "-" + this.fecha.getFullYear() + " " + this.fecha.getHours() + ":" + this.fecha.getMinutes() + ":" + this.fecha.getSeconds();
-        if (this.monto_transferencia <= 0) {
+        if (this.monto_transferencia == 0) {
           this.au.ingresoinvalido()
         } else {
           if (pin == this.usuario_transferencia.password) {
@@ -165,8 +173,6 @@ export class Confirmacion1Page implements OnInit {
             this.au.transexitoso1(this.monto_transferencia, this.cobrador_transferencia.nombre); //this.nombresito);
             this.fcm.notificacionforToken("Fastgi", "Acaba de recibir una tranferencia de " + this.monto_transferencia + "Bs. de " + this.usuario_transferencia.nombre + " ", this.cobrador_transferencia.token, this.usuario_transferencia.uid, "/tabs/tab2")
             this.modal.dismiss();
-            this.monto_transferencia = ''
-            this.detalle_transferencia = ''
             this.badgeactual = this.cobrador_transferencia.badge + 1
             console.log(this.badgeactual);
             this.au.actualizabadge({ badge: this.badgeactual }, this.cobrador_transferencia.uid);
@@ -265,6 +271,58 @@ export class Confirmacion1Page implements OnInit {
             this.route.navigate(['tabs/tab2'])
           } else {
             this.au.passincorrecta();
+          }
+        }else{
+          if(this.usuario_pagodeuda != ""){
+            alert('funcion pagodeuda')
+            this.fecha = new Date();
+            const mes = this.fecha.getMonth() + 1;
+            this.fechita = this.fecha.getDate() + "-" + mes + "-" + this.fecha.getFullYear() + " " + this.fecha.getHours() + ":" + this.fecha.getMinutes() + ":" + this.fecha.getSeconds();
+       
+            this.au.recuperaenviocobros(this.usuario_pagodeuda.uid, this.cobrador_pagodeuda.uid, this.usu_pagodeuda.fechita).subscribe(dat => {
+              let prueba11 = dat[0]
+              this.au.agregafechapagocobros({ fechapago: this.fechita }, this.usuario_pagodeuda.uid, this.usu_pagodeuda.id)
+              this.au.agregafechapagocobros({ fechapago: this.fechita }, this.cobrador_pagodeuda.uid, prueba11.id)
+              this.au.actualizaestadodecobro({ estado: 1 }, this.cobrador_pagodeuda.uid, prueba11.id)
+             })
+              if(pin == this.usuario_pagodeuda.password){
+                this.cajaactual_pagodeuda = parseFloat(this.usuario_pagodeuda.cajainterna) - parseFloat(this.usu_pagodeuda.monto);
+                this.cajaactual1_pagodeuda = this.cajaactual_pagodeuda.toFixed(2)
+                this.au.actualizacaja({ cajainterna: this.cajaactual1_pagodeuda }, this.usuario_pagodeuda.uid);
+                this.au.actualizaestadodecobro({ estado: 1 }, this.usuario_pagodeuda.uid, this.usu_pagodeuda.id)
+                this.fire.collection('/user/' + this.usuario_pagodeuda.uid + '/egreso').add({
+                  monto: this.usu_pagodeuda.monto,
+                  id: this.cobrador_pagodeuda.uid,
+                  nombre: this.cobrador_pagodeuda.nombre,//this.nombresito,
+                  telefono: this.cobrador_pagodeuda.telefono,
+                  fechita: this.fechita,
+                  fecha: this.fecha,
+                  descripcion: 'pago por envio de cobro',
+                  saldo: this.cajaactual1_pagodeuda,
+                  identificador: '0'
+                })
+                this.cajainterna_pagodeuda = parseFloat(this.cobrador_pagodeuda.cajainterna) + parseFloat(this.usu_pagodeuda.monto);
+                this.cajainterna1_pagodeuda = this.cajainterna_pagodeuda.toFixed(2)
+                this.au.actualizacaja({ cajainterna: this.cajainterna_pagodeuda }, this.cobrador_pagodeuda.uid)
+                this.fire.collection('/user/' + this.cobrador_pagodeuda.uid + '/ingresos').add({
+                  monto: this.usu_pagodeuda.monto,
+                  id: this.usuario_pagodeuda.uid,
+                  nombre: this.usuario_pagodeuda.nombre,
+                  telefono: this.usuario_pagodeuda.telefono,
+                  fechita: this.fechita,
+                  fecha: this.fecha,
+                  descripcion: 'recibio por envio de cobro',
+                  saldo: this.cajainterna1_pagodeuda,
+                  identificador: '1'
+                })
+                this.au.pagodecobroexitoso(this.usu_pagodeuda.monto,this.cobrador_pagodeuda.nombre );//this.nombresito);
+                this.fcm.notificacionforToken("Fastgi", " Acaba de recibir el pago de " + this.usu_pagodeuda.monto + "Bs. de " + this.usuario_pagodeuda.telefono + " ", this.cobrador_pagodeuda.token, this.usuario_pagodeuda.uid, "/tabs/tab2")
+                this.closeUsuario();
+                this.estado_pagodeuda = true
+              }else{
+                this.au.passincorrecta();
+                this.closeUsuario()
+              }
           }
         }
       }

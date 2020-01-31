@@ -16,8 +16,8 @@ import { ConfirmarpagoPage } from '../confirmarpago/confirmarpago.page';
 })
 export class PagarenviocobroPage implements OnInit {
   @ViewChild('input', { static: true }) myInput;
-  controladorteclado=0
-  gruponum = [7, 8, 9, 4, 5, 6, 1, 2, 3, '.', 0, 'v']
+  controladorteclado = 0
+  gruponum = [1, 2, 3, 4, 5, 6, 7, 8, 9, '.', 0]
   cont1 = 0
   pin = ""
   estado = true
@@ -42,8 +42,8 @@ export class PagarenviocobroPage implements OnInit {
   monto
   detalle
   numerosincodigo
-  ruta=(['/ingresoegreso'])
-  
+  ruta = (['/ingresoegreso'])
+
   @ViewChild("content", { static: true }) content: IonContent
   constructor(private activatedRoute: ActivatedRoute,
     private au: AuthService,
@@ -80,7 +80,7 @@ export class PagarenviocobroPage implements OnInit {
     })
   }
 
-//abrir detalle del cobro a apgar
+  //abrir detalle del cobro a apgar
   opendetalle(usu) {
     this.modal.create({
       component: DetalleenviocobroPage,
@@ -92,7 +92,7 @@ export class PagarenviocobroPage implements OnInit {
   }
 
   //funcion enviar cobro
-  enviacobro( detalle) {
+  enviacobro(detalle) {
     this.fecha = new Date();
     const mes = this.fecha.getMonth() + 1;
     this.fechita = this.fecha.getDate() + "-" + mes + "-" + this.fecha.getFullYear() + " " + this.fecha.getHours() + ":" + this.fecha.getMinutes() + ":" + this.fecha.getSeconds();
@@ -125,67 +125,58 @@ export class PagarenviocobroPage implements OnInit {
     this.monto = ''
     this.detalle = ''
   }
-// funcion pagar deuda 
+  // funcion pagar deuda 
   async pagar1(usu) {
     if (parseInt(this.usuario.password) == 0) {
-      this.au.enviocorreo1(this.usuario.uid,this.usuario.telefono)
-    }else{
-      if(parseFloat(this.usuario.cajainterna) >= parseFloat(usu.monto) ){
+      this.au.enviocorreo1(this.usuario.uid, this.usuario.telefono)
+    } else {
+      if (parseFloat(this.usuario.cajainterna) >= parseFloat(usu.monto)) {
         const modal = await this.modalController.create({
-          component: ConfirmarpagoPage,
-          cssClass: 'confirmarpago',
+          component: Confirmacion1Page,
+          // cssClass: 'confirmarpago',
           componentProps: {
-            usu:usu,
-            usuario: this.usuario,
-            cobrador: this.cobrador,
+            usu_pagodeuda: usu,
+            usuario_pagodeuda: this.usuario,
+            cobrador_pagodeuda: this.cobrador,
           }
         });
         return await modal.present();
-      }else{
+      } else {
         this.au.ahorroinsuficiente1(this.ruta);
       }
-    } 
+    }
   }
-// funcion hacer transferencia
+  // funcion hacer transferencia
   async confirmacion1(detalle) {
     if (parseInt(this.usuario.password) == 0) {
-      this.au.enviocorreo1(this.usuario.uid,this.usuario.telefono)
-    }else{
-      if(parseFloat(this.pin) <= 0 ){
-        this.au.ingresoinvalido()
-      }else{
-        if(parseFloat(this.usuario.cajainterna) >= parseFloat(this.pin)){
-          const modal = await this.modalController.create({
-            component: Confirmacion1Page,
-            cssClass: 'confirmacion1',
-            componentProps: {
-              usuario_transferencia: this.usuario,
-              cobrador_transferencia: this.cobrador,
-              monto_transferencia: this.pin,
-              detalle_transferencia: detalle
-            }
-          });
-           modal.present();
-        }else{
-          this.au.ahorroinsuficiente1(this.ruta);
-        }
-     
+      this.au.enviocorreo1(this.usuario.uid, this.usuario.telefono)
+    } else {
+      if (parseFloat(this.usuario.cajainterna) >= parseFloat(this.pin) && detalle !=undefined) {
+        const modal = await this.modalController.create({
+          component: Confirmacion1Page,
+          cssClass: 'confirmacion1',
+          componentProps: {
+            usuario_transferencia: this.usuario,
+            cobrador_transferencia: this.cobrador,
+            monto_transferencia: this.pin,
+            detalle_transferencia: detalle
+          }
+        });
+        modal.present();
+
+      } else {
+        this.au.ahorroinsuficiente1(this.ruta);
       }
     }
   }
 
-//para el teclado en campo monto
-  teclado(){
-    this.controladorteclado=1
+  //para el teclado en campo monto
+  teclado() {
+    this.controladorteclado = 1
   }
   presionar(num) {
     this.pin = this.pin + num
-    if (num == 'v') {
-      setTimeout(() => {
-        this.myInput.setFocus();
-      }, 150)
-      this.controladorteclado=0
-    } if (num == '.') {
+   if (num == '.') {
       this.cont1 = this.cont1 + 1
     } if (this.cont1 > 1) {
       this.pin = ""
@@ -193,14 +184,32 @@ export class PagarenviocobroPage implements OnInit {
     }
   }
 
-  borrar(){
-    this.pin=""
+  borrar() {
+    this.pin = this.pin.substring(0, this.pin.length - 1)
   }
-  ok(){
-    this.controladorteclado=0
+  ok() {
+    if(parseFloat(this.pin) == 0){
+      this.au.ingresoinvalido()
+    }else{
+      let a = this.au.dos_decimales(this.pin)
+      if(a ==true ){
+        this.controladorteclado = 0
+        setTimeout(() => {
+          this.myInput.setFocus();
+        }, 150)
+      }else{
+        this.au.ingresoinvalido1()
+      }
+    }
+   
+  
+    
+  }
+  ocultar() {
     setTimeout(() => {
       this.myInput.setFocus();
     }, 150)
+    this.controladorteclado = 0
   }
 
 }

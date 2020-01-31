@@ -1,16 +1,9 @@
-.botonsito{
-    position: relative; top:76%;
-}
 
 .texto{
     font-size: 40px;
 }
-
 .botones{
     width: 30%;
- }
- .ok{
-    height: 95%;
  }
  .div1{
     position: relative;
@@ -19,10 +12,19 @@
 .pin{
     font-size: 30px;
 }
-.card{
-   background-color: #5D5E5E;
-   height: 30%;
+.ok{
+   height: 90%;
+   width: 100%;
+   background-color: #631cce;
 }
-.text{
-   color: #ffffff;
+.borrar{
+   height: 46%;
+   width: 100%;
+}
+.imagen{
+   width: 30px;
+}
+.botonsito{ 
+   width: 100%;
+   height: 50%;
 }

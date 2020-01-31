@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActionSheetController, ModalController } from '@ionic/angular';
 import { AuthService } from '../servicios/auth.service'
 import {  ActivatedRoute } from '@angular/router';
-import { ConfirmacardsPage } from '../confirmacards/confirmacards.page';
 import { Confirmacion1Page } from '../confirmacion1/confirmacion1.page';
 
 @Component({
@@ -13,8 +12,10 @@ import { Confirmacion1Page } from '../confirmacion1/confirmacion1.page';
 export class CardsPage implements OnInit {
 
  // @ViewChild('input', { static: true }) myInput;
-  public fecha: Date;
-  gruponum = [7, 8, 9, 4, 5, 6, 1, 2, 3, '.', 0, 'Borrar']
+  
+  fecha: Date;
+  controladorteclado=1
+  gruponum = [7, 8, 9, 4, 5, 6, 1, 2, 3, '.', 0, 'v']
   cont = 0
   monto = ""
   constructor(public actionSheetController: ActionSheetController,
@@ -67,9 +68,6 @@ export class CardsPage implements OnInit {
     if (parseInt(this.usuario.password) == 0) {
      this.au.enviocorreo1(this.usuario.uid,this.usuario.telefono)
     } else {
-      if (this.au.dos_decimales(this.monto) !== true) {
-        this.au.ingresoinvalido()
-      } else {
         if (parseFloat(this.usuario.cajainterna) >= parseFloat(monto)) {
           this.modal.create({
             component: Confirmacion1Page,
@@ -83,14 +81,15 @@ export class CardsPage implements OnInit {
         } else {
           this.au.ahorroinsuficiente1(this.ruta)
         }
-      }
     }
   }
 
+  //funciones para el teclado
   presionar(num) {
     this.monto = this.monto + num
-    if (num == 'Borrar') {
-      this.monto = ""
+    if (num == 'v') {
+      this.borrar()
+      this.controladorteclado=0
     } if (num == '.') {
       this.cont = this.cont + 1
     } if (this.cont > 1) {
@@ -98,4 +97,11 @@ export class CardsPage implements OnInit {
       this.cont = 0
     }
   }
+  borrar() {
+    this.monto=this.monto.substring(0,this.monto.length-1)
+  }
+  label() {
+    this.controladorteclado = 1
+  }
+  
 }

@@ -138,7 +138,7 @@
     <ion-label class="label" (click)="teclado()" placeholder="  Monto"> Monto </ion-label>
   </ion-item>
   <ion-item *ngIf="pin != ''">
-    <ion-label class="label" (click)="teclado()" placeholder="Monto"> {{pin}} </ion-label>
+    <ion-label class="label" (click)="teclado()" placeholder="Monto" > {{pin}} </ion-label>
   </ion-item>
   <!--
   <ion-item>
@@ -162,6 +162,7 @@
           <ion-col size="9">
             <ion-button color="light" *ngFor="let n of gruponum" (click)="presionar(n)" class="botones">{{n}}
             </ion-button>
+            <ion-button color="light" class="imagen1" (click)="ocultar()"><ion-img src="./assets/icon/teclado.svg" class="imagen"></ion-img></ion-button>
           </ion-col>
           <ion-col size="3">
             <ion-button color="light" class="borrar" (click)="borrar()"><ion-img src="./assets/icon/retroceso.svg" class="imagen"></ion-img></ion-button>

@@ -359,8 +359,8 @@ export class AuthService {
   // }
   async passincorrecta() {
     const alert = await this.alertController.create({
-      header: 'Atención',
-      message: 'Su contraseña es incorrecta ',
+      //header: 'Atención',
+      message: 'Su Pin es incorrecto ',
       buttons: ['Aceptar']
     });
     await alert.present();
@@ -370,7 +370,7 @@ export class AuthService {
 
   async transexitoso1(monto, usu) {
     const alert = await this.alertController.create({
-      header: 'GoPay',
+      header: 'Fastgi',
       // subHeader: 'Envio Exitoso',
       message: 'La transferencia de ' + monto + '  Bs. a ' + usu + ' se realizo con éxito.',
       buttons: ['Aceptar']
@@ -381,7 +381,7 @@ export class AuthService {
   async ahorroinsuficiente1(ruta) {
     const alert = await this.alertController.create({
       header: 'Fastgi',
-      message: 'Su ahorro es insuficiente para realizar esta acción',
+      message: 'Su ahorro es insuficiente o datos incorrectos',
       backdropDismiss: false,
       buttons: [
         {
@@ -430,24 +430,8 @@ export class AuthService {
     });
     await alert.present();
   }
-  //alertas para mover el dinero de banco a app y visceversa
-  async muevesexitoso() {
-    const toast = await this.toastController.create({
-      message: 'La transferencia de Cta. Banco a Cta de la App fue exitosa',
-      duration: 4000,
-      position: 'top'
-    });
-    toast.present();
-  }
-  //alertas para ingresar por tarjeta
-  async ingresotarjeta() {
-    const toast = await this.toastController.create({
-      message: 'El ingreso de monto desde su tarjeta fue exitoso',
-      duration: 4000,
-      position: 'top'
-    });
-    toast.present();
-  }
+
+
   //alertas ingreso de monto obligatorio
   async ingresemonto() {
     const toast = await this.toastController.create({
@@ -471,6 +455,16 @@ export class AuthService {
       header: 'INGRESO INVALIDO',
       // subHeader: 'Envio Exitoso',
       message: 'Revise sus datos por favor.',
+      backdropDismiss: false,
+      buttons: ['Aceptar']
+    });
+    await alert.present();
+  }
+  async ingresoinvalido1() {
+    const alert = await this.alertController.create({
+      header: 'INGRESO INVALIDO',
+      // subHeader: 'Envio Exitoso',
+      message: 'Solo se acepta  2 decimales.',
       backdropDismiss: false,
       buttons: ['Aceptar']
     });
@@ -511,18 +505,7 @@ export class AuthService {
     });
     await alert.present();
   }
-  //solo un punto *cobroqr*
-  async solounpunto() {
-    const alert = await this.alertController.create({
-      header: 'INCORRECTO',
-      // subHeader: 'Envio Exitoso',
-      message: 'Solo puede ingresar un punto decimal.',
-      backdropDismiss: false,
-      buttons: ['Aceptar']
 
-    });
-    await alert.present();
-  }
   //tarjeta registrada
   async creotarjeta(monto, usu) {
     const alert = await this.alertController.create({
@@ -535,18 +518,7 @@ export class AuthService {
     });
     await alert.present();
   }
-  //para confirmar el telefono
-  async confirmatelefono(numero) {
-    const alert = await this.alertController.create({
-      header: 'VERIFIQUE',
-      // subHeader: 'Envio Exitoso',
-      message: 'El numero ingresado es ' + numero,
-      backdropDismiss: false,
-      buttons: ['Cerrar']
 
-    });
-    await alert.present();
-  }
   //tarjeta registrada
   async cargocontarjeta(monto, usu) {
     const alert = await this.alertController.create({
@@ -610,62 +582,11 @@ export class AuthService {
       })
     }))
   }
-  //mensaje de seleccione distintas tarjetas
-  async distintastarjetas() {
-    const alert = await this.alertController.create({
-      header: 'ATENCIÓN',
-      // subHeader: 'Envio Exitoso',
-      message: 'Seleccione cuentas distintas por favor',
-      buttons: ['Aceptar']
 
-    });
-    await alert.present();
-  }
-  // validar correo
-  async correoinvalido() {
-    const alert = await this.alertController.create({
-      header: 'CORREO INVALIDO',
-      // subHeader: 'Envio Exitoso',
-      message: 'Campo correo no permite caracter /.',
-      backdropDismiss: false,
-      buttons: ['Aceptar']
-    });
-    await alert.present();
-  }
-  // validar telefono
-  async telefonoinvalido() {
-    const alert = await this.alertController.create({
-      header: 'TELEFONO INVALIDO',
-      // subHeader: 'Envio Exitoso',
-      message: 'Campo telefono incorrecto revise por favor.',
-      backdropDismiss: false,
-      buttons: ['Aceptar']
-    });
-    await alert.present();
-  }
-  // validar contraseña
-  async contraseñainvalida() {
-    const alert = await this.alertController.create({
-      header: 'CONTRASEÑA INVALIDA',
-      // subHeader: 'Envio Exitoso',
-      message: 'Campo contraseña no tiene 6 caracteres o no son iguales .',
-      backdropDismiss: false,
-      buttons: ['Aceptar']
-    });
-    await alert.present();
-  }
 
-  // validar pin
-  async pininvalido() {
-    const alert = await this.alertController.create({
-      header: 'PIN INVALIDO',
-      // subHeader: 'Envio Exitoso',
-      message: 'Campo pin solo acepta números y 4 digitos.',
-      backdropDismiss: false,
-      buttons: ['Aceptar']
-    });
-    await alert.present();
-  }
+ 
+ 
+
 
   // confirmacion de envio de cobro
   async enviocobro(monto, usu) {
@@ -855,21 +776,6 @@ export class AuthService {
   }
 
 
- // teclado(num) {
- //  let gruponum = [7, 8, 9, 4, 5, 6, 1, 2, 3, '.', 0, 'v']
- //  let pin = ""
- //  let cont = 0
- //   pin = ""
- //   pin = pin + num
- //   if (num == 'v') {
- //     pin = ""
- //   } if (num == '.') {
- //     cont = cont + 1
- //   } if (cont > 1) {
- //     pin = ""
- //     cont = 0
- //   }
- // }
 }
 
 
