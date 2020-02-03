@@ -43,7 +43,7 @@ export class CardsPage implements OnInit {
   telefono = null;
   fechita: any;
   real: number
-  ruta = (['/ingresoegreso'])
+  ruta = (['/tabs/tab2/ingresoegreso'])
   ngOnInit() {
    // setTimeout(() => {
    //   this.myInput.setFocus();
@@ -68,6 +68,8 @@ export class CardsPage implements OnInit {
     if (parseInt(this.usuario.password) == 0) {
      this.au.enviocorreo1(this.usuario.uid,this.usuario.telefono)
     } else {
+      alert(this.usuario)
+      alert(monto)
         if (parseFloat(this.usuario.cajainterna) >= parseFloat(monto)) {
           this.modal.create({
             component: Confirmacion1Page,

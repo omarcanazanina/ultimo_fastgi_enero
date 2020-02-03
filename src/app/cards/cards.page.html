@@ -11,7 +11,30 @@
   <div (click)="label()">
     <div style="margin:auto; width:50%"><b>{{telefono}}</b></div>
     <p>Monto a cancelar:</p>
-    <ion-label class="pin" text-center> Bs.{{monto}} </ion-label>
+
+    <ion-item *ngIf="monto == '' && controladorteclado == 1">
+      <ion-item class="pin" >
+       Bs.{{monto}} <p class="parpadea"> |</p>
+      </ion-item>
+    </ion-item>
+
+    <ion-item *ngIf="monto != '' && controladorteclado == 1">
+      <ion-item class="pin" >
+       Bs.{{monto}} <p class="parpadea"> |</p>
+      </ion-item>
+    </ion-item>
+
+    <ion-item *ngIf="monto != '' && controladorteclado == 0">
+      <ion-item class="pin" >
+       Bs.{{monto}} 
+      </ion-item>
+    </ion-item>
+
+    <ion-item *ngIf="monto == '' && controladorteclado == 0">
+      <ion-item class="pin">
+        Bs.{{monto}}
+      </ion-item>
+    </ion-item>
   </div>
 
   <div class="div1" *ngIf="controladorteclado == 1">
@@ -24,7 +47,7 @@
         </ion-col>
         <ion-col size="3">
           <ion-button color="light" class="borrar" (click)="borrar()"><ion-img src="./assets/icon/retroceso.svg" class="imagen"></ion-img></ion-button>
-          <ion-button  class="ok" (click)="confirmapago(pin)">ok</ion-button>
+          <ion-button  class="ok" (click)="confirmapago(monto)">ok</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>

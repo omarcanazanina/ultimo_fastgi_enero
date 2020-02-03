@@ -18,9 +18,10 @@ export class CobroqrPage implements OnInit {
   uu: any;
   numero = 0
   num
-  gruponum = [7, 8, 9,4, 5, 6,1, 2, 3,'.', 0, 'Borrar']
+  gruponum = [7, 8, 9,4, 5, 6,1, 2, 3,'.', 0]
    cont=0
    controlador = 0
+   teclado=1
   constructor(private barcode: BarcodeScanner, private au: AuthService, private route: Router) { }
 
   ngOnInit() {
@@ -47,15 +48,25 @@ export class CobroqrPage implements OnInit {
   volver() {
     this.route.navigate(['/tabs/tab2/recibedinero'])
   }
+  //funciones para el teclado
   presionar(num) {
     this.qrData = this.qrData + num
-    if (num == 'Borrar') {
+   if (num == '.') {
+      this.cont = this.cont + 1
+    } if (this.cont > 1) {
       this.qrData = ""
-    } if(num == '.'){
-      this.cont=this.cont+1
-    }  if(this.cont > 1){
-      this.qrData = ""
-      this.cont=0
+      this.cont = 0
     }
+  }
+
+  borrar() {
+    this.qrData = this.qrData.substring(0, this.qrData.length - 1)
+  }
+  //este no esta funcionando
+  ocultar() {
+    this.teclado = 0
+  }
+  label() {
+    this.teclado = 1
   }
 }

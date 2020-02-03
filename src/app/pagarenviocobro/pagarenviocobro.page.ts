@@ -42,7 +42,7 @@ export class PagarenviocobroPage implements OnInit {
   monto
   detalle
   numerosincodigo
-  ruta = (['/ingresoegreso'])
+  ruta = (['/tabs/tab2/ingresoegreso'])
 
   @ViewChild("content", { static: true }) content: IonContent
   constructor(private activatedRoute: ActivatedRoute,

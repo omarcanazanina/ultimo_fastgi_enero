@@ -63,7 +63,7 @@ export class Confirmacion1Page implements OnInit {
   fechita: any
 
   //varios
-  ruta = (['/ingresoegreso'])
+  ruta = (['/tabs/tab2/ingresoegreso'])
   badgeactual: number
   otrobadge = 0
   constructor(private modal: ModalController,
@@ -111,7 +111,6 @@ export class Confirmacion1Page implements OnInit {
   funciones(pin) {
     //funcion transferencia 
     if (this.usuario_transferencia != "") {
-      alert('estamos en la transferencia');
       if (parseFloat(this.usuario_transferencia.cajainterna) >= this.monto_transferencia) {
         this.fecha = new Date();
         const mes = this.fecha.getMonth() + 1;
@@ -187,7 +186,6 @@ export class Confirmacion1Page implements OnInit {
     } else {
       //funcion pago con monto (qr)
       if (this.usuario_conmonto != "") {
-        alert('estamos en el metodo pagar con monto')
         this.fecha = new Date();
         const mes = this.fecha.getMonth() + 1;
         this.fechita = this.fecha.getDate() + "-" + mes + "-" + this.fecha.getFullYear() + " " + this.fecha.getHours() + ":" + this.fecha.getMinutes() + ":" + this.fecha.getSeconds();
@@ -232,7 +230,6 @@ export class Confirmacion1Page implements OnInit {
       } else {
         //funcion de pagar sin monto (QR)
         if (this.usuario_sinmonto != "") {
-          alert('estamos en el pago sin monto');
           this.fecha = new Date();
           const mes = this.fecha.getMonth() + 1;
           this.fechita = this.fecha.getDate() + "-" + mes + "-" + this.fecha.getFullYear() + " " + this.fecha.getHours() + ":" + this.fecha.getMinutes() + ":" + this.fecha.getSeconds();
@@ -273,8 +270,7 @@ export class Confirmacion1Page implements OnInit {
             this.au.passincorrecta();
           }
         }else{
-          if(this.usuario_pagodeuda != ""){
-            alert('funcion pagodeuda')
+          if(this.usuario_pagodeuda != ""){     
             this.fecha = new Date();
             const mes = this.fecha.getMonth() + 1;
             this.fechita = this.fecha.getDate() + "-" + mes + "-" + this.fecha.getFullYear() + " " + this.fecha.getHours() + ":" + this.fecha.getMinutes() + ":" + this.fecha.getSeconds();

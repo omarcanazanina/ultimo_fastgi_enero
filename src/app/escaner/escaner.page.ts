@@ -37,7 +37,7 @@ export class EscanerPage implements OnInit {
   telefono = null;
   fechita: any;
   real: number;
-  ruta = (['/ingresoegreso'])
+  ruta = (['/tabs/tab2/ingresoegreso'])
   ngOnInit() {
     this.monto = this.activatedRoute.snapshot.paramMap.get('monto');
     this.telefono = this.activatedRoute.snapshot.paramMap.get('phoneNumber');

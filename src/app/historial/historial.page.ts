@@ -53,6 +53,8 @@ export class HistorialPage implements OnInit {
         this.historial.forEach(element => {
           let su = this.au.recuperaundato(element.clave).subscribe(eldato =>{
             this.num.push({"a": eldato.badge })
+            console.log(this.num);
+            
             su.unsubscribe();
           //  console.log(this.num);
           })
@@ -60,7 +62,7 @@ export class HistorialPage implements OnInit {
         //
         if(this.historial.length > 0)
         this.c=1
-        //importar contactos
+        //importar contactos      
         let options = {
           filter: '',
           multiple: true,

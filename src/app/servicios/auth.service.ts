@@ -462,9 +462,9 @@ export class AuthService {
   }
   async ingresoinvalido1() {
     const alert = await this.alertController.create({
-      header: 'INGRESO INVALIDO',
+     // header: 'INGRESO INVALIDO',
       // subHeader: 'Envio Exitoso',
-      message: 'Solo se acepta  2 decimales.',
+      message: 'Monto inválido.',
       backdropDismiss: false,
       buttons: ['Aceptar']
     });

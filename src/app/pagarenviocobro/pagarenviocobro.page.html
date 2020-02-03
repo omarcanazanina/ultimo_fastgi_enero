@@ -134,41 +134,51 @@
 </ion-content>
 
 <ion-footer>
-  <ion-item *ngIf="pin == ''">
-    <ion-label class="label" (click)="teclado()" placeholder="  Monto"> Monto </ion-label>
+  <ion-item *ngIf="pin == '' && controladorteclado == 1">
+    <ion-item class="label" (click)="teclado()">
+      <p class="parpadea"> |</p>
+    </ion-item>
   </ion-item>
-  <ion-item *ngIf="pin != ''">
-    <ion-label class="label" (click)="teclado()" placeholder="Monto" > {{pin}} </ion-label>
+  <ion-item *ngIf="pin == '' && controladorteclado == 0">
+    <ion-item class="label" (click)="teclado()"> Monto </ion-item>
   </ion-item>
-  <!--
-  <ion-item>
-    <ion-input placeholder="Monto" class="input" type="number" [(ngModel)]="monto" id='monto'></ion-input>
+  <ion-item *ngIf="pin != '' && controladorteclado == 1 ">
+    <ion-item class="label" (click)="teclado()"> {{pin}} <p class="parpadea">|</p>
+    </ion-item>
   </ion-item>
-  -->
-  <ion-item>
-    <ion-input placeholder="Detalla la transacción" type="text" [(ngModel)]="detalle" id='detalle' (ionFocus)="ok()" #input></ion-input>
+  <ion-item *ngIf="pin != '' &&  controladorteclado == 0 ">
+    <ion-item class="label" (click)="teclado()"> {{pin}}</ion-item>
   </ion-item>
 
-  <ion-grid >
+  <ion-item>
+    <ion-input placeholder="Detalla la transacción" type="text" [(ngModel)]="detalle" id='detalle' (ionFocus)="ok()"
+      #input></ion-input>
+  </ion-item>
+
+  <ion-grid>
     <ion-row>
       <ion-col size="6" text-center (click)="confirmacion1(detalle)">transferir</ion-col>
       <ion-col size="6" text-center (click)="enviacobro(detalle)">Cobrar</ion-col>
     </ion-row>
   </ion-grid>
-  
-    <div class="div1" *ngIf="controladorteclado == 1">
-      <ion-grid>
-        <ion-row>
-          <ion-col size="9">
-            <ion-button color="light" *ngFor="let n of gruponum" (click)="presionar(n)" class="botones">{{n}}
-            </ion-button>
-            <ion-button color="light" class="imagen1" (click)="ocultar()"><ion-img src="./assets/icon/teclado.svg" class="imagen"></ion-img></ion-button>
-          </ion-col>
-          <ion-col size="3">
-            <ion-button color="light" class="borrar" (click)="borrar()"><ion-img src="./assets/icon/retroceso.svg" class="imagen"></ion-img></ion-button>
-            <ion-button  class="ok" (click)="ok()">ok</ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </div>
+
+  <div class="div1" *ngIf="controladorteclado == 1">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="9">
+          <ion-button color="light" *ngFor="let n of gruponum" (click)="presionar(n)" class="botones">{{n}}
+          </ion-button>
+          <ion-button color="light" class="imagen1" (click)="ocultar()">
+            <ion-img src="./assets/icon/teclado.svg" class="imagen"></ion-img>
+          </ion-button>
+        </ion-col>
+        <ion-col size="3">
+          <ion-button color="light" class="borrar" (click)="borrar()">
+            <ion-img src="./assets/icon/retroceso.svg" class="imagen"></ion-img>
+          </ion-button>
+          <ion-button class="ok" (click)="ok()">ok</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-footer>
