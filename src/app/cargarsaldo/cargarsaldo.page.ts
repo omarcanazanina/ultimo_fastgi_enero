@@ -12,6 +12,12 @@ import { Keyboard } from '@ionic-native/keyboard/ngx';
 })
 export class CargarsaldoPage implements OnInit {
   @ViewChild('input', { static: true }) myInput;
+    //para el telado
+    controladorteclado = 1
+    gruponum = [1, 2, 3, 4, 5, 6, 7, 8, 9, '.', 0]
+    cont = 0
+    pin = ""
+  
   uu: any
   usuario = {
     cajainterna: "",

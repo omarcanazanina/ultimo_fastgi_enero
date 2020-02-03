@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./modpin.page.scss'],
 })
 export class ModpinPage implements OnInit {
+
   uu: any
   primero: any
   segundo: any
@@ -19,9 +20,6 @@ export class ModpinPage implements OnInit {
     correo:"",
     telefono:""
   }
-  gruponum = [7, 8, 9, 4, 5, 6, 1, 2, 3, '.', 0, 'Borrar']
-  cont = 0
-  pin = ""
   constructor(private au: AuthService,
     public alertController: AlertController,
     private router: Router) { }
@@ -45,7 +43,7 @@ export class ModpinPage implements OnInit {
     if (this.segundo == this.tercero) {
       console.log('son iguales');
       this.au.registranombre({ password: this.tercero }, this.uu);
-      this.au.datosgmail(this.usuario.password, this.usuario.correo, this.usuario.telefono)
+      this.au.datosgmail(this.tercero, this.usuario.correo, this.usuario.telefono)
       this.router.navigate(['tabs/tab3'])
     } else {
       this.au.codigoinvalido()
@@ -56,16 +54,5 @@ export class ModpinPage implements OnInit {
     this.router.navigate(['tabs/tab3'])
   }
 
-  presionar(num) {
-    this.pin = this.pin + num
-    if (num == 'Borrar') {
-      this.pin = ""
-    } if (num == '.') {
-      this.cont = this.cont + 1
-    } if (this.cont > 1) {
-      this.pin = ""
-      this.cont = 0
-    }
-  }
 
 }
