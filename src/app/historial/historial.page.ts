@@ -22,46 +22,65 @@ export class HistorialPage implements OnInit {
   datos = []
   textoBuscar = ''
   c = 0
-//para importar contactos
+  //para importar contactos
   ContactsNone = []
   ContactsTrue = []
   controlador = 0
   //para los badges
-  num=[]
-  badge=0
-  idusuario:any
+  num = []
+  badge = 0
+  idusuario: any
+  badges = []
+  controladores:[]
   constructor(private router: Router,
     private au: AuthService,
     private route: Router,
     private contactos: Contacts,
     private socialShare: SocialSharing) {
-    
+
   }
 
   ngOnInit() {
-   // this.doRefresh(event)
+    // this.doRefresh(event)
     this.uu = this.au.pruebita();
-    this.au.recuperaundato(this.uu).subscribe(usuario => {
+     let as=  this.au.recuperaundato(this.uu).subscribe(usuario => {
       this.usuario = usuario;
-      this.idusuario=this.usuario.uid
+      this.idusuario = this.usuario.uid
+      as.unsubscribe()
       this.au.ordenarcobrostransferencias(this.usuario.uid).subscribe(info => {
         this.historial = info.filter((valor, indiceActual, arreglo) => arreglo.findIndex((item) => item.telefono === valor.telefono
         ) === indiceActual);
         //metodo para recuperar los badges
         //this.au.recuperaundato(this.historial.id)
         //console.log(this.historial);
-        this.historial.forEach(element => {
-          let su = this.au.recuperaundato(element.clave).subscribe(eldato =>{
-            this.num.push({"a": eldato.badge })
-            console.log(this.num);
+   //    this.historial.forEach(element => {
+   //      let su = this.au.recuperaundato(element.clave).subscribe(eldato => {
+   //        this.num.push({ "a": eldato.badge })
+   //        console.log(this.num);
+
+   //        su.unsubscribe();
+   //        //  console.log(this.num);
+   //      })
+   //    });  
+          this.historial.forEach(element => {
+         let a = this.au.recuperacobrostransferencias1(element.clave,this.usuario.uid,false).subscribe(datos =>{
+           this.controladores =datos
+            const numeritos = this.controladores.length
+            console.log(this.controladores);
             
-            su.unsubscribe();
-          //  console.log(this.num);
+            console.log(numeritos);
+             
+            this.badges.push({'a':numeritos})
+           // console.log(this.badges);
+            
+            a.unsubscribe()
           })
+          
         });
-        //
-        if(this.historial.length > 0)
-        this.c=1
+        
+        
+        if (this.historial.length > 0)
+          this.c = 1
         //importar contactos      
         let options = {
           filter: '',
@@ -80,20 +99,20 @@ export class HistorialPage implements OnInit {
                     this.ContactsTrue.push(item)
                     //this.ContactsTrueOrden=this.au.ordenarjson(this.ContactsTrue,'usu.name.givenName','asc')
                   } else {
-                    this.ContactsNone.push(item) 
+                    this.ContactsNone.push(item)
                     //this.ContactsNoneOrden=this.au.ordenarjson(this.ContactsNone,'usu.name.giveName','asc')
                   }
                 })
             }
           }
         })
-        .catch(error => {
-          console.log(error);
-          
-        })
-       // alert(JSON.stringify(this.ContactsTrue))
+          .catch(error => {
+            console.log(error);
+
+          })
+        // alert(JSON.stringify(this.ContactsTrue))
+         
       })
-    
     })
 
   }
@@ -102,18 +121,18 @@ export class HistorialPage implements OnInit {
     return nuevo
   }
 
- // doRefresh(event) {
- //   console.log('Begin async operation');
- //   setTimeout(() => {
- //     console.log('Async operation has ended');
- //     event.target.complete();
- //   }, 2000);
- // }
+  // doRefresh(event) {
+  //   console.log('Begin async operation');
+  //   setTimeout(() => {
+  //     console.log('Async operation has ended');
+  //     event.target.complete();
+  //   }, 2000);
+  // }
   BuscarHistorial(event) {
     this.textoBuscar = event.target.value;
-    if(this.textoBuscar !=''){
+    if (this.textoBuscar != '') {
       this.controlador = 1
-    }else{
+    } else {
       this.controlador = 0
     }
   }
@@ -123,8 +142,21 @@ export class HistorialPage implements OnInit {
   }
 
   enviadatos(usu) {
-     this.route.navigate(['/tabs/historial/pagarenviocobro', usu.telefono, usu.formatted])
-     this.au.actualizabadge({ badge: this.badge }, usu.clave);
+    this.route.navigate(['/tabs/historial/pagarenviocobro', usu.telefono, usu.formatted])
+    let aux:any =[]
+      this.controladores.forEach( (element:any)=>{
+        aux.push( this.au.actualizaestados({ estado: true }, element.id,this.usuario.uid))
+      })
+      Promise.all(aux).then( da=>{
+        console.log('termino de actualizar estados');
+      })
+    //this.au.recuperacobrostransferencias1(usu.clave,this.usuario.uid,false).subscribe (datos =>{
+    //  datos.forEach(element => {
+    //    console.log(element);
+    //    this.au.actualizaestados({ estado: true }, this.usuario.uid)
+    //  });
+    //  //
+    //})
   }
 
   enviadatos2(usu) {
@@ -143,6 +175,6 @@ export class HistorialPage implements OnInit {
       console.log("shared failed" + e);
     });
   }
- 
+
 
 }

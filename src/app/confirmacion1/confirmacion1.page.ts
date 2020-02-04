@@ -156,7 +156,8 @@ export class Confirmacion1Page implements OnInit {
               telefono: this.cobrador_transferencia.telefono,
               fechita: this.fechita,
               fecha: this.fecha,
-              saldo: this.cajainterna1_transferencia
+              saldo: this.cajainterna1_transferencia,
+              estado : false
             })
             this.fire.collection('/user/' + this.cobrador_transferencia.uid + '/cobrostransferencias').add({
               dato: 'recibetransferencia',
@@ -167,7 +168,8 @@ export class Confirmacion1Page implements OnInit {
               telefono: this.usuario_transferencia.telefono,
               fechita: this.fechita,
               fecha: this.fecha,
-              saldo: this.cajaactual1_transferencia
+              saldo: this.cajaactual1_transferencia,
+              estado : false
             })
             this.au.transexitoso1(this.monto_transferencia, this.cobrador_transferencia.nombre); //this.nombresito);
             this.fcm.notificacionforToken("Fastgi", "Acaba de recibir una tranferencia de " + this.monto_transferencia + "Bs. de " + this.usuario_transferencia.nombre + " ", this.cobrador_transferencia.token, this.usuario_transferencia.uid, "/tabs/tab2")

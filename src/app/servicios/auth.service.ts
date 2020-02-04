@@ -257,10 +257,7 @@ export class AuthService {
   actualizacajaapp(monto) {
     return this.fire.collection('cajaapp').doc(this.id_cajaapp).set(monto, { merge: true })
   }
-  //
-  actualizabadge(badge, id) {
-    return this.fire.collection('user').doc(id).set(badge, { merge: true })
-  }
+ 
 
   //actualiza token
   actualizatoken(token, id) {
@@ -775,6 +772,32 @@ export class AuthService {
     await alert.present();
   }
 
+ //
+ actualizabadge(badge, id) {
+  return this.fire.collection('user').doc(id).set(badge, { merge: true })
+}
+
+  //verifica si el usuario existe 
+  contarbadges(estado,uidpersona): Observable<any> {
+    var query = ref => ref.where('estado', '==', estado)
+    return this.fire.collection('/user/' + uidpersona + '/cobrostransferencias', query).valueChanges()
+  }
+
+  //recupera las transferencias para meter en *pagarenviocobro* aun no usado
+  recuperacobrostransferencias1(idco, id,estado): Observable<any> {
+    var query = ref => ref.where('clave', '==', idco).where('estado', '==', estado)
+    return this.fire.collection('/user/' + id + '/cobrostransferencias', query).snapshotChanges().pipe(map(changes => {
+      return changes.map(a => {
+        const data = a.payload.doc.data() as ingresos;
+        data.id = a.payload.doc.id;
+        return data;
+      })
+    }))
+  }
+
+  actualizaestados(estado, id,idusuario) {
+    return this.fire.collection('/user/' + idusuario + '/cobrostransferencias').doc(id).set(estado, { merge: true })
+  }
 
 }
 
