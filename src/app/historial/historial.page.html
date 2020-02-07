@@ -27,7 +27,7 @@
     <ion-grid>
       <ion-row>
         <ion-col size="10">
-          <ion-item *ngFor="let usu of historial  | filtro1: textoBuscar " lines="none" (click)="enviadatos(usu)">
+          <ion-item *ngFor="let usu of historial  | filtro1: textoBuscar;let i = index " lines="none" (click)="enviadatos(usu,i)">
             <ion-avatar item-start>
               <img src="assets/svg/logo_contact.svg">
             </ion-avatar>
@@ -36,15 +36,14 @@
             </ion-label>
           </ion-item>
         </ion-col>
-        
-          <ion-col size="2">  
-          <div *ngFor="let dato of badges" >
-            <br>
-            <ion-badge color="tertiary">{{dato.a}}</ion-badge><br>
+        <ion-col size="2">
+          <div *ngFor="let dato of badges">
+            <h2>{{dato.a}}</h2>
           </div>
+          <h1> </h1>
         </ion-col>
-        
-
+      
+       
       </ion-row>
     </ion-grid>
 
@@ -88,16 +87,31 @@
       </ion-item>
     </ion-list>
   </div>
+
   <!--
-        </ion-col>
-        <ion-col size="2">
-          <ion-item *ngFor="let c of datos" lines="none" >
-              <ion-badge  color="primary">{{c.badge}}</ion-badge>
-              <p></p>
-      
-          </ion-item>
-        </ion-col>
-       </ion-row>
-     </ion-grid> -->
+  <ion-grid>
+    <ion-row>
+      <ion-col size="10">
+        <ion-item *ngFor="let usu of historial  | filtro1: textoBuscar ;let i = index" lines="none"
+          (click)="enviadatos(usu,i)">
+          <ion-avatar item-start>
+            <img src="assets/svg/logo_contact.svg">
+          </ion-avatar>
+          <ion-label class="label-alumnos">{{usu.formatted}}
+            <p>{{usu.telefono}}</p>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col size="2">
+        <div *ngFor="let dato of badges">
+          <h2>{{dato.a}}</h2>
+        </div>
+        <h1> </h1>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+-->
+  
+
 
 </ion-content>

@@ -20,7 +20,7 @@ export class HistorialPage implements OnInit {
   cont: any
 
   datos = []
-  textoBuscar = ''
+  textoBuscar = '' 
   c = 0
   //para importar contactos
   ContactsNone = []
@@ -31,7 +31,8 @@ export class HistorialPage implements OnInit {
   badge = 0
   idusuario: any
   badges = []
-  controladores:[]
+  controladores: []
+  asd: []
   constructor(private router: Router,
     private au: AuthService,
     private route: Router,
@@ -43,52 +44,49 @@ export class HistorialPage implements OnInit {
   ngOnInit() {
     // this.doRefresh(event)
     this.uu = this.au.pruebita();
-     let as=  this.au.recuperaundato(this.uu).subscribe(usuario => {
+    let h = this.au.recuperaundato(this.uu).subscribe(usuario => {
       this.usuario = usuario;
       this.idusuario = this.usuario.uid
-      as.unsubscribe()
-      this.au.ordenarcobrostransferencias(this.usuario.uid).subscribe(info => {
+
+
+       this.au.ordenarcobrostransferencias(this.usuario.uid).subscribe(info => {
         this.historial = info.filter((valor, indiceActual, arreglo) => arreglo.findIndex((item) => item.telefono === valor.telefono
         ) === indiceActual);
-        //metodo para recuperar los badges
-        //this.au.recuperaundato(this.historial.id)
-        //console.log(this.historial);
-   //    this.historial.forEach(element => {
-   //      let su = this.au.recuperaundato(element.clave).subscribe(eldato => {
-   //        this.num.push({ "a": eldato.badge })
-   //        console.log(this.num);
 
-   //        su.unsubscribe();
-   //        //  console.log(this.num);
-   //      })
-   //    });  
-          this.historial.forEach(element => {
-         let a = this.au.recuperacobrostransferencias1(element.clave,this.usuario.uid,false).subscribe(datos =>{
-           this.controladores =datos
-            const numeritos = this.controladores.length
-            console.log(this.controladores);
-            
-            console.log(numeritos);
-             
-            this.badges.push({'a':numeritos})
-           // console.log(this.badges);
-            
-            a.unsubscribe()
-          })
-          
-        });
-        
-        
+        // cambiar estados1
+       this.historial.forEach(element => {
+           this.au.recuperacobrostransferencias1(element.clave, this.usuario.uid, false).subscribe(datos => {
+           this.controladores = datos
+           const numeritos = this.controladores.length
+           this.badges.push( {'a':numeritos} )
+           //console.log(this.badges)
+         })
+
+       });
+        // cambiar estados
+        // this.historial.forEach(element => {
+        //   let a =this.au.recuperacobrostransferencias1(element.clave, this.usuario.uid, false).subscribe(datos => {
+        //     this.controladores = datos
+        //     const numeritos = this.controladores.length
+        //     this.badges.push({ 'a': numeritos })
+        //     console.log(this.badges)
+        //     a.unsubscribe()
+        //   })
+
+
+        // e.unsubscribe()
+        //funcion para filtro de busqueda
         if (this.historial.length > 0)
           this.c = 1
-        //importar contactos      
-        let options = {
-          filter: '',
-          multiple: true,
-          hasPhoneNumber: true
-        }
+
+        // //importar contactos      
+         let options = {
+           filter: '',
+           multiple: true,
+           hasPhoneNumber: true
+         }
+
         this.contactos.find(['*'], options).then((contactos: Contact[]) => {
-          //alert(JSON.stringify(contactos))
           for (let item of contactos) {
             if (item.phoneNumbers) {
               // item["value"] = this.codigo(item.phoneNumbers[0].value)
@@ -108,11 +106,11 @@ export class HistorialPage implements OnInit {
         })
           .catch(error => {
             console.log(error);
-
+        
           })
-        // alert(JSON.stringify(this.ContactsTrue))
-         
+
       })
+      //h.unsubscribe()
     })
 
   }
@@ -141,15 +139,18 @@ export class HistorialPage implements OnInit {
     this.router.navigate(['/tabs/historial/transferencias'])
   }
 
-  enviadatos(usu) {
-    this.route.navigate(['/tabs/historial/pagarenviocobro', usu.telefono, usu.formatted])
-    let aux:any =[]
-      this.controladores.forEach( (element:any)=>{
-        aux.push( this.au.actualizaestados({ estado: true }, element.id,this.usuario.uid))
-      })
-      Promise.all(aux).then( da=>{
-        console.log('termino de actualizar estados');
-      })
+  enviadatos(usu,i) {
+    this.badges[i] = 0
+    this.route.navigate(['pagarenviocobro', usu.telefono, usu.formatted])
+    let aux: any = []
+    this.controladores.forEach((element: any) => {
+      aux.push(this.au.actualizaestados({ estado: true }, element.id, this.usuario.uid))
+    })
+    Promise.all(aux).then(da => {
+    //  console.log('termino de actualizar estados');
+     // console.log(i);
+
+    })
     //this.au.recuperacobrostransferencias1(usu.clave,this.usuario.uid,false).subscribe (datos =>{
     //  datos.forEach(element => {
     //    console.log(element);

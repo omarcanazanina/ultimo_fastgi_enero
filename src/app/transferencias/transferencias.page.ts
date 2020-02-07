@@ -83,12 +83,12 @@ export class TransferenciasPage implements OnInit {
     return loading;
   }
   enviadatos(usu) {
-    this.route.navigate(['/tabs/historial/pagarenviocobro', usu.phoneNumbers[0].value, usu.name.formatted])
+    this.route.navigate(['/pagarenviocobro', usu.phoneNumbers[0].value, usu.name.formatted])
   }
 
   invitar() {
     this.socialShare.shareWithOptions({
-      message: "Prueba GoPay, es ideal para realizar pagos y transferencias de una manera secilla y fácil",
+      message: "Prueba Fastgi, es ideal para realizar pagos y transferencias de una manera secilla y fácil",
       subject: "QR Transaccion",
       url: 'Android:https://play.google.com/store/apps/details?id=com.hegaro.goodme&hl=es_BO  IOS:www.hegaro.com.bo',
       chooserTitle: 'Compartir Via'

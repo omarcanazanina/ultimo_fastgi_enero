@@ -159,6 +159,20 @@ export class Confirmacion1Page implements OnInit {
               saldo: this.cajainterna1_transferencia,
               estado : false
             })
+            //modificando BD
+            this.fire.collection('/user/' + this.usuario_transferencia.uid + '/transferencias').add({
+              dato: 'enviatransferencia',
+              monto: this.monto_transferencia,
+              detalle: this.detalle_transferencia,
+              clave: this.cobrador_transferencia.uid,
+              formatted: this.cobrador_transferencia.nombre,//this.nombresito,
+              telefono: this.cobrador_transferencia.telefono,
+              fechita: this.fechita,
+              fecha: this.fecha,
+              saldo: this.cajainterna1_transferencia,
+              estado : false
+            })
+
             this.fire.collection('/user/' + this.cobrador_transferencia.uid + '/cobrostransferencias').add({
               dato: 'recibetransferencia',
               monto: this.monto_transferencia,
@@ -175,7 +189,7 @@ export class Confirmacion1Page implements OnInit {
             this.fcm.notificacionforToken("Fastgi", "Acaba de recibir una tranferencia de " + this.monto_transferencia + "Bs. de " + this.usuario_transferencia.nombre + " ", this.cobrador_transferencia.token, this.usuario_transferencia.uid, "/tabs/tab2")
             this.modal.dismiss();
             this.badgeactual = this.cobrador_transferencia.badge + 1
-            console.log(this.badgeactual);
+            // console.log(this.badgeactual);
             this.au.actualizabadge({ badge: this.badgeactual }, this.cobrador_transferencia.uid);
           } else {
             this.au.passincorrecta();

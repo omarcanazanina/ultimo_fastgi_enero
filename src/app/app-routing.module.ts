@@ -17,6 +17,9 @@ const routes: Routes = [
   { path: 'confirmarpago', loadChildren: './confirmarpago/confirmarpago.module#ConfirmarpagoPageModule' },
   { path: 'pageprueba', loadChildren: './prueba/pageprueba/pageprueba.module#PagepruebaPageModule' },
 
+  {path: 'pagarenviocobro/:id/:nombre', loadChildren: './pagarenviocobro/pagarenviocobro.module#PagarenviocobroPageModule' },
+  
+
 ];
 @NgModule({
   imports: [

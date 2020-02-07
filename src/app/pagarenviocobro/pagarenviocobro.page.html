@@ -8,7 +8,14 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content #content color='dark'>
+<ion-content #content color='dark'    
+[scrollEvents]="true" >
+<!--
+<ion-button (click)="ScrollToBottom()">  
+  Scroll To Bottom  
+</ion-button>  
+-->
+
   <div class="contenido-historial">
     <ion-list *ngFor="let usu of actual; let last = last">
       <ion-card class="card2" *ngIf="usu.dato == 'enviatransferencia' ">

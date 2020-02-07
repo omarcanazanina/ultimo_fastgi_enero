@@ -438,6 +438,17 @@ export class AuthService {
     });
     toast.present();
   }
+
+  //alerta para el cobro
+  async datosincorrectos() {
+    const alert = await this.alertController.create({
+      header: 'Fastgi',
+      // subHeader: 'Envio Exitoso',
+      message: 'Los dos campos son obligatorios.',
+      buttons: ['Aceptar']
+    });
+    await alert.present();
+  }
   //alertas de error ingreso de tarjetas **confirmacargasaldo**
   async revisedatos() {
     const toast = await this.toastController.create({
@@ -787,6 +798,17 @@ export class AuthService {
   recuperacobrostransferencias1(idco, id,estado): Observable<any> {
     var query = ref => ref.where('clave', '==', idco).where('estado', '==', estado)
     return this.fire.collection('/user/' + id + '/cobrostransferencias', query).snapshotChanges().pipe(map(changes => {
+      return changes.map(a => {
+        const data = a.payload.doc.data() as ingresos;
+        data.id = a.payload.doc.id;
+        return data;
+      })
+    }))
+  }
+  //recupera las transferencias para meter en *pagarenviocobro* aun no usado
+  recuperacobrostransferencias2(idnologueado, idlogueado,estado): Observable<any> {
+    var query = ref => ref.where('estado', '==', estado)
+    return this.fire.collection('/user/' + idlogueado + '/transferencias/'+idnologueado+'/', query).snapshotChanges().pipe(map(changes => {
       return changes.map(a => {
         const data = a.payload.doc.data() as ingresos;
         data.id = a.payload.doc.id;

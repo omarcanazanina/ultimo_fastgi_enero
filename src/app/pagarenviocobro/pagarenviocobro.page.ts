@@ -7,7 +7,6 @@ import { ModalController } from '@ionic/angular'
 import { DetalleenviocobroPage } from '../detalleenviocobro/detalleenviocobro.page'
 import { FcmService } from '../servicios/fcm.service';
 import { Confirmacion1Page } from '../confirmacion1/confirmacion1.page';
-import { ConfirmarpagoPage } from '../confirmarpago/confirmarpago.page';
 
 @Component({
   selector: 'app-pagarenviocobro',
@@ -16,6 +15,9 @@ import { ConfirmarpagoPage } from '../confirmarpago/confirmarpago.page';
 })
 export class PagarenviocobroPage implements OnInit {
   @ViewChild('input', { static: true }) myInput;
+
+  @ViewChild(IonContent, { static: false }) content: IonContent;
+
   controladorteclado = 0
   gruponum = [1, 2, 3, 4, 5, 6, 7, 8, 9, '.', 0]
   cont1 = 0
@@ -43,8 +45,7 @@ export class PagarenviocobroPage implements OnInit {
   detalle
   numerosincodigo
   ruta = (['/tabs/tab2/ingresoegreso'])
-
-  @ViewChild("content", { static: true }) content: IonContent
+  controldecimal
   constructor(private activatedRoute: ActivatedRoute,
     private au: AuthService,
     public alertController: AlertController,
@@ -54,13 +55,18 @@ export class PagarenviocobroPage implements OnInit {
     private fcm: FcmService,
     public route: Router,
     public modalController: ModalController) {
+
   }
   callFunction(es) {
     if (es) {
       this.content.scrollToBottom(2000);
     }
   }
+  ionViewDidEnter() {
+    this.ScrollToBottom()
+  }
   ngOnInit() {
+
     this.numero = this.activatedRoute.snapshot.paramMap.get('id')
     this.nombresito = this.activatedRoute.snapshot.paramMap.get('nombre')
     //quitamos el codigo +591
@@ -91,39 +97,53 @@ export class PagarenviocobroPage implements OnInit {
     }).then((modal) => modal.present())
   }
 
+  ScrollToBottom() {
+    this.content.scrollToBottom(1);
+  }
+
   //funcion enviar cobro
   enviacobro(detalle) {
-    this.fecha = new Date();
-    const mes = this.fecha.getMonth() + 1;
-    this.fechita = this.fecha.getDate() + "-" + mes + "-" + this.fecha.getFullYear() + " " + this.fecha.getHours() + ":" + this.fecha.getMinutes() + ":" + this.fecha.getSeconds();
-    this.fire.collection('/user/' + this.usuario.uid + '/cobrostransferencias').add({
-      monto: this.pin,
-      dato: 'enviado',
-      clave: this.cobrador.uid,
-      formatted: this.nombresito,
-      telefono: this.cobrador.telefono,
-      fechita: this.fechita,
-      fecha: this.fecha,
-      fechapago: '',
-      detalle: detalle,
-      estado: 0
-    })
-    this.fire.collection('/user/' + this.cobrador.uid + '/cobrostransferencias').add({
-      monto: this.pin,
-      dato: 'recibio',
-      clave: this.usuario.uid,
-      formatted: this.usuario.nombre,
-      telefono: this.usuario.telefono,
-      fechita: this.fechita,
-      fecha: this.fecha,
-      fechapago: '',
-      detalle: detalle,
-      estado: 0
-    })
-    this.au.enviocobro(this.pin, this.nombresito)
-    this.fcm.notificacionforToken("Fastgi", "Acaba de recibir una solicitud de pago de " + this.pin + "Bs. de " + this.usuario.nombre + " ", this.cobrador.token, this.usuario.uid, "/tabs/tab2")
-    this.monto = ''
-    this.detalle = ''
+    if (this.pin == '' && detalle == undefined) {
+      this.au.datosincorrectos()
+    } else {
+      if (detalle == undefined) {
+        this.au.datosincorrectos()
+      } else {
+        //  this.fecha = new Date();
+        const mes = this.fecha.getMonth() + 1;
+        this.fechita = this.fecha.getDate() + "-" + mes + "-" + this.fecha.getFullYear() + " " + this.fecha.getHours() + ":" + this.fecha.getMinutes() + ":" + this.fecha.getSeconds();
+        this.fire.collection('/user/' + this.usuario.uid + '/cobrostransferencias').add({
+          monto: this.pin,
+          dato: 'enviado',
+          clave: this.cobrador.uid,
+          formatted: this.nombresito,
+          telefono: this.cobrador.telefono,
+          fechita: this.fechita,
+          fecha: this.fecha,
+          fechapago: '',
+          detalle: detalle,
+          estado: 0
+        })
+        this.fire.collection('/user/' + this.cobrador.uid + '/cobrostransferencias').add({
+          monto: this.pin,
+          dato: 'recibio',
+          clave: this.usuario.uid,
+          formatted: this.usuario.nombre,
+          telefono: this.usuario.telefono,
+          fechita: this.fechita,
+          fecha: this.fecha,
+          fechapago: '',
+          detalle: detalle,
+          estado: 0
+        })
+        this.au.enviocobro(this.pin, this.nombresito)
+        this.fcm.notificacionforToken("Fastgi", "Acaba de recibir una solicitud de pago de " + this.pin + "Bs. de " + this.usuario.nombre + " ", this.cobrador.token, this.usuario.uid, "/tabs/tab2")
+        this.monto = ''
+        this.detalle = ''
+      }
+    }
+    //
+
   }
   // funcion pagar deuda 
   async pagar1(usu) {
@@ -148,10 +168,17 @@ export class PagarenviocobroPage implements OnInit {
   }
   // funcion hacer transferencia
   async confirmacion1(detalle) {
+    // let c = this.pin.indexOf('.')
+    // console.log(c);
+    // this.controldecimal=this.pin.substring(c +1,this.pin.length)
+    // console.log(this.controldecimal);
+    // if(this.control){
+
+    // }
     if (parseInt(this.usuario.password) == 0) {
       this.au.enviocorreo1(this.usuario.uid, this.usuario.telefono)
     } else {
-      if (parseFloat(this.usuario.cajainterna) >= parseFloat(this.pin) && detalle !=undefined) {
+      if (parseFloat(this.usuario.cajainterna) >= parseFloat(this.pin)) {
         const modal = await this.modalController.create({
           component: Confirmacion1Page,
           cssClass: 'confirmacion1',
@@ -176,7 +203,7 @@ export class PagarenviocobroPage implements OnInit {
   }
   presionar(num) {
     this.pin = this.pin + num
-   if (num == '.') {
+    if (num == '.') {
       this.cont1 = this.cont1 + 1
     } if (this.cont1 > 1) {
       this.pin = ""
@@ -188,22 +215,22 @@ export class PagarenviocobroPage implements OnInit {
     this.pin = this.pin.substring(0, this.pin.length - 1)
   }
   ok() {
-    if(parseFloat(this.pin) == 0){
+    if (parseFloat(this.pin) == 0) {
       this.au.ingresoinvalido()
-    }else{
+    } else {
       let a = this.au.dos_decimales(this.pin)
-      if(a ==true ){
+      if (a == true) {
         this.controladorteclado = 0
         setTimeout(() => {
           this.myInput.setFocus();
         }, 150)
-      }else{
+      } else {
         this.au.ingresoinvalido1()
       }
     }
-   
-  
-    
+
+
+
   }
   ocultar() {
     setTimeout(() => {

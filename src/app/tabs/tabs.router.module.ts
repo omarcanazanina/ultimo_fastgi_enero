@@ -23,7 +23,7 @@ const routes: Routes = [
             loadChildren: '../historial/historial.module#HistorialPageModule'
           },
           //para los contactos 
-          {path: 'pagarenviocobro/:id/:nombre', loadChildren: '../pagarenviocobro/pagarenviocobro.module#PagarenviocobroPageModule' },
+          //{path: 'pagarenviocobro/:id/:nombre', loadChildren: '../pagarenviocobro/pagarenviocobro.module#PagarenviocobroPageModule' },
           { path: 'transferencias', loadChildren: '../transferencias/transferencias.module#TransferenciasPageModule' }
         ]
       },

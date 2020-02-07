@@ -24,7 +24,7 @@ export class Tab2Page implements OnInit {
   scannedData: {};
   barcodeScannerOptions: BarcodeScannerOptions;
   //
-
+  cadena="omaro.aa"
   public data = {
     text: ""
   };
@@ -72,6 +72,9 @@ export class Tab2Page implements OnInit {
   //prueba de 2 decimales
   //valor: any
   tokencel: any
+
+
+  separado:any
   ngOnInit() {
     // setTimeout(() => {
     //   this.myInput.setFocus();
@@ -146,6 +149,14 @@ export class Tab2Page implements OnInit {
   historial() {
     this.route.navigate(['/tabs/tab2/ingresoegreso'])
 
+  }
+
+  funcion(){
+    let c = this.cadena.indexOf('.')
+    console.log(c);
+    this.separado=this.cadena.substring(c +1,this.cadena.length)
+    console.log(this.separado);
+    
   }
 }
 
