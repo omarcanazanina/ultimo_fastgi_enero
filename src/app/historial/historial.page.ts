@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../servicios/auth.service';
 import { Contacts, Contact } from '@ionic-native/contacts/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { AngularFirestore } from 'angularfire2/firestore';
 @Component({
   selector: 'app-historial',
   templateUrl: './historial.page.html',
@@ -33,11 +34,14 @@ export class HistorialPage implements OnInit {
   badges = []
   controladores: []
   asd: []
+  datito
+  todos_contactos=[]
   constructor(private router: Router,
     private au: AuthService,
     private route: Router,
     private contactos: Contacts,
-    private socialShare: SocialSharing) {
+    private socialShare: SocialSharing,
+    public fire: AngularFirestore) {
 
   }
 
@@ -54,15 +58,15 @@ export class HistorialPage implements OnInit {
         ) === indiceActual);
 
         // cambiar estados1
-       this.historial.forEach(element => {
-           this.au.recuperacobrostransferencias1(element.clave, this.usuario.uid, false).subscribe(datos => {
-           this.controladores = datos
-           const numeritos = this.controladores.length
-           this.badges.push( {'a':numeritos} )
-           //console.log(this.badges)
-         })
-
-       });
+    //   this.historial.forEach(element => {
+    //       this.au.recuperacobrostransferencias1(element.clave, this.usuario.uid, false).subscribe(datos => {
+    //       this.controladores = datos 
+    //       const numeritos = this.controladores.length
+    //       this.badges.push( {'a':numeritos} )
+    //       //console.log(this.badges)
+    //     })
+//
+    //   });
         // cambiar estados
         // this.historial.forEach(element => {
         //   let a =this.au.recuperacobrostransferencias1(element.clave, this.usuario.uid, false).subscribe(datos => {
@@ -88,7 +92,10 @@ export class HistorialPage implements OnInit {
 
         this.contactos.find(['*'], options).then((contactos: Contact[]) => {
           for (let item of contactos) {
-            if (item.phoneNumbers) {
+           //guardar los contactos a la BD
+         
+
+           if (item.phoneNumbers) {
               // item["value"] = this.codigo(item.phoneNumbers[0].value)
               // alert(item["value"])
               this.au.verificausuarioActivo(this.codigo(item.phoneNumbers[0].value))
@@ -140,7 +147,7 @@ export class HistorialPage implements OnInit {
   }
 
   enviadatos(usu,i) {
-    this.badges[i] = 0
+    this.datito=this.badges[i] = 0
     this.route.navigate(['pagarenviocobro', usu.telefono, usu.formatted])
     let aux: any = []
     this.controladores.forEach((element: any) => {
@@ -148,7 +155,7 @@ export class HistorialPage implements OnInit {
     })
     Promise.all(aux).then(da => {
     //  console.log('termino de actualizar estados');
-     // console.log(i);
+      console.log(i);
 
     })
     //this.au.recuperacobrostransferencias1(usu.clave,this.usuario.uid,false).subscribe (datos =>{
