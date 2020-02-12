@@ -8,6 +8,7 @@ import { FCM } from '@ionic-native/fcm/ngx';
 //import { EnviadatosgmailPage } from '../enviadatosgmail/enviadatosgmail.page';
 import { Platform } from '@ionic/angular';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
+import { Contacts, Contact } from '@ionic-native/contacts/ngx';
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -36,6 +37,7 @@ export class Tab2Page implements OnInit {
     private au: AuthService,
     public alertController: AlertController,
     private fcm: FCM,
+    private contactos: Contacts,
     private Platform: Platform,
     private keyboard: Keyboard
   ) {
@@ -58,23 +60,20 @@ export class Tab2Page implements OnInit {
     uid: "",
     pass: "",
     estado: "",
-    token: ""
+    token: "",
+    contacts:""
   }
     ;
   lista: any;
   caja: number
   caja1: any
 
-  //prueba de ordenar json
-  //vegetales = [{ nombre: 'Aepollo' }, { nombre: 'Xabo' }, { nombre: 'Rábano' }, { nombre: 'Zanahoria' }];
-  //ordenado: any = []
-
-  //prueba de 2 decimales
-  //valor: any
   tokencel: any
 
 
   separado: any
+
+  nombrebd
   ngOnInit() {
     // setTimeout(() => {
     //   this.myInput.setFocus();
@@ -83,6 +82,7 @@ export class Tab2Page implements OnInit {
     this.uu = this.au.pruebita();
     this.au.recuperaundato(this.uu).subscribe(usuario => {
       this.usuario = usuario;
+      this.guardar_contactos()
       this.cerrarsesionotro()
       //if (this.Platform.is('ios')) {
       //  this.au.recuperaundato('AstYEx3dWlZvtLZdREpi1DhRkYj1').subscribe(usuario => {
@@ -148,7 +148,40 @@ export class Tab2Page implements OnInit {
 
   historial() {
     this.route.navigate(['/tabs/tab2/ingresoegreso'])
+  }
 
+
+  //guardar contactos en la BD
+  guardar_contactos() {
+    if (parseInt(this.usuario.contacts) == 0) {
+      let options = {
+        filter: '',
+        multiple: true,
+        hasPhoneNumber: true
+      }
+      this.contactos.find(['*'], options).then((contactos: Contact[]) => {
+        for (let item of contactos) {
+          this.au.verificausuarioActivo(this.au.codigo(item.phoneNumbers[0].value)).subscribe(resp => {
+            if (resp.length > 0) {
+              this.fire.collection('/user/' + this.usuario.uid + '/contactos').add({
+                nombre: item.name.formatted,
+                telefono: this.au.codigo(item.phoneNumbers[0].value),
+                estado: 1
+              })
+            } else {
+              this.fire.collection('/user/' + this.usuario.uid + '/contactos').add({
+                nombre: item.name.formatted,
+                telefono: this.au.codigo(item.phoneNumbers[0].value),
+                estado: 0
+              })
+            }
+          })
+
+        }
+        this.au.actualizarcontacts({ contacts: 1 }, this.usuario.uid);
+      })
+    } else {
+    }
   }
 
   funcion() {
@@ -158,7 +191,13 @@ export class Tab2Page implements OnInit {
     console.log(this.separado);
 
   }
-
+recupera_nombre(){
+  this.au.recupera_nombre_contacto('77175348',this.usuario.uid).subscribe(dato =>{
+    this.nombrebd = dato
+    console.log(this.nombrebd[0].nombre);
+    
+  })
+}
 
 }
 

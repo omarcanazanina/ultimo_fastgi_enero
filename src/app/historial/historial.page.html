@@ -23,11 +23,12 @@
       </ion-fab-button>
     </ion-fab>
   </div>
+  <!--| filtro1: textoBuscar;let i = index-->
   <div *ngIf="c == 1 ">
     <ion-grid>
       <ion-row>
         <ion-col size="10">
-          <ion-item *ngFor="let usu of historial  | filtro1: textoBuscar;let i = index " lines="none" (click)="enviadatos(usu,i)">
+          <ion-item *ngFor="let usu of historial   " lines="none" (click)="enviadatos(usu)">
             <ion-avatar item-start>
               <img src="assets/svg/logo_contact.svg">
             </ion-avatar>
@@ -41,8 +42,9 @@
           <div *ngFor="let dato of badges">
             <h2>{{dato.a}}</h2>
           </div>
-          -->
+
           <h1>{{datito}}a</h1>
+          -->
         </ion-col>
       
        

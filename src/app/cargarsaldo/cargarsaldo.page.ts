@@ -81,7 +81,7 @@ export class CargarsaldoPage implements OnInit {
     if (monto == undefined) {
       this.au.ingresemonto()
     } else {
-      this.route.navigate(['confirmacargasaldo', monto])
+      this.route.navigate(['/tabs/tab2/confirmacargasaldo', monto])
     }
   }
 

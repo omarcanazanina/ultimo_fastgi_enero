@@ -45,6 +45,7 @@ export class TransferenciasPage implements OnInit {
     private socialShare: SocialSharing,
     public fire: AngularFirestore
   ) {
+    this.loadContacts()
   }
 
   BuscarContacto(event) {
@@ -55,14 +56,13 @@ export class TransferenciasPage implements OnInit {
     this.uu = this.au.pruebita();
     this.au.recuperaundato(this.uu).subscribe(usuario => {
       this.usuario = usuario;
-      this.listar_contactos()
-      this.listar()
+     // this.listar_contactos()
+     // this.listar()
     })
   }
-  //importar contacto jalando los datos de la BD directamente
-  listar_contactos() {
+  //guardar contactos en la BD
+  guardar_contactos() {
     if (parseInt(this.usuario.contacts) == 0) {
-    let load = this.presentLoading()
       let options = {
         filter: '',
         multiple: true,
@@ -74,23 +74,20 @@ export class TransferenciasPage implements OnInit {
             if (resp.length > 0) {
               this.fire.collection('/user/' + this.usuario.uid + '/contactos').add({
                 nombre: item.name.formatted,
-                telefono:this.codigo(item.phoneNumbers[0].value),
-                estado:1
+                telefono: this.codigo(item.phoneNumbers[0].value),
+                estado: 1
               })
             } else {
               this.fire.collection('/user/' + this.usuario.uid + '/contactos').add({
                 nombre: item.name.formatted,
-                telefono:this.codigo(item.phoneNumbers[0].value),
-                estado:0
+                telefono: this.codigo(item.phoneNumbers[0].value),
+                estado: 0
               })
             }
           })
-        
+
         }
         this.au.actualizarcontacts({ contacts: 1 }, this.usuario.uid);
-      })
-      load.then(loading => {
-        loading.dismiss();
       })
     } else {
       alert('ya se importo los contactos')
@@ -98,16 +95,16 @@ export class TransferenciasPage implements OnInit {
   }
 
   //listar contactos
-  listar(){
-    this.au.recuperarcontactos(this.usuario.uid,1).subscribe(los_contactos => {
+  listar() {
+    this.au.recuperarcontactos(this.usuario.uid, 1).subscribe(los_contactos => {
       this.todos = los_contactos
       this.cont = this.todos.length
-      this.todos_ordenado=this.au.ordenarjson(this.todos,'nombre','asc')
+      this.todos_ordenado = this.au.ordenarjson(this.todos, 'nombre', 'asc')
     })
-    this.au.recuperarcontactos(this.usuario.uid,0).subscribe(los_contactos1 => {
+    this.au.recuperarcontactos(this.usuario.uid, 0).subscribe(los_contactos1 => {
       this.todos1 = los_contactos1
       this.cont1 = this.todos1.length
-      this.todos_ordenado1=this.au.ordenarjson(this.todos1,'nombre','asc')
+      this.todos_ordenado1 = this.au.ordenarjson(this.todos1, 'nombre', 'asc')
     })
   }
 
@@ -124,7 +121,7 @@ export class TransferenciasPage implements OnInit {
       this.ContactsTrueOrden = this.au.ordenarjson(contactos, '_objectInstance.id', 'asc')
       for (let item of contactos) {
         if (item.phoneNumbers) {
-      
+
           this.au.verificausuarioActivo(this.codigo(item.phoneNumbers[0].value))
             .subscribe(resp => {
               if (resp.length > 0) {
@@ -155,7 +152,7 @@ export class TransferenciasPage implements OnInit {
     return loading;
   }
   enviadatos(usu) {
-    this.route.navigate(['/pagarenviocobro', usu.telefono, usu.nombre])
+    this.route.navigate(['/pagarenviocobro', usu.phoneNumbers[0].value, usu.name.formatted])
   }
 
   invitar() {

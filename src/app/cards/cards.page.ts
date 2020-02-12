@@ -10,9 +10,6 @@ import { Confirmacion1Page } from '../confirmacion1/confirmacion1.page';
   styleUrls: ['./cards.page.scss'],
 })
 export class CardsPage implements OnInit {
-
- // @ViewChild('input', { static: true }) myInput;
-  
   fecha: Date;
   controladorteclado=1
   gruponum = [1, 2, 3, 4, 5, 6, 7, 8, 9, '.', 0]
@@ -44,16 +41,18 @@ export class CardsPage implements OnInit {
   fechita: any;
   real: number
   ruta = (['/tabs/tab2/ingresoegreso'])
+  nombrebd :string
   ngOnInit() {
-   // setTimeout(() => {
-   //   this.myInput.setFocus();
-   // }, 150)
-
     this.telefono = this.activatedRoute.snapshot.paramMap.get('phoneNumber');
+
     this.real = parseFloat(this.monto)
     this.uu = this.au.pruebita();
     this.au.recuperaundato(this.uu).subscribe(usuario => {
       this.usuario = usuario;
+      let a= this.au.recupera_nombre_contacto(this.telefono,this.usuario.uid).subscribe( nombredato =>{
+        this.nombrebd = nombredato[0].nombre
+        a.unsubscribe()
+      })
     })
     this.au.verificausuarioexistente(this.telefono).subscribe(contelefono => {
       this.contelefono = contelefono[0]
@@ -68,8 +67,6 @@ export class CardsPage implements OnInit {
     if (parseInt(this.usuario.password) == 0) {
      this.au.enviocorreo1(this.usuario.uid,this.usuario.telefono)
     } else {
-      alert(this.usuario)
-      alert(monto)
         if (parseFloat(this.usuario.cajainterna) >= parseFloat(monto)) {
           this.modal.create({
             component: Confirmacion1Page,
@@ -77,7 +74,8 @@ export class CardsPage implements OnInit {
             componentProps: {
               usuario_sinmonto: this.usuario,
               contelefono_sinmonto: this.contelefono,
-              monto_sinmonto: monto
+              monto_sinmonto: monto,
+              name_sinmonto:this.nombrebd
             }
           }).then((modal) => modal.present())
         } else {

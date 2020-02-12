@@ -19,7 +19,7 @@ export class TelefonoPage implements OnInit {
   pin = 0
   cajainterna = 0
   estado = 0
-  
+  contacts=0
   constructor(
     private route: Router,
     public navCtrl: NavController,
@@ -69,7 +69,7 @@ export class TelefonoPage implements OnInit {
                         .then((result) => {
                           let load = this.au.loadinginicio();
                           this.fcm.getToken().then(token => {
-                            this.au.crearcontel(result.user.uid, this.email, this.pin, this.nombre, codtel, phoneNumber1, this.cajainterna, token, this.estado)
+                            this.au.crearcontel(result.user.uid, this.email, this.pin, this.nombre, codtel, phoneNumber1, this.cajainterna, token, this.estado,this.contacts)
                             this.au.creocorrecto();
                             load.then(loading => {
                               loading.dismiss()

@@ -146,18 +146,18 @@ export class HistorialPage implements OnInit {
     this.router.navigate(['/tabs/historial/transferencias'])
   }
 
-  enviadatos(usu,i) {
-    this.datito=this.badges[i] = 0
+  enviadatos(usu) {
+   // this.datito=this.badges[i] = 0
     this.route.navigate(['pagarenviocobro', usu.telefono, usu.formatted])
-    let aux: any = []
-    this.controladores.forEach((element: any) => {
-      aux.push(this.au.actualizaestados({ estado: true }, element.id, this.usuario.uid))
-    })
-    Promise.all(aux).then(da => {
-    //  console.log('termino de actualizar estados');
-      console.log(i);
+//   let aux: any = []
+//   this.controladores.forEach((element: any) => {
+//     aux.push(this.au.actualizaestados({ estado: true }, element.id, this.usuario.uid))
+//   })
+//   Promise.all(aux).then(da => {
+//   //  console.log('termino de actualizar estados');
+//     console.log(i);
 
-    })
+//    })
     //this.au.recuperacobrostransferencias1(usu.clave,this.usuario.uid,false).subscribe (datos =>{
     //  datos.forEach(element => {
     //    console.log(element);

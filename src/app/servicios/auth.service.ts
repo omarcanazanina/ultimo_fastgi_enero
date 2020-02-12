@@ -230,7 +230,7 @@ export class AuthService {
     })
   }
   //no esta funcionando
-  crearcontel(uid: string, correo: string, password: number, nombre: string, codtel: string, telefono: string, cajainterna: number, token: string, estado: number) {
+  crearcontel(uid: string, correo: string, password: number, nombre: string, codtel: string, telefono: string, cajainterna: number, token: string, estado: number,contacts:number) {
     this.fire.collection('user').doc(uid).set({
       uid: uid,
       correo: correo,
@@ -240,7 +240,8 @@ export class AuthService {
       cajainterna: cajainterna,
       token: token,
       password: password,
-      estado: estado
+      estado: estado,
+      contacts: contacts
     })
   }
 
@@ -844,6 +845,16 @@ export class AuthService {
 
   actualizarcontacts(contacts, id) {
     return this.fire.collection('user').doc(id).set(contacts, { merge: true })
+  }
+
+  codigo(num) {
+    let nuevo = num.replace("+591", "").trim()
+    return nuevo
+  }
+  //recupera nombre del contacto para las transacciones
+  recupera_nombre_contacto(telefono,uid): Observable<any> {
+    var query = ref => ref.where('telefono', '==', telefono)
+    return this.fire.collection('/user/' + uid + '/contactos', query).valueChanges()
   }
 
 }

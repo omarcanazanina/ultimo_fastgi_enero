@@ -7,12 +7,12 @@
        definir texto con las variables
      <h4 class="text" text-center>Monto a transferir: {{monto}} Bs. a {{cobrador.nombre}}</h4>
      -->
-    <h4 class="text" text-center *ngIf="usuario_transferencia != ''">Monto a transferir: {{monto_transferencia}} Bs. a
-      {{cobrador_transferencia.nombre}}</h4>
+    <h4 class="text" text-center *ngIf="usuario_transferencia != ''">Monto a transferir: {{monto_transferencia}} Bs. as
+      {{name_transferencia}}</h4>
     <h4 class="text" text-center *ngIf="usuario_conmonto != ''">Se pagara: {{monto_conmonto}} a
-      {{contelefono_conmonto.nombre}}</h4>
+      {{name_conmonto}}</h4>
     <h4 class="text" text-center *ngIf="usuario_sinmonto != ''">Se pagara: {{monto_sinmonto}} Bs. a
-      {{contelefono_sinmonto.nombre}} </h4>
+      {{name_sinmonto}} </h4>
     <h4 class="text" text-center *ngIf="usuario_pagodeuda != ''">Monto a pagar: {{usu_pagodeuda.monto}} Bs. </h4>
 
     <ion-item *ngIf="pin == '' && controladorteclado == 1">
