@@ -78,7 +78,7 @@ export class Index2Page implements OnInit {
                         })
 
                       }).catch((error) => {
-                        console.log('este es el error' + error);
+                        console.log('este es el errorh' + error);
                         this.au.codigoinvalido()
                         // User couldn't sign in (bad verification code?)
                       })
