@@ -24,6 +24,8 @@ export class HistorialPage implements OnInit {
   textoBuscar = '' 
   c = 0
   //para importar contactos
+  todosdatos
+  todosdatos1
   ContactsNone = []
   ContactsTrue = []
   controlador = 0
@@ -36,6 +38,10 @@ export class HistorialPage implements OnInit {
   asd: []
   datito
   todos_contactos=[]
+
+
+  //
+  numeritos
   constructor(private router: Router,
     private au: AuthService,
     private route: Router,
@@ -52,11 +58,12 @@ export class HistorialPage implements OnInit {
       this.usuario = usuario;
       this.idusuario = this.usuario.uid
 
-
        this.au.ordenarcobrostransferencias(this.usuario.uid).subscribe(info => {
         this.historial = info.filter((valor, indiceActual, arreglo) => arreglo.findIndex((item) => item.telefono === valor.telefono
         ) === indiceActual);
 
+        console.log(this.historial);
+        
         // cambiar estados1
     //   this.historial.forEach(element => {
     //       this.au.recuperacobrostransferencias1(element.clave, this.usuario.uid, false).subscribe(datos => {
@@ -68,15 +75,18 @@ export class HistorialPage implements OnInit {
 //
     //   });
         // cambiar estados
-        // this.historial.forEach(element => {
-        //   let a =this.au.recuperacobrostransferencias1(element.clave, this.usuario.uid, false).subscribe(datos => {
-        //     this.controladores = datos
-        //     const numeritos = this.controladores.length
-        //     this.badges.push({ 'a': numeritos })
-        //     console.log(this.badges)
-        //     a.unsubscribe()
-        //   })
-
+         this.historial.forEach(element => {
+           let a =this.au.recuperacobrostransferencias1(element.clave, this.usuario.uid, false).subscribe(datos => {
+             this.controladores = datos
+             this.numeritos = this.controladores.length
+             console.log('esta es la cantidad'+this.numeritos);
+             
+           // this.badges.push({ 'a': numeritos })
+           // console.log(this.badges)
+             a.unsubscribe()
+           })
+          })
+          
 
         // e.unsubscribe()
         //funcion para filtro de busqueda
@@ -84,42 +94,18 @@ export class HistorialPage implements OnInit {
           this.c = 1
 
         // //importar contactos      
-         let options = {
-           filter: '',
-           multiple: true,
-           hasPhoneNumber: true
-         }
-
-        this.contactos.find(['*'], options).then((contactos: Contact[]) => {
-          for (let item of contactos) {
-           //guardar los contactos a la BD
-         
-
-           if (item.phoneNumbers) {
-              // item["value"] = this.codigo(item.phoneNumbers[0].value)
-              // alert(item["value"])
-              this.au.verificausuarioActivo(this.codigo(item.phoneNumbers[0].value))
-                .subscribe(resp => {
-                  if (resp.length > 0) {
-                    this.ContactsTrue.push(item)
-                    //this.ContactsTrueOrden=this.au.ordenarjson(this.ContactsTrue,'usu.name.givenName','asc')
-                  } else {
-                    this.ContactsNone.push(item)
-                    //this.ContactsNoneOrden=this.au.ordenarjson(this.ContactsNone,'usu.name.giveName','asc')
-                  }
-                })
-            }
-          }
+        this.au.recuperarcontactos(this.usuario.uid, 1).subscribe(datos => {
+          this.todosdatos = datos
+          this.ContactsTrue = this.au.ordenarjson(this.todosdatos, 'nombre', 'asc')
         })
-          .catch(error => {
-            console.log(error);
-        
-          })
-
+        this.au.recuperarcontactos(this.usuario.uid, 0).subscribe(datos => {
+          this.todosdatos1 = datos
+          this.ContactsNone = this.au.ordenarjson(this.todosdatos1, 'nombre', 'asc')
+         })
       })
-      //h.unsubscribe()
+            //h.unsubscribe()
     })
-
+  
   }
   codigo(num) {
     let nuevo = num.replace("+591", "").trim()

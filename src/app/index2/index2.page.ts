@@ -26,6 +26,7 @@ export class Index2Page implements OnInit {
   existe: any
 
   ngOnInit() {
+    
     this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
       'size': 'invisible'
     })
@@ -90,6 +91,9 @@ export class Index2Page implements OnInit {
             .catch( error =>{
               alert('no se envio sms desde el logueo')
               console.error("SMS not sent", error);
+              load.then(loading => {
+                loading.dismiss()
+              }) 
             });
         }
       })

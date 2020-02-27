@@ -68,8 +68,8 @@
         <ion-avatar item-start>
           <img src="assets/svg/logo_contact.svg">
         </ion-avatar>
-        <ion-label class="label-alumnos"> {{usu.name.formatted}}
-          <p> {{usu.phoneNumbers[0].value}}</p>
+        <ion-label class="label-alumnos"> {{usu.nombre}}
+          <p> {{usu.telefono}}</p>
         </ion-label>
       </ion-item>
     </ion-list>
@@ -82,8 +82,8 @@
         <ion-avatar item-start>
           <ion-icon name="md-contact" size="large"></ion-icon>
         </ion-avatar>
-        <ion-label class="label-alumnos"> {{u.name.formatted}}
-          <p>{{u.phoneNumbers[0].value}}</p>
+        <ion-label class="label-alumnos"> {{u.nombre}}
+          <p>{{u.telefono}}</p>
         </ion-label>
         <ion-button (click)="invitar()" slot="end" shape="round">
           Invitar

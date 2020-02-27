@@ -189,15 +189,8 @@ export class Tab2Page implements OnInit {
     console.log(c);
     this.separado = this.cadena.substring(c + 1, this.cadena.length)
     console.log(this.separado);
-
-  }
-recupera_nombre(){
-  this.au.recupera_nombre_contacto('77175348',this.usuario.uid).subscribe(dato =>{
-    this.nombrebd = dato
-    console.log(this.nombrebd[0].nombre);
     
-  })
-}
+  }
 
 }
 

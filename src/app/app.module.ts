@@ -40,7 +40,7 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
-
+import {IonicStorageModule} from '@ionic/storage';
 
 
 export const firebaseConfig = {
@@ -82,7 +82,8 @@ export const firebaseConfig = {
     NgxQRCodeModule,
     PipesModule,
     AngularFireAuthModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    IonicStorageModule.forRoot()
   ],
 
   providers: [

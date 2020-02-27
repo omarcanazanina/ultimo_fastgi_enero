@@ -105,7 +105,6 @@ export class AuthService {
     return this.fire.collection('user', query).valueChanges()
   }
 
-
   async usuarionoexiste() {
     const alert = await this.alertController.create({
       header: 'Registrese!',
@@ -855,6 +854,10 @@ export class AuthService {
   recupera_nombre_contacto(telefono,uid): Observable<any> {
     var query = ref => ref.where('telefono', '==', telefono)
     return this.fire.collection('/user/' + uid + '/contactos', query).valueChanges()
+  }
+
+  deletecontact(id,uid): Promise <void> {
+    return this.fire.collection('/user/'+id+'/contactos').doc(uid).delete()
   }
 
 }

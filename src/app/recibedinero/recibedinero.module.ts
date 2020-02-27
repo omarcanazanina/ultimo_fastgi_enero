@@ -5,7 +5,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { RecibedineroPage } from './recibedinero.page';
 import {NgxQRCodeModule} from 'ngx-qrcode2';
-
 const routes: Routes = [
   {
     path: '',
