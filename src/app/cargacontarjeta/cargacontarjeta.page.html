@@ -17,7 +17,7 @@
         <ion-label>Tarjetas</ion-label>
       </ion-list-header>
   
-      <ion-item *ngFor="let dato of tarjetas " [routerLink]="['/cargarsaldo',dato.numerito]" class="color">
+      <ion-item *ngFor="let dato of tarjetas " [routerLink]="['/tabs/tab2/cargarsaldo',dato.numerito]" >
         <ion-img src="./assets/visa.png" class="imagen" ></ion-img>
         <p class="texto"> ····{{dato.numerito}}</p>
       </ion-item>

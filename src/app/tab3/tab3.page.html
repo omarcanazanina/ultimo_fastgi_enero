@@ -6,51 +6,46 @@
     </ion-item>
   </ion-toolbar>
 </ion-header>
-<!--
- <div class="box">
-        <div class="preview">
-          <img [src]="url" alt="">
-        </div>
-        <div class="uploadbtn">
-          <label>
-            <input (change)="uploadImage($event)" type="file" class="image-upload" accept="image/*">
-          </label>
-        </div>
-      </div>
--->
-<ion-content color="dark">
+
+<ion-content >
+ 
   <ion-list>
+    <ion-item lines="none">
+      <ion-icon slot='start' name="moon"></ion-icon>
+      <ion-label> Modo oscuro</ion-label>
+      <ion-toggle slot="end" [ngModel]="darkmode" (ionChange)="darktheme()"></ion-toggle>
+    </ion-item>
     <ion-item lines="none" >
-      <ion-icon name="md-call" slot="end" color="light"></ion-icon>
+      <ion-icon name="md-call" slot="end" ></ion-icon>
       {{usuario.codtel}} {{usuario.telefono}}
     </ion-item>
     <ion-item lines="none" *ngIf="controlnombre == 0 ">
-      <ion-icon name="create" slot="end" color="light" (click)="editarnombre()"></ion-icon>
-      <ion-icon name="person" slot="end" color="light"></ion-icon>
-      <p class="color">Nombre</p>
+      <ion-icon name="create" slot="end" (click)="editarnombre()"></ion-icon>
+      <ion-icon name="person" slot="end" ></ion-icon>
+      <p>Nombre</p>
     </ion-item>
     <ion-item lines="none" *ngIf="controlnombre == 1 ">
-        <ion-icon name="create" slot="end" color="light" (click)="editarnombre()"></ion-icon>
-        <ion-icon name="person" slot="end" color="light"></ion-icon>
+        <ion-icon name="create" slot="end"  (click)="editarnombre()"></ion-icon>
+        <ion-icon name="person" slot="end" ></ion-icon>
         {{usuario.nombre}}
       </ion-item>
     <ion-item lines="none" *ngIf="controlcorreo == 0 ">
-      <ion-icon name="create" slot="end" color="light" (click)="editarcorreo()"></ion-icon>
-      <ion-icon name="md-mail" slot="end" color="light"></ion-icon>
-      <p class="color">Correo</p>
+      <ion-icon name="create" slot="end" (click)="editarcorreo()"></ion-icon>
+      <ion-icon name="md-mail" slot="end" ></ion-icon>
+      <p >Correo</p>
     </ion-item>
     <ion-item lines="none" *ngIf="controlcorreo == 1 ">
-        <ion-icon name="create" slot="end" color="light" (click)="editarcorreo()"></ion-icon>
-        <ion-icon name="md-mail" slot="end" color="light"></ion-icon>
+        <ion-icon name="create" slot="end"  (click)="editarcorreo()"></ion-icon>
+        <ion-icon name="md-mail" slot="end" ></ion-icon>
         {{usuario.correo}}
       </ion-item>
     <ion-item lines="none">
-      <ion-icon name="create" slot="end" color="light" (click)='mod()'></ion-icon>
-      <ion-icon name="unlock" slot="end" color="light"></ion-icon>
+      <ion-icon name="create" slot="end"  (click)='mod()'></ion-icon>
+      <ion-icon name="unlock" slot="end" ></ion-icon>
       Pin
     </ion-item>
     <ion-item lines="none" (click)=' cerrarsesion()'>
-      <ion-icon name="md-log-in" slot="end" color="light"></ion-icon>
+      <ion-icon name="md-log-in" slot="end" ></ion-icon>
       Cerrar session
     </ion-item>
   </ion-list>

@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar >
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
     </ion-buttons>
@@ -24,27 +24,14 @@
 <!--
 
   el q sirve
- <ion-list class="ion-no-padding">
-    <ion-item lines="none" text-center *ngIf="usu == 1">
-      <ion-label class="ion-no-margin">{{usuario.nombre}}</ion-label>
-    </ion-item>
-    <ion-item lines="none" text-center *ngIf="usu == 0">
-      <ion-label class="ion-no-margin">Fastgi</ion-label>
-    </ion-item>
-    <ngx-qrcode [qrc-value]="createdCode" qrc-class="test-class"></ngx-qrcode>
-    <ion-item text-right lines="none">
 
-
-      <ion-label class="ion-no-margin" routerLink="/tabs/tab2/cobroqr" class="botonsito">+Agregar monto</ion-label>
-    </ion-item>
-  </ion-list>
 
 
 
   <a [href]="href"  (click)="downloadImage()" download>Download Image</a>
 -->
 
-
+<!--
 
   <ion-input type="text" placeholder="dato" [(ngModel)]="qrData">
   </ion-input>
@@ -79,5 +66,20 @@
     </ion-card-content>
 
   </ion-card>
+-->
 
+  <ion-list class="ion-no-padding">
+    <ion-item lines="none" text-center *ngIf="usu == 1">
+      <ion-label class="ion-no-margin">{{usuario.nombre}}</ion-label>
+    </ion-item>
+    <ion-item lines="none" text-center *ngIf="usu == 0">
+      <ion-label class="ion-no-margin">Fastgi</ion-label>
+    </ion-item>
+    <ngx-qrcode [qrc-value]="createdCode" qrc-class="test-class"></ngx-qrcode>
+    <ion-item text-right lines="none">
+
+
+      <ion-label class="ion-no-margin" routerLink="/tabs/tab2/cobroqr" class="botonsito">+Agregar monto</ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

@@ -24,6 +24,7 @@ export class AppComponent {
     this.initializeApp();
   }
   initializeApp() {
+    this.dark()
     this.fcm.subscribeToTopic('marketing');
     this.fcm.onNotification().subscribe(data => {
       if (data.wasTapped) {
@@ -71,13 +72,21 @@ export class AppComponent {
      {
           text: 'Aceptar',
           role: 'cancel',
-          handler: () => {
+          handler: () => {  
             this.route.navigate(ruta)
           }
         }
       ]
     });
     toast.present();
+  }
+
+  dark(){
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    if(prefersDark.matches){
+      document.body.classList.toggle('dark')
+    }
+    
   }
 
 }
